@@ -58,7 +58,7 @@ export default async function Header() {
             className="relative text-center text-gray-700 transition hover:text-primary"
           >
             <div className="flex flex-col items-center justify-center mb-1 text-xl">
-              {session?.user?.name && session?.user?.image ? (
+              {session?.user ? (
                 session?.user?.image ? (
                   <Image
                     src={session?.user?.image}

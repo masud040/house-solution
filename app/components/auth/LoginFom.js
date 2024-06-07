@@ -1,26 +1,37 @@
 "use client";
 
+import { loginWithCredentials } from "@/actions";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginForm() {
   const [error, setError] = useState("");
-  function handleSubmit(event) {
+  const router = useRouter();
+  async function handleSubmit(event) {
     event.preventDefault();
     setError("");
     const formData = new FormData(event.currentTarget);
     if (!formData.get("email")) {
-      setError({ message: "Email field is required!" });
+      setError("Email field is required!");
       return;
     }
     if (!formData.get("password")) {
-      setError({ message: "Password field is required!" });
+      setError("Password field is required!");
       return;
+    }
+    try {
+      const response = await loginWithCredentials(formData);
+      if (!response.error) {
+        router.push("/");
+      }
+    } catch (error) {
+      setError(error.message);
     }
   }
   return (
     <>
-      {error && <div className="text-red-500 text-md">{error.message}</div>}
-      <form action="#" method="post" autocomplete="off" onSubmit={handleSubmit}>
+      {error && <div className="text-red-500 text-md">{error}</div>}
+      <form autocomplete="off" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <div>
             <label for="email" className="block mb-2 text-gray-600">
