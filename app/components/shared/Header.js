@@ -54,7 +54,7 @@ export default async function Header() {
             </div>
           </Link>
           <Link
-            href="#"
+            href="/account"
             className="relative text-center text-gray-700 transition hover:text-primary"
           >
             <div className="flex flex-col items-center justify-center mb-1 text-xl">

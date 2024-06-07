@@ -8,6 +8,7 @@ export async function loginWithCredentials(formData) {
       password: formData.get("password"),
       redirect: false,
     });
+
     return response;
   } catch (err) {
     throw err;
