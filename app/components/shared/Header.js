@@ -30,7 +30,7 @@ export default async function Header() {
         </div>
         <div className="flex items-center space-x-5 ">
           <Link
-            href="#"
+            href="/wishlist"
             className="relative text-center text-gray-700 transition hover:text-primary"
           >
             <div className="text-xl">
@@ -42,7 +42,7 @@ export default async function Header() {
             </div>
           </Link>
           <Link
-            href="#"
+            href="/cart"
             className="relative text-center text-gray-700 transition hover:text-primary"
           >
             <div className="text-xl">
