@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import Logo from "@/public/assets/images/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
@@ -10,13 +9,9 @@ export default async function Header() {
     <header className="py-4 bg-white shadow-sm">
       <div className="container flex items-center justify-between">
         <Link href="/">
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={32}
-            height={32}
-            className="w-32"
-          />
+          <h1 className="inline-block text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+            Hosue Solution
+          </h1>
         </Link>
         <div className="relative flex w-full max-w-xl">
           <span className="absolute text-lg text-gray-400 left-4 top-3">
