@@ -1,7 +1,13 @@
 import Breadcrumb from "@/app/components/profile/Breadcrumb";
 import WishlistOrCartCard from "@/app/components/profile/WishlistOrCartCard";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function WishlistPage() {
+export default async function WishlistPage() {
+  const session = await auth();
+  if (!session?.user) {
+    return redirect("/login");
+  }
   return (
     <>
       <Breadcrumb />
