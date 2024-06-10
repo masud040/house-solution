@@ -26,6 +26,7 @@ export const {
       },
       async authorize(credentials) {
         if (credentials === null) return null;
+        let message = "User is not found";
         try {
           await connectMongo();
           const user = await UserModel.findOne({
@@ -40,13 +41,15 @@ export const {
             if (isMatch) {
               return user;
             } else {
-              throw new Error("Password is not valid");
+              message = "Password is not valid";
+              throw new Error(message);
             }
           } else {
-            throw new Error("User not found");
+            message = "User not found";
+            throw new Error(message);
           }
         } catch (e) {
-          throw new Error("User not found");
+          throw new Error(message);
         }
       },
     }),

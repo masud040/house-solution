@@ -10,7 +10,7 @@ export default async function Header() {
       <div className="container flex items-center justify-between">
         <Link href="/">
           <h1 className="inline-block text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
-            Hosue Solution
+            Furniture BD
           </h1>
         </Link>
         <div className="relative flex w-full max-w-xl">
@@ -57,7 +57,13 @@ export default async function Header() {
             href="/account"
             className="relative text-center text-gray-700 transition hover:text-primary"
           >
-            <div className="flex flex-col items-center justify-center mb-1 text-xl">
+            <div
+              className={`${
+                session?.user?.image || session?.user?.name
+                  ? "flex items-center justify-center text-xl"
+                  : "text-xl"
+              }`}
+            >
               {session?.user ? (
                 session?.user?.image ? (
                   <Image
@@ -65,13 +71,13 @@ export default async function Header() {
                     height={18}
                     width={18}
                     alt="profile"
-                    className="w-6 h-6 rounded-full"
+                    className="mb-0.5 rounded-full w-7 h-7 border border-indigo-600 p-0.5 "
                   />
                 ) : (
                   <GenerateImageByLetter name={session?.user?.name} />
                 )
               ) : (
-                <i className="fa-regular fa-user"></i>
+                <i className="fa-regular fa-user "></i>
               )}
             </div>
             <div className="text-xs leading-3">Account</div>

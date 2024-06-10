@@ -11,6 +11,6 @@ export async function loginWithCredentials(formData) {
 
     return response;
   } catch (err) {
-    throw err;
+    throw new Error(err?.cause?.err?.message);
   }
 }
