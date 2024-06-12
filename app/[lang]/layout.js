@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
       <body>
         <Header />
         <Navbar />
-        <div className="container py-16">{children}</div>
+        <div>{children}</div>
         <Footer />
         <CopyRight />
       </body>
