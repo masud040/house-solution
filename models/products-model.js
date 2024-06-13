@@ -40,8 +40,8 @@ const productSchema = new Schema({
   size: {
     type: String,
   },
-  createdDate: {
-    type: String,
+  createdAt: {
+    type: Number,
   },
   thumbnail: {
     type: String,

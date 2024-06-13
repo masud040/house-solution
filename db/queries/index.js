@@ -18,11 +18,13 @@ async function getAllCategory() {
 async function getNewArrivalProducts() {
   const date = new Date();
   date.setDate(date.getDate() - 30);
+
   await connectMongo();
   const products = await ProductModel.find({
-    createdDate: { $gte: date },
+    createdAt: { $gte: date.getTime() },
   }).lean();
-  return products;
+
+  return removeMongoId(products);
 }
 
 export { getAllCategory, getAllProducts, getNewArrivalProducts };
