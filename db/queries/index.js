@@ -15,4 +15,14 @@ async function getAllCategory() {
   return removeMongoId(allCategory);
 }
 
-export { getAllCategory, getAllProducts };
+async function getNewArrivalProducts() {
+  const date = new Date();
+  date.setDate(date.getDate() - 30);
+  await connectMongo();
+  const products = await ProductModel.find({
+    createdDate: { $gte: date },
+  }).lean();
+  return products;
+}
+
+export { getAllCategory, getAllProducts, getNewArrivalProducts };

@@ -40,6 +40,9 @@ const productSchema = new Schema({
   size: {
     type: String,
   },
+  createdDate: {
+    type: String,
+  },
   thumbnail: {
     type: String,
     required: true,
@@ -54,6 +57,10 @@ const productSchema = new Schema({
   },
   images: {
     type: Array,
+    required: true,
+  },
+  product_in_stock: {
+    type: Number,
     required: true,
   },
 });
