@@ -7,7 +7,7 @@ import Navbar from "../components/shared/Navbar";
 import "../globals.css";
 
 export const metadata = {
-  title: "LWSKart",
+  title: "Sokher Corner",
   description: "One place for by various products.",
   favicon: "../../public/favicon.ico",
 };

@@ -10,7 +10,7 @@ export default async function Header() {
       <div className="container flex items-center justify-between">
         <Link href="/">
           <h1 className="inline-block font-bold text-transparent sm:text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
-            Furniture BD
+            Sokher Corner
           </h1>
         </Link>
         <div className="relative flex w-full max-w-xl">

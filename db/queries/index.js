@@ -22,7 +22,9 @@ async function getNewArrivalProducts() {
   await connectMongo();
   const products = await ProductModel.find({
     createdAt: { $gte: date.getTime() },
-  }).lean();
+  })
+    .select(["name", "price", "thumbnail", "ratings", "discount", "reviews"])
+    .lean();
 
   return removeMongoId(products);
 }

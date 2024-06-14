@@ -63,6 +63,10 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
+  ratings: {
+    type: Number,
+    required: true,
+  },
 });
 
 export const ProductModel =
