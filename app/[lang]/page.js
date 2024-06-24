@@ -1,4 +1,5 @@
 import { getDictionary } from "@/dictionnaries/dictionaries";
+import AddSection from "../components/home/AddSection";
 import Banner from "../components/home/Banner";
 import Categories from "../components/home/Categories";
 import Features from "../components/home/Features";
@@ -13,6 +14,7 @@ export default async function Home({ params: { lang } }) {
       <Features />
       <Categories />
       <NewArrival />
+      <AddSection />
     </>
   );
 }

@@ -1,9 +1,8 @@
 import Image from "next/image";
 
-export default function ProductCard({ product }) {
-  const { id, name, reviews, price, discount, thumbnail, ratings } =
-    product || {};
-  console.log(discount);
+export default  function ProductCard({ product }) {
+  const { id, name, price, discount, thumbnail } = product || {};
+ 
   const discountPrice = price - (price * discount) / 100;
 
   return (
@@ -51,27 +50,15 @@ export default function ProductCard({ product }) {
               <span>
                 <i className="fa-solid fa-star"></i>
               </span>
-              <span>
-                <i className="fa-solid fa-star"></i>
-              </span>
-              <span>
-                <i className="fa-solid fa-star"></i>
-              </span>
-              <span>
-                <i className="fa-solid fa-star"></i>
-              </span>
-              <span>
-                <i className="fa-solid fa-star"></i>
-              </span>
             </div>
-            <div className="ml-3 text-xs text-gray-500">(150)</div>
+            <div className="ml-3 text-xs text-gray-500">(100)</div>
           </div>
         </div>
       </div>
       <div className="flex-1"></div>
       <button
         href="#"
-        className="block w-full py-1 text-center text-white transition border rounded-b  bg-primary border-primary hover:bg-transparent hover:text-primary"
+        className="block w-full py-1 text-center text-white transition border rounded-b bg-primary border-primary hover:bg-transparent hover:text-primary"
       >
         Add to cart
       </button>

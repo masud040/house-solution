@@ -9,10 +9,6 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  reviews: {
-    type: Number,
-    required: true,
-  },
   category: {
     type: String,
     required: true,
@@ -60,10 +56,6 @@ const productSchema = new Schema({
     required: true,
   },
   product_in_stock: {
-    type: Number,
-    required: true,
-  },
-  ratings: {
     type: Number,
     required: true,
   },
