@@ -4,6 +4,11 @@ export default function Footer() {
     <footer className="pt-16 pb-12 bg-white border-t border-gray-100">
       <div className="container grid grid-cols-3">
         <div className="col-span-1 mr-2 space-y-8">
+          <Link href="/">
+            <h1 className="inline-block text-lg font-bold text-transparent md:text-xl lg:text-3xl bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+              Sokher Corner
+            </h1>
+          </Link>
           <div className="mr-2">
             <p className="text-gray-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
