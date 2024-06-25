@@ -34,4 +34,15 @@ async function findRatingProducts(id) {
   const ratings = await reviewRatingModel.find({});
 }
 
-export { getAllCategory, getAllProducts, getNewArrivalProducts };
+async function getTrendingProducts() {
+  await connectMongo();
+  const allProducts = await ProductModel.find().lean();
+  return removeMongoId(allProducts?.slice(0, 8));
+}
+
+export {
+  getAllCategory,
+  getAllProducts,
+  getNewArrivalProducts,
+  getTrendingProducts,
+};
