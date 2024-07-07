@@ -1,5 +1,6 @@
 import { getTrendingProducts } from "@/db/queries";
 import ProductCard from "../card/ProductCard";
+import { NoDataFound } from "../shared/NoDataFound";
 
 const TrendingProduct = async () => {
   const trendingProducts = await getTrendingProducts();
@@ -17,9 +18,7 @@ const TrendingProduct = async () => {
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center h-20 font-medium text-indigo-500">
-          No trending product are available!
-        </div>
+        <NoDataFound message="No trending product are available!" />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import { getNewArrivalProducts } from "@/db/queries";
 import ProductCard from "../card/ProductCard";
+import { NoDataFound } from "../shared/NoDataFound";
 
 export default async function NewArrival() {
   const newProducts = await getNewArrivalProducts();
@@ -17,9 +18,7 @@ export default async function NewArrival() {
           ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center h-20 font-medium text-indigo-500">
-          No New Arrival Product!
-        </div>
+        <NoDataFound message=" No New Arrival Product!" />
       )}
     </div>
   );

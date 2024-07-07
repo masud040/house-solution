@@ -13,6 +13,7 @@ function refineCategory(category) {
 }
 const ShopPage = async ({ searchParams: { category } }) => {
   const allCategory = await getProductsCountByCategory();
+
   return (
     <>
       <ShopBreadcrumb />

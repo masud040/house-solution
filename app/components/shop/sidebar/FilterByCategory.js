@@ -16,12 +16,14 @@ export const FilterByCategory = ({ categories }) => {
     if (checked) {
       setQuery([...query, name.toLowerCase()]);
     } else {
-      const filtered = query.filter((item) => item !== name);
+      const filtered = query.filter((item) => item !== name.toLowerCase());
+
       setQuery(filtered);
     }
   }
+
   useEffect(() => {
-    let category = decodeURI(searchParams?.get("category").toLowerCase() ?? "");
+    let category = decodeURI(searchParams?.get("category")?.toLowerCase());
     const selectedCategory = category.split("|");
     setQuery(selectedCategory);
   }, []);
@@ -43,7 +45,7 @@ export const FilterByCategory = ({ categories }) => {
         {categories?.map((category) => (
           <div key={category.name} class="flex items-center">
             <input
-              onClick={(e) => handleChange(e)}
+              onChange={(e) => handleChange(e)}
               type="checkbox"
               name={category.name}
               id={category.name}

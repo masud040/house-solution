@@ -8,6 +8,7 @@ async function getAllProducts(category) {
   await connectMongo();
   const totalProducts = await ProductModel.find().lean();
   let allProducts = totalProducts;
+
   if (category) {
     const categoriesToMatch = category.split("|");
 
@@ -15,6 +16,7 @@ async function getAllProducts(category) {
       return categoriesToMatch.includes(product.category.toLowerCase());
     });
   }
+
   return removeMongoId(allProducts);
 }
 
