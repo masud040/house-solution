@@ -1,4 +1,8 @@
-export default function Drawer({ showDrawer, setShowDrawer }) {
+import { FilterByCategory } from "./sidebar/FilterByCategory";
+import { FilterByPrice } from "./sidebar/FilterByPrice";
+import FilterBySize from "./sidebar/FilterBySize";
+
+export default function Drawer({ categories, showDrawer, setShowDrawer }) {
   return (
     <div
       className={`fixed inset-y-0 left-0 p-4 z-40 overflow-x-hidden bg-white dark:bg-gray-800 w-80 transition duration-700 md:hidden ${
@@ -45,139 +49,11 @@ export default function Drawer({ showDrawer, setShowDrawer }) {
         <span className="sr-only">Close menu</span>
       </button>
       <div className="space-y-5 divide-y divide-gray-200">
-        <div>
-          <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">
-            Categories
-          </h3>
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                name="cat-1"
-                id="cat-1"
-                className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              />
-              <label for="cat-1" className="ml-3 text-gray-600 cusror-pointer">
-                Bedroom
-              </label>
-              <div className="ml-auto text-sm text-gray-600">(15)</div>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                name="cat-2"
-                id="cat-2"
-                className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              />
-              <label for="cat-2" className="ml-3 text-gray-600 cusror-pointer">
-                Sofa
-              </label>
-              <div className="ml-auto text-sm text-gray-600">(9)</div>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                name="cat-3"
-                id="cat-3"
-                className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              />
-              <label for="cat-3" className="ml-3 text-gray-600 cusror-pointer">
-                Office
-              </label>
-              <div className="ml-auto text-sm text-gray-600">(21)</div>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                name="cat-4"
-                id="cat-4"
-                className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              />
-              <label for="cat-4" className="ml-3 text-gray-600 cusror-pointer">
-                Outdoor
-              </label>
-              <div className="ml-auto text-sm text-gray-600">(10)</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-4">
-          <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">
-            Price
-          </h3>
-          <div className="flex items-center mt-4">
-            <input
-              type="text"
-              name="min"
-              id="min"
-              className="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
-              placeholder="min"
-            />
-            <span className="mx-3 text-gray-500">-</span>
-            <input
-              type="text"
-              name="max"
-              id="max"
-              className="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
-              placeholder="max"
-            />
-          </div>
-        </div>
-
-        <div className="pt-4">
-          <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">
-            size
-          </h3>
-          <div className="flex items-center gap-2">
-            <div className="size-selector">
-              <input type="radio" name="size" id="size-xs" className="hidden" />
-              <label
-                for="size-xs"
-                className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-              >
-                XS
-              </label>
-            </div>
-            <div className="size-selector">
-              <input type="radio" name="size" id="size-sm" className="hidden" />
-              <label
-                for="size-sm"
-                className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-              >
-                S
-              </label>
-            </div>
-            <div className="size-selector">
-              <input type="radio" name="size" id="size-m" className="hidden" />
-              <label
-                for="size-m"
-                className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-              >
-                M
-              </label>
-            </div>
-            <div className="size-selector">
-              <input type="radio" name="size" id="size-l" className="hidden" />
-              <label
-                for="size-l"
-                className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-              >
-                L
-              </label>
-            </div>
-            <div className="size-selector">
-              <input type="radio" name="size" id="size-xl" className="hidden" />
-              <label
-                for="size-xl"
-                className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-              >
-                XL
-              </label>
-            </div>
-          </div>
-        </div>
+        <FilterByCategory categories={categories} />
+        <FilterByPrice />
+        <FilterBySize />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 mt-5">
         <a
           href="#"
           className="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"

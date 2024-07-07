@@ -53,7 +53,7 @@ export default function RegisterForm() {
       <form action="#" method="post" autocomplete="off" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <div>
-            <label for="name" className="block mb-2 text-gray-600">
+            <label htmlFor="name" className="block mb-2 text-gray-600">
               Full Name
             </label>
             <input
@@ -65,7 +65,7 @@ export default function RegisterForm() {
             />
           </div>
           <div>
-            <label for="email" className="block mb-2 text-gray-600">
+            <label htmlFor="email" className="block mb-2 text-gray-600">
               Email address
             </label>
             <input
@@ -77,7 +77,7 @@ export default function RegisterForm() {
             />
           </div>
           <div>
-            <label for="password" className="block mb-2 text-gray-600">
+            <label htmlFor="password" className="block mb-2 text-gray-600">
               Password
             </label>
             <input
@@ -89,7 +89,7 @@ export default function RegisterForm() {
             />
           </div>
           <div>
-            <label for="confirm" className="block mb-2 text-gray-600">
+            <label htmlFor="confirm" className="block mb-2 text-gray-600">
               Confirm password
             </label>
             <input
@@ -110,7 +110,7 @@ export default function RegisterForm() {
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
             />
             <label
-              for="aggrement"
+              htmlFor="aggrement"
               className="ml-3 text-gray-600 cursor-pointer"
             >
               I have read and agree to the{" "}

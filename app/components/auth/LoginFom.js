@@ -34,7 +34,7 @@ export default function LoginForm() {
       <form autocomplete="off" onSubmit={handleSubmit}>
         <div className="space-y-2">
           <div>
-            <label for="email" className="block mb-2 text-gray-600">
+            <label htmlFor="email" className="block mb-2 text-gray-600">
               Email address
             </label>
             <input
@@ -46,7 +46,7 @@ export default function LoginForm() {
             />
           </div>
           <div>
-            <label for="password" className="block mb-2 text-gray-600">
+            <label htmlFor="password" className="block mb-2 text-gray-600">
               Password
             </label>
             <input
@@ -66,7 +66,10 @@ export default function LoginForm() {
               id="remember"
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
             />
-            <label for="remember" className="ml-3 text-gray-600 cursor-pointer">
+            <label
+              htmlFor="remember"
+              className="ml-3 text-gray-600 cursor-pointer"
+            >
               Remember me
             </label>
           </div>

@@ -4,9 +4,17 @@ import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import connectMongo from "../connectMongo";
 
-async function getAllProducts() {
+async function getAllProducts(category) {
   await connectMongo();
-  const allProducts = await ProductModel.find().lean();
+  const totalProducts = await ProductModel.find().lean();
+  let allProducts = totalProducts;
+  if (category) {
+    const categoriesToMatch = category.split("|");
+
+    allProducts = allProducts.filter((product) => {
+      return categoriesToMatch.includes(product.category.toLowerCase());
+    });
+  }
   return removeMongoId(allProducts);
 }
 
@@ -39,10 +47,26 @@ async function getTrendingProducts() {
   const allProducts = await ProductModel.find().lean();
   return removeMongoId(allProducts?.slice(0, 8));
 }
+async function getProductsCountByCategory() {
+  await connectMongo();
+  const allCategory = await getAllCategory();
+  const productsCountByCategory = await Promise.all(
+    allCategory.map(async (category) => {
+      const regex = new RegExp(category.value, "i");
+      const products = await ProductModel.find({
+        category: { $regex: regex },
+      }).lean();
+
+      return { name: category.value, products: products.length };
+    })
+  );
+  return productsCountByCategory;
+}
 
 export {
   getAllCategory,
   getAllProducts,
   getNewArrivalProducts,
+  getProductsCountByCategory,
   getTrendingProducts,
 };
