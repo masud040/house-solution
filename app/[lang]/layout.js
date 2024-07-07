@@ -9,7 +9,7 @@ import "../globals.css";
 export const metadata = {
   title: "Sokher Corner",
   description: "One place for by various products.",
-  favicon: "../../public/favicon.ico",
+  favicon: "/public/favicon.ico",
 };
 
 export default async function RootLayout({ children }) {

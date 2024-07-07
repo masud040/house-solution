@@ -2,7 +2,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="pt-16 pb-12 bg-white border-t border-gray-100">
-      <div className="container grid grid-cols-3">
+      <div className="container grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="col-span-1 mr-2 space-y-8">
           <Link href="/">
             <h1 className="inline-block text-lg font-bold text-transparent md:text-xl lg:text-3xl bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">

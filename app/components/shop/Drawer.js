@@ -1,10 +1,9 @@
-export default function Drawer() {
+export default function Drawer({ showDrawer, setShowDrawer }) {
   return (
     <div
-      id="drawer-example"
-      className="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800"
-      tabindex="-1"
-      aria-labelledby="drawer-label"
+      className={`fixed inset-y-0 left-0 p-4 z-40 overflow-x-hidden bg-white dark:bg-gray-800 w-80 transition duration-700 md:hidden ${
+        showDrawer ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
       <h5
         id="drawer-label"
@@ -26,9 +25,8 @@ export default function Drawer() {
         Info
       </h5>
       <button
+        onClick={() => setShowDrawer(false)}
         type="button"
-        data-drawer-hide="drawer-example"
-        aria-controls="drawer-example"
         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
       >
         <svg

@@ -1,8 +1,18 @@
+"use client";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function CategoryCard({ categoryData }) {
+  const pathName = usePathname();
+  const { replace } = useRouter();
+
   return (
-    <div className="relative overflow-hidden rounded-sm group">
+    <div
+      onClick={() =>
+        replace(`${pathName}/shop?category=${categoryData?.value}`)
+      }
+      className="relative overflow-hidden rounded-sm group"
+    >
       <Image
         src={categoryData?.image}
         alt="category 1"

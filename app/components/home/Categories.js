@@ -1,5 +1,5 @@
 import { getAllCategory } from "@/db/queries";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "../card/CategoryCard";
 
 export default async function Categories() {
   const allCategory = await getAllCategory();

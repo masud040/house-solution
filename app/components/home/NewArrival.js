@@ -1,5 +1,5 @@
 import { getNewArrivalProducts } from "@/db/queries";
-import ProductCard from "../shared/ProductCard";
+import ProductCard from "../card/ProductCard";
 
 export default async function NewArrival() {
   const newProducts = await getNewArrivalProducts();

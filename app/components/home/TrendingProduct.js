@@ -1,5 +1,5 @@
 import { getTrendingProducts } from "@/db/queries";
-import ProductCard from "../shared/ProductCard";
+import ProductCard from "../card/ProductCard";
 
 const TrendingProduct = async () => {
   const trendingProducts = await getTrendingProducts();
