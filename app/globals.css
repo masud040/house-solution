@@ -17,7 +17,7 @@
 }
 
 @layer components {
-  .size-selector input:checked + label {
+  .size-selector input[type="radio"]:checked + label {
     @apply text-white bg-primary;
   }
   .color-selector input:checked + label {

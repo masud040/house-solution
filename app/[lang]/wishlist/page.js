@@ -11,8 +11,8 @@ export default async function WishlistPage() {
   return (
     <>
       <Breadcrumb />
-      <div class="container gap-6 pt-4 pb-16">
-        <div class="max-w-6xl mx-auto space-y-4">
+      <div className="container gap-6 pt-4 pb-16">
+        <div className="max-w-6xl mx-auto space-y-4">
           <WishlistOrCartCard form="wishlist" />
         </div>
       </div>

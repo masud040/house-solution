@@ -46,27 +46,29 @@ export const FilterByPrice = () => {
     setPrice({ min: selectedMinPrice, max: selectedMaxPrice });
   }, []);
   return (
-    <div class="pt-4">
-      <h3 class="mb-3 text-xl font-medium text-gray-800 uppercase">Price</h3>
-      {error && <div class="text-red-500">{error}</div>}
-      <div class="flex items-center mt-4">
+    <div className="pt-4">
+      <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">
+        Price
+      </h3>
+      {error && <div className="text-red-500">{error}</div>}
+      <div className="flex items-center mt-4">
         <input
           onChange={doSearch}
           type="text"
           name="min"
           id="min"
-          class="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
+          className="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
           defaultValue={price?.min}
           placeholder="min"
         />
-        <span class="mx-3 text-gray-500">-</span>
+        <span className="mx-3 text-gray-500">-</span>
         <input
           onChange={doSearch}
           type="text"
           name="max"
           id="max"
           defaultValue={price?.max}
-          class="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
+          className="w-full px-3 py-1 text-gray-600 border-gray-300 rounded shadow-sm focus:border-primary focus:ring-0"
           placeholder="max"
         />
       </div>
