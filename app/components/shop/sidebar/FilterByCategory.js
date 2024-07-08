@@ -11,6 +11,7 @@ export const FilterByCategory = ({ categories }) => {
   const [query, setQuery] = useState([]);
 
   function handleChange(e) {
+    e.preventDefault();
     const name = e.target.name;
     const checked = e.target.checked;
     if (checked) {

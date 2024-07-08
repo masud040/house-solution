@@ -11,7 +11,9 @@ function refineCategory(category) {
     return decodeCategory;
   }
 }
-const ShopPage = async ({ searchParams: { category } }) => {
+const ShopPage = async ({
+  searchParams: { category, min_price, max_price },
+}) => {
   const allCategory = await getProductsCountByCategory();
 
   return (
@@ -20,7 +22,11 @@ const ShopPage = async ({ searchParams: { category } }) => {
       <div className="container grid items-start grid-cols-2 gap-6 pt-4 pb-16 md:grid-cols-4">
         <DrawerComponent categories={allCategory} />
         <Sidebar categories={allCategory} />
-        <ProductList category={refineCategory(category)} />
+        <ProductList
+          category={refineCategory(category)}
+          min_price={parseFloat(min_price)}
+          max_price={parseFloat(max_price)}
+        />
       </div>
     </>
   );

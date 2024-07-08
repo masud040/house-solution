@@ -4,7 +4,7 @@ import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import connectMongo from "../connectMongo";
 
-async function getAllProducts(category) {
+async function getAllProducts(category, min_price, max_price) {
   await connectMongo();
   const totalProducts = await ProductModel.find().lean();
   let allProducts = totalProducts;
@@ -15,6 +15,11 @@ async function getAllProducts(category) {
     allProducts = allProducts.filter((product) => {
       return categoriesToMatch.includes(product.category.toLowerCase());
     });
+  }
+  if (min_price && max_price) {
+    allProducts = allProducts.filter(
+      (product) => product.price >= min_price && product.price <= max_price
+    );
   }
 
   return removeMongoId(allProducts);
@@ -28,7 +33,7 @@ async function getAllCategory() {
 
 async function getNewArrivalProducts() {
   const date = new Date();
-  date.setDate(date.getDate() - 30);
+  date.setDate(date.getDate() - 60);
 
   await connectMongo();
   const products = await ProductModel.find({
