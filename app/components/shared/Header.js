@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
+import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
 
@@ -13,21 +14,7 @@ export default async function Header() {
             Sokher Corner
           </h1>
         </Link>
-        <div className="relative flex w-full max-w-xl">
-          <span className="absolute text-lg text-gray-400 left-4 top-3">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </span>
-          <input
-            type="text"
-            name="search"
-            id="search"
-            className="w-full py-3 pl-12 pr-3 border border-r-0 border-primary rounded-l-md focus:outline-none"
-            placeholder="search"
-          />
-          <button className="px-8 text-white transition border bg-primary border-primary rounded-r-md hover:bg-transparent hover:text-primary">
-            Search
-          </button>
-        </div>
+        <Search />
         <div className="flex items-center space-x-5 ">
           <Link
             href="/wishlist"

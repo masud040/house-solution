@@ -24,7 +24,7 @@ export const FilterByPrice = () => {
 
   const doSearch = useDebounce((e) => {
     handleFilter(e);
-  }, 500);
+  }, 200);
 
   useEffect(() => {
     if (price.min) {
