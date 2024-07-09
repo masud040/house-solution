@@ -6,7 +6,6 @@ import { getProductById } from "@/db/queries";
 
 export default async function ProductDetailsPage({ params: { productID } }) {
   const product = await getProductById(productID);
-  console.log(product);
 
   return (
     <section>
@@ -17,9 +16,9 @@ export default async function ProductDetailsPage({ params: { productID } }) {
           thumbnail={product?.thumbnail}
           gallery={product?.images}
         />
-        <ProductDetails />
+        <ProductDetails product={product} />
       </div>
-      <ProdcutDescription />
+      <ProdcutDescription description={product?.description} />
     </section>
   );
 }
