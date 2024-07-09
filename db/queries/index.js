@@ -1,4 +1,4 @@
-import { removeMongoId } from "@/app/utils";
+import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
 import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
@@ -30,6 +30,12 @@ async function getAllProducts(category, min_price, max_price, search_term) {
   }
 
   return removeMongoId(allProducts);
+}
+
+async function getProductById(id) {
+  await connectMongo();
+  const product = await ProductModel.findById(id).lean();
+  return removeMongoIdFromObj(product);
 }
 
 async function getAllCategory() {
@@ -81,6 +87,7 @@ export {
   getAllCategory,
   getAllProducts,
   getNewArrivalProducts,
+  getProductById,
   getProductsCountByCategory,
   getTrendingProducts,
 };

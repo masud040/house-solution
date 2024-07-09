@@ -15,7 +15,7 @@ module.exports = {
     },
     container: {
       center: true,
-      padding: "0.3rem",
+      padding: "1rem",
     },
     extend: {
       fontFamily: {
@@ -24,6 +24,9 @@ module.exports = {
       },
       colors: {
         primary: "#fd3d57",
+      },
+      height: {
+        13: "52px",
       },
     },
   },

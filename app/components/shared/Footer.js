@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 col-span-2 gap-8">
+        <div className="grid grid-cols-1 col-span-2 gap-8 md:grid-cols-2">
           <div className="grid grid-cols-2 gap-8">
             <div>
               <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">

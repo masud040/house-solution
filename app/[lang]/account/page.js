@@ -1,3 +1,4 @@
+import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
@@ -6,5 +7,9 @@ export default async function AccountPage() {
   if (!session) {
     return redirect("/login");
   }
-  return <div>This is account page</div>;
+  return (
+    <section>
+      <Breadcrumb name="Account" />
+    </section>
+  );
 }
