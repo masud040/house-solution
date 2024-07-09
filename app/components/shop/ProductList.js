@@ -8,7 +8,6 @@ export const ProductList = async ({
   max_price,
   search_term,
 }) => {
-  console.log();
   const filteredProducts = await getAllProducts(
     category,
     min_price,

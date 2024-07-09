@@ -10,11 +10,11 @@ async function getAllProducts(category, min_price, max_price, search_term) {
   let allProducts = totalProducts;
 
   if (category) {
-    const categoriesToMatch = category.split("|");
+    const categoriesToMatch = category.toLowerCase().split("|");
 
-    allProducts = allProducts.filter((product) => {
-      return categoriesToMatch.includes(product.category.toLowerCase());
-    });
+    allProducts = allProducts.filter((product) =>
+      categoriesToMatch.includes(product.category.toLowerCase())
+    );
   }
   if (min_price && max_price) {
     allProducts = allProducts.filter(
