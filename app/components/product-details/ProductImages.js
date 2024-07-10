@@ -10,19 +10,19 @@ export const ProductImages = ({ name, thumbnail, gallery }) => {
       <Image
         src={selectedImage}
         alt={name}
-        class="w-full max-h-[440px]"
+        className="w-full max-h-[440px]"
         width={500}
         height={500}
       />
       {gallery?.length > 0 ? (
-        <div class="grid grid-cols-4 gap-6 mt-4">
-          {gallery.map((image, ind) => (
+        <div className="grid grid-cols-4 gap-6 mt-4">
+          {gallery.slice(0, 4).map((image, ind) => (
             <Image
               onClick={() => setSelectedImage(image)}
               key={ind}
               src={image}
               alt={name}
-              class={`w-full h-13 lg:h-20 cursor-pointer ${
+              className={`w-full h-13 lg:h-20 cursor-pointer ${
                 selectedImage === image && "border border-primary"
               }`}
               width={200}

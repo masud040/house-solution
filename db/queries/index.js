@@ -2,8 +2,10 @@ import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
 import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
+import { UserModel } from "@/models/users-model";
 import connectMongo from "../connectMongo";
 
+// get all products with filters
 async function getAllProducts(category, min_price, max_price, search_term) {
   await connectMongo();
   const totalProducts = await ProductModel.find().lean();
@@ -83,6 +85,13 @@ async function getProductsCountByCategory() {
   return productsCountByCategory;
 }
 
+// get user by email
+async function getUserByEmail(email) {
+  await connectMongo();
+  const user = await UserModel.findOne({ email: email }).lean();
+  return removeMongoIdFromObj(user);
+}
+
 export {
   getAllCategory,
   getAllProducts,
@@ -90,4 +99,5 @@ export {
   getProductById,
   getProductsCountByCategory,
   getTrendingProducts,
+  getUserByEmail,
 };

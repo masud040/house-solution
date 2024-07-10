@@ -1,5 +1,6 @@
 "use server";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 
 export async function loginWithCredentials(formData) {
   try {
@@ -12,5 +13,19 @@ export async function loginWithCredentials(formData) {
     return response;
   } catch (err) {
     throw new Error(err?.cause?.err?.message);
+  }
+}
+
+export async function handleAddToCart(quantity) {
+  try {
+    const response = await auth();
+    if (response?.user?.email) {
+      const user = await getUserByEmail(response?.user?.email);
+      return user;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw new Error(error);
   }
 }
