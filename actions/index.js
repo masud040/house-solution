@@ -1,6 +1,7 @@
 "use server";
-import { auth, signIn } from "@/auth";
-import { getUserByEmail } from "@/db/queries";
+import { signIn } from "@/auth";
+import { updateCart } from "@/db/queries";
+import { revalidatePath } from "next/cache";
 
 export async function loginWithCredentials(formData) {
   try {
@@ -16,16 +17,11 @@ export async function loginWithCredentials(formData) {
   }
 }
 
-export async function handleAddToCart(quantity) {
+export async function toggleAddToCart(productId, userId) {
   try {
-    const response = await auth();
-    if (response?.user?.email) {
-      const user = await getUserByEmail(response?.user?.email);
-      return user;
-    } else {
-      return null;
-    }
+    await updateCart(productId, userId);
+    revalidatePath("/");
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 }

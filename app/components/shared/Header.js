@@ -1,10 +1,12 @@
 import { auth } from "@/auth";
+import { getCartItems } from "@/db/queries";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
 import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
+  const cartItems = await getCartItems(session?.user?.email);
 
   return (
     <header className="py-4 bg-white shadow-sm">
@@ -37,7 +39,7 @@ export default async function Header() {
             </div>
             <div className="text-xs leading-3">Cart</div>
             <div className="absolute flex items-center justify-center w-5 h-5 text-xs text-white rounded-full -right-3 -top-1 bg-primary">
-              2
+              {cartItems?.length > 0 ? cartItems.length : 0}
             </div>
           </Link>
           <Link

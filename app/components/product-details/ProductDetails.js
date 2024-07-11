@@ -1,7 +1,9 @@
+import { auth } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 import { ProdcutAction } from "./ProdcutAction";
 
-export const ProductDetails = async ({
-  product: {
+export const ProductDetails = async ({ product }) => {
+  const {
     name,
     brand,
     category,
@@ -13,9 +15,11 @@ export const ProductDetails = async ({
     cart,
     wishlist,
     id,
-  },
-}) => {
+  } = product || {};
+  const session = await auth();
+  const user = await getUserByEmail(session?.user?.email);
   const discountPrice = price - (price * discount) / 100;
+  const plainProduct = JSON.parse(JSON.stringify(product));
 
   return (
     <div>
@@ -71,7 +75,7 @@ export const ProductDetails = async ({
 
       <p className="mt-4 text-gray-600">{details}</p>
 
-      <ProdcutAction productid={id} />
+      <ProdcutAction product={plainProduct} userId={user?.id} />
     </div>
   );
 };

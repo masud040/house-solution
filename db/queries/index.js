@@ -3,6 +3,7 @@ import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { UserModel } from "@/models/users-model";
+import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
 
 // get all products with filters
@@ -92,12 +93,43 @@ async function getUserByEmail(email) {
   return removeMongoIdFromObj(user);
 }
 
+// add to cart or remove from cart
+async function updateCart(productId, userId) {
+  try {
+    await connectMongo();
+    const product = await ProductModel.findById(productId);
+    if (product) {
+      const foundUser = product.cart?.find((id) => id.toString() === userId);
+      if (foundUser) {
+        product.cart.pull(new mongoose.Types.ObjectId(userId));
+      } else {
+        product.cart.push(new mongoose.Types.ObjectId(userId));
+      }
+    }
+    product.save();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+async function getCartItems(userEmail) {
+  const user = await getUserByEmail(userEmail);
+  if (user) {
+    const products = await ProductModel.find({
+      cart: new mongoose.Types.ObjectId(user.id),
+    }).lean();
+    return products;
+  }
+}
+
 export {
   getAllCategory,
   getAllProducts,
+  getCartItems,
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
   getTrendingProducts,
   getUserByEmail,
+  updateCart,
 };
