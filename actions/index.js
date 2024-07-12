@@ -1,6 +1,6 @@
 "use server";
 import { signIn } from "@/auth";
-import { updateCart } from "@/db/queries";
+import { setItemInCart, updateWishlist } from "@/db/queries";
 import { revalidatePath } from "next/cache";
 
 export async function loginWithCredentials(formData) {
@@ -17,9 +17,24 @@ export async function loginWithCredentials(formData) {
   }
 }
 
-export async function toggleAddToCart(productId, userId) {
+export async function addToCart(productId, userId, quantity) {
   try {
-    await updateCart(productId, userId);
+    const cartData = {
+      productId,
+      quantity,
+      userId,
+    };
+    const updateCart = await setItemInCart(cartData);
+    revalidatePath("/");
+    return updateCart;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function toggleWishList(productId, userId) {
+  try {
+    await updateWishlist(productId, userId);
     revalidatePath("/");
   } catch (error) {
     throw new Error(error.message);

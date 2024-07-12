@@ -1,4 +1,5 @@
 import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
+import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
@@ -94,19 +95,49 @@ async function getUserByEmail(email) {
 }
 
 // add to cart or remove from cart
-async function updateCart(productId, userId) {
+async function setItemInCart(cartData) {
+  try {
+    await connectMongo();
+    if (cartData) {
+      const found = await CartModel.findOne({ userId: cartData.userId });
+      if (!found) {
+        await CartModel.create(cartData);
+        return {
+          status: 200,
+          message: "Item added successfully",
+        };
+      } else {
+        const updateQuantity = found.quantity + 1;
+        found.quantity = updateQuantity;
+        found.save();
+        return {
+          status: 200,
+          message: "Cart updated successfully",
+        };
+      }
+    } else {
+      return { status: 400, message: "Invalid cart data" };
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+async function updateWishlist(productId, userId) {
   try {
     await connectMongo();
     const product = await ProductModel.findById(productId);
     if (product) {
-      const foundUser = product.cart?.find((id) => id.toString() === userId);
+      const foundUser = product.wishlist?.find(
+        (id) => id.toString() === userId
+      );
       if (foundUser) {
-        product.cart.pull(new mongoose.Types.ObjectId(userId));
+        product.wishlist.pull(new mongoose.Types.ObjectId(userId));
       } else {
-        product.cart.push(new mongoose.Types.ObjectId(userId));
+        product.wishlist.push(new mongoose.Types.ObjectId(userId));
       }
     }
     product.save();
+    console.log(product);
   } catch (error) {
     throw new Error(error.message);
   }
@@ -131,5 +162,6 @@ export {
   getProductsCountByCategory,
   getTrendingProducts,
   getUserByEmail,
-  updateCart,
+  setItemInCart,
+  updateWishlist,
 };

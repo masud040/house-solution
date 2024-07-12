@@ -1,13 +1,12 @@
 "use client";
 
-import { toggleAddToCart } from "@/actions";
+import { addToCart, toggleWishList } from "@/actions";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 
 export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   const [quantity, setQuantity] = useState(1);
-  const [isAddedToCart, setIsAddedToCart] = useState(cart?.includes(userId));
   const router = useRouter();
   function decreseQuantity() {
     if (quantity > 1) setQuantity((q) => q - 1);
@@ -15,13 +14,24 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   function increaseQuantity() {
     if (quantity < 5) setQuantity((q) => q + 1);
   }
-  async function handleChange() {
+  async function handleToggleCart() {
     try {
       if (!userId) {
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
-        await toggleAddToCart(id, userId);
-        setIsAddedToCart((i) => !i);
+        await addToCart(id, userId, quantity);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleToggleWishlist() {
+    try {
+      if (!userId) {
+        router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
+      } else {
+        await toggleWishList(id, userId);
       }
     } catch (error) {
       console.log(error);
@@ -55,13 +65,16 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
 
       <div className="flex gap-3 py-4 mt-2 border-b border-gray-200">
         <button
-          onClick={handleChange}
+          onClick={handleToggleCart}
           className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary"
         >
           <i className="fa-solid fa-bag-shopping"></i>
-          {isAddedToCart ? "Remove from cart" : "Add to cart"}
+          Add to cart
         </button>
-        <button className="flex items-center gap-2 px-8 py-2 font-medium text-gray-600 uppercase transition border border-gray-300 rounded hover:text-primary">
+        <button
+          onClick={handleToggleWishlist}
+          className="flex items-center gap-2 px-8 py-2 font-medium text-gray-600 uppercase transition border border-gray-300 rounded hover:text-primary "
+        >
           <i className="fa-solid fa-heart"></i> Wishlist
         </button>
       </div>

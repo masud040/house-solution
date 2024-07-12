@@ -59,10 +59,6 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
-  cart: {
-    type: Array,
-    required: true,
-  },
   wishlist: {
     type: Array,
     required: true,
