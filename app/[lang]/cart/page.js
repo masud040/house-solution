@@ -1,6 +1,8 @@
-import WishlistOrCartCard from "@/app/components/profile/WishlistOrCartCard";
+import CartItems from "@/app/components/cart/CartItems";
+import { OrderSummary } from "@/app/components/cart/OrderSummary";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
+import { getAllCartItemsById } from "@/db/queries";
 import { redirect } from "next/navigation";
 
 export default async function CartPage() {
@@ -8,13 +10,13 @@ export default async function CartPage() {
   if (!session?.user) {
     return redirect("/login");
   }
+  const cartItems = await getAllCartItemsById(session?.user?.email);
   return (
     <section>
       <Breadcrumb name="Cart" />
-      <div className="container gap-6 pt-4 pb-16">
-        <div className="max-w-6xl mx-auto space-y-4">
-          <WishlistOrCartCard form="cart" />
-        </div>
+      <div className="container grid items-start grid-cols-1 gap-6 pt-4 pb-16 md:grid-cols-4">
+        <CartItems cartItems={cartItems} />
+        <OrderSummary />
       </div>
     </section>
   );

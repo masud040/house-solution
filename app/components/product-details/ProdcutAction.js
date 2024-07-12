@@ -15,6 +15,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   function increaseQuantity() {
     if (quantity < 5) setQuantity((q) => q + 1);
   }
+  // handle add to cart
   async function handleAddToCart() {
     try {
       if (!userId) {
@@ -23,20 +24,21 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
       } else {
         const response = await addToCart(id, userId, quantity);
         if (response.status === 200) {
-          toast.success("Added to cart!", { autoClose: 2000 });
+          toast.success(response.message, { autoClose: 2000 });
         }
       }
     } catch (error) {
       console.log(error);
     }
   }
-
+  // handle wishlist
   async function handleToggleWishlist() {
     try {
       if (!userId) {
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
         await toggleWishList(id, userId);
+        toast.success("Update wishlist", { autoClose: 2000 });
       }
     } catch (error) {
       console.log(error);
@@ -68,19 +70,16 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
         </div>
       </div>
 
-      <div className="flex gap-3 py-4 mt-2 border-b border-gray-200">
+      <div className="flex gap-3 py-4 mt-2 text-sm border-b border-gray-200">
+        <button className="flex items-center gap-2 px-8 py-2 font-medium text-white text-gray-600 uppercase transition border border-gray-300 rounded bg-secondary/70 hover:bg-white hover:text-primary">
+          Buy Now
+        </button>
         <button
           onClick={handleAddToCart}
           className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary"
         >
           <i className="fa-solid fa-bag-shopping"></i>
           Add to cart
-        </button>
-        <button
-          onClick={handleToggleWishlist}
-          className="flex items-center gap-2 px-8 py-2 font-medium text-gray-600 uppercase transition border border-gray-300 rounded hover:text-primary "
-        >
-          <i className="fa-solid fa-heart"></i> Wishlist
         </button>
       </div>
 

@@ -1,12 +1,12 @@
 import { auth } from "@/auth";
-import { getCartItems } from "@/db/queries";
+import { getCartData } from "@/db/queries";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
 import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
-  const cartItems = await getCartItems(session?.user?.email);
+  const cartItems = await getCartData(session?.user?.email);
 
   return (
     <header className="py-4 bg-white shadow-sm">

@@ -17,6 +17,7 @@ export async function loginWithCredentials(formData) {
   }
 }
 
+// add to cart if already existing update is quantity
 export async function addToCart(productId, userId, quantity) {
   try {
     const cartData = {
@@ -32,6 +33,7 @@ export async function addToCart(productId, userId, quantity) {
   }
 }
 
+// add to wishlist if already added to wishlist remove from wishlist
 export async function toggleWishList(productId, userId) {
   try {
     await updateWishlist(productId, userId);

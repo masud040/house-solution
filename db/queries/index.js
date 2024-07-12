@@ -36,18 +36,21 @@ async function getAllProducts(category, min_price, max_price, search_term) {
   return removeMongoId(allProducts);
 }
 
+// find product by id
 async function getProductById(id) {
   await connectMongo();
   const product = await ProductModel.findById(id).lean();
   return removeMongoIdFromObj(product);
 }
 
+// get all categories
 async function getAllCategory() {
   await connectMongo();
   const allCategory = await CategoryModel.find().lean();
   return removeMongoId(allCategory);
 }
 
+// find to new arrival products
 async function getNewArrivalProducts() {
   const date = new Date();
   date.setDate(date.getDate() - 60);
@@ -61,16 +64,19 @@ async function getNewArrivalProducts() {
 
   return removeMongoId(products);
 }
+// get rating for product
 async function findRatingProducts(id) {
   await connectMongo();
   const ratings = await reviewRatingModel.find({});
 }
 
+// get trending products
 async function getTrendingProducts() {
   await connectMongo();
   const allProducts = await ProductModel.find().lean();
   return removeMongoId(allProducts?.slice(0, 8));
 }
+// get products by category
 async function getProductsCountByCategory() {
   await connectMongo();
   const allCategory = await getAllCategory();
@@ -96,7 +102,7 @@ async function getUserByEmail(email) {
   }
 }
 
-// add to cart or remove from cart
+// add to cart if it already exists update it quantity
 async function setItemInCart(cartData) {
   try {
     await connectMongo();
@@ -109,12 +115,9 @@ async function setItemInCart(cartData) {
           message: "Item added successfully",
         };
       } else {
-        const updateQuantity = found.quantity + 1;
-        found.quantity = updateQuantity;
-        found.save();
         return {
           status: 200,
-          message: "Cart updated successfully",
+          message: "This item has already been added",
         };
       }
     } else {
@@ -124,6 +127,7 @@ async function setItemInCart(cartData) {
     throw new Error(error.message);
   }
 }
+// add to wishlist if already added delet from wishlist
 async function updateWishlist(productId, userId) {
   try {
     await connectMongo();
@@ -139,26 +143,49 @@ async function updateWishlist(productId, userId) {
       }
     }
     product.save();
-    console.log(product);
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-async function getCartItems(userEmail) {
-  const user = await getUserByEmail(userEmail);
-  if (user) {
-    const response = await CartModel.find({
-      userId: user.id,
-    }).lean();
-    return response;
+// get all cart items
+async function getCartData(userEmail) {
+  try {
+    if (userEmail) {
+      const user = await getUserByEmail(userEmail);
+      const response = await CartModel.find({
+        userId: user.id,
+      }).lean();
+      return removeMongoId(response);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+// get all cart items by id
+async function getAllCartItemsById(userEmail) {
+  if (userEmail) {
+    const cartData = await getCartData(userEmail);
+    const allCartItems = await Promise.all(
+      cartData.map(async (item) => {
+        const product = await ProductModel.findById(item.productId)
+          .select(["name", "thumbnail", "stock", "price"])
+          .lean();
+        product["quantity"] = item.quantity;
+        product["userId"] = item.userId;
+        return product;
+      })
+    );
+    return removeMongoId(allCartItems);
   }
 }
 
 export {
+  getAllCartItemsById,
   getAllCategory,
   getAllProducts,
-  getCartItems,
+  getCartData,
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
