@@ -90,8 +90,10 @@ async function getProductsCountByCategory() {
 // get user by email
 async function getUserByEmail(email) {
   await connectMongo();
-  const user = await UserModel.findOne({ email: email }).lean();
-  return removeMongoIdFromObj(user);
+  if (email) {
+    const user = await UserModel.findOne({ email: email }).lean();
+    return removeMongoIdFromObj(user);
+  }
 }
 
 // add to cart or remove from cart
@@ -146,10 +148,10 @@ async function updateWishlist(productId, userId) {
 async function getCartItems(userEmail) {
   const user = await getUserByEmail(userEmail);
   if (user) {
-    const products = await ProductModel.find({
-      cart: new mongoose.Types.ObjectId(user.id),
+    const response = await CartModel.find({
+      userId: user.id,
     }).lean();
-    return products;
+    return response;
   }
 }
 

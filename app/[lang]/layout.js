@@ -1,5 +1,7 @@
 import connectMongo from "@/db/connectMongo";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CopyRight from "../components/shared/CopyRight";
 import Footer from "../components/shared/Footer";
 import Header from "../components/shared/Header";
@@ -20,6 +22,7 @@ export default async function RootLayout({ children }) {
         <Header />
         <Navbar />
         <div>{children}</div>
+        <ToastContainer />
         <Footer />
         <CopyRight />
       </body>

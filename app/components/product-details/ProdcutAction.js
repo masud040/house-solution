@@ -4,6 +4,7 @@ import { addToCart, toggleWishList } from "@/actions";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   const [quantity, setQuantity] = useState(1);
@@ -14,12 +15,16 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   function increaseQuantity() {
     if (quantity < 5) setQuantity((q) => q + 1);
   }
-  async function handleToggleCart() {
+  async function handleAddToCart() {
     try {
       if (!userId) {
+        toast.warning("Please Login.", { autoClose: 2000 });
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
-        await addToCart(id, userId, quantity);
+        const response = await addToCart(id, userId, quantity);
+        if (response.status === 200) {
+          toast.success("Added to cart!", { autoClose: 2000 });
+        }
       }
     } catch (error) {
       console.log(error);
@@ -65,7 +70,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
 
       <div className="flex gap-3 py-4 mt-2 border-b border-gray-200">
         <button
-          onClick={handleToggleCart}
+          onClick={handleAddToCart}
           className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary"
         >
           <i className="fa-solid fa-bag-shopping"></i>
