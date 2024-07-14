@@ -107,7 +107,7 @@ async function setItemInCart(cartData) {
   try {
     await connectMongo();
     if (cartData) {
-      const found = await CartModel.findOne({ userId: cartData.userId });
+      const found = await CartModel.findOne({ productId: cartData.productId });
       if (!found) {
         await CartModel.create(cartData);
         return {
@@ -164,19 +164,26 @@ async function getCartData(userEmail) {
 }
 
 // get all cart items by id
-async function getAllCartItemsById(userEmail) {
+async function getAllCartItemsById(userEmail, selected) {
   if (userEmail) {
+    let allCartItems;
     const cartData = await getCartData(userEmail);
-    const allCartItems = await Promise.all(
+    allCartItems = await Promise.all(
       cartData.map(async (item) => {
         const product = await ProductModel.findById(item.productId)
-          .select(["name", "thumbnail", "stock", "price"])
+          .select(["name", "thumbnail", "stock", "price", "discount"])
           .lean();
         product["quantity"] = item.quantity;
         product["userId"] = item.userId;
         return product;
       })
     );
+    const selectedArr = selected?.split(",");
+    if (selectedArr?.length > 0) {
+      allCartItems.forEach((item) => {
+        item["selected"] = true;
+      });
+    }
     return removeMongoId(allCartItems);
   }
 }

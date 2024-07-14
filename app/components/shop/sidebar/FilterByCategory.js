@@ -51,7 +51,7 @@ export const FilterByCategory = ({ categories }) => {
               name={category.name}
               id={category.name}
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              checked={query.includes(category.name.toLowerCase())}
+              defaultChecked={query.includes(category.name.toLowerCase())}
             />
             <label
               htmlFor={category.name}

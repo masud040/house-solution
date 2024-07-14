@@ -1,9 +1,9 @@
-export const OrderSummary = () => {
+export const OrderSummary = ({ cartItems }) => {
   return (
     <aside className="grid-cols-1 p-4 space-y-2 text-base bg-white rounded-sm shadow-custom">
       <h4 className="text-">Order Summary</h4>
       <div className="flex items-center justify-between text-sm font-bold">
-        <p>Subtotal(1 items)</p>
+        <p>Subtotal ({cartItems?.length > 0 ? cartItems.length : 0} items)</p>
         <p>$40</p>
       </div>
       <div className="flex items-center justify-between text-sm font-bold">

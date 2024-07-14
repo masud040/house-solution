@@ -47,9 +47,11 @@ export const ProductDetails = async ({ product }) => {
       <div className="space-y-2">
         <p className="space-x-2 font-semibold text-gray-800">
           <span>Availability: </span>
-          <span className="text-green-600">
-            {stock > 0 ? "In Stock" : "Out Of Stock"}
-          </span>
+          {stock > 0 ? (
+            <span className="text-green-600">In Stock</span>
+          ) : (
+            <span className="text-red-600">Out Of Stock</span>
+          )}
         </p>
         <p className="space-x-2">
           <span className="font-semibold text-gray-800">Brand: </span>

@@ -7,7 +7,6 @@ import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
   const cartItems = await getCartData(session?.user?.email);
-
   return (
     <header className="py-4 bg-white shadow-sm">
       <div className="container flex items-center justify-between">

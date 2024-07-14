@@ -1,33 +1,63 @@
 "use client";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { useEffect, useState } from "react";
 import CartItemCard from "../card/CartItemCard";
 import { NoDataFound } from "../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {
+  const [selected, setSelected] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const pathName = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
   function handleChange(e) {
-    if (e.target.checked) {
-      setSelectAll(true);
+    const name = e.target.name;
+    const checked = e.target.checked;
+    if (checked) {
+      if (name === "all") {
+        setSelectAll(true);
+        setSelected(cartItems.map((i) => i.id.toString()));
+      } else {
+        setSelected((prevSelected) => [...prevSelected, name]);
+      }
     } else {
-      setSelectAll(false);
+      if (name === "all") {
+        setSelectAll(false);
+        setSelected([]);
+      } else {
+        setSelectAll(false);
+        setSelected((prevSelected) =>
+          prevSelected.filter((item) => item !== name)
+        );
+      }
     }
   }
-
+  useEffect(() => {
+    if (selected.length > 0) {
+      params.set("selected", selected.join(","));
+    } else {
+      params.delete("selected");
+    }
+    router.replace(`${pathName}?${params.toString()}`);
+  }, [selected]);
   return (
     <aside className="col-span-1 md:col-span-3">
       {cartItems?.length > 0 ? (
         <div className="max-w-6xl mx-auto space-y-4">
-          <div className="flex items-center justify-between p-4 font-mono text-sm uppercase rounded-sm shadow-custom">
-            <label htmlFor="select-all" className="flex items-center gap-3">
+          <div className="flex items-center justify-between p-4 text-xs uppercase rounded-sm shadow-custom">
+            <label htmlFor="all" className="flex items-center gap-3">
               <input
                 type="checkbox"
                 onChange={handleChange}
-                name="select-all"
-                id="select-all"
+                name="all"
+                id="all"
                 className="rounded-sm focus:ring-0"
                 checked={selectAll}
               />
-              <span>Select All ({cartItems.length}Items)</span>
+              <span>Select All ({cartItems.length} Items)</span>
             </label>
             <div
               title="Remove all products"
@@ -41,8 +71,9 @@ export default function CartItems({ cartItems }) {
             <CartItemCard
               key={item.id}
               product={item}
-              selected={selectAll}
-              setSelectAll={setSelectAll}
+              selectedProduct={selected}
+              setSelectedProduct={setSelected}
+              handleChange={handleChange}
             />
           ))}
         </div>
