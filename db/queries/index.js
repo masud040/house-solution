@@ -181,11 +181,22 @@ async function getAllCartItemsById(userEmail, selected) {
     const selectedArr = selected?.split(",");
     if (selectedArr?.length > 0) {
       allCartItems.forEach((item) => {
-        item["selected"] = true;
+        if (selectedArr.includes(item._id.toString())) {
+          item["selected"] = true;
+        }
       });
     }
     return removeMongoId(allCartItems);
   }
+}
+
+async function getDeleveryCost(cartItems) {
+  const shippingCost = 5;
+  const totalshippingCost = cartItems.reduce(
+    (total, item) => total + item.quantity * shippingCost,
+    0
+  );
+  return totalshippingCost;
 }
 
 export {
@@ -193,6 +204,7 @@ export {
   getAllCategory,
   getAllProducts,
   getCartData,
+  getDeleveryCost,
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
