@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getCartData } from "@/db/queries";
+import { getAllWishlistById, getCartData } from "@/db/queries";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
@@ -7,6 +7,8 @@ import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
   const cartItems = await getCartData(session?.user?.email);
+  const wishlistItem = await getAllWishlistById(session?.user?.email);
+
   return (
     <header className="py-4 bg-white shadow-sm">
       <div className="container flex items-center justify-between">
@@ -26,7 +28,7 @@ export default async function Header() {
             </div>
             <div className="text-xs leading-3">Wishlist</div>
             <div className="absolute right-0 flex items-center justify-center w-5 h-5 text-xs text-white rounded-full -top-1 bg-primary">
-              8
+              {wishlistItem?.length > 0 ? wishlistItem.length : 0}
             </div>
           </Link>
           <Link

@@ -4,6 +4,7 @@ import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { UserModel } from "@/models/users-model";
+import { WishlistModel } from "@/models/wishlist-model";
 import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
 
@@ -190,6 +191,28 @@ async function getAllCartItemsById(userEmail, selected) {
   }
 }
 
+// get all wishlist items by id
+async function getAllWishlistById(userEmail) {
+  if (userEmail) {
+    let allWishlistItems;
+    const user = await getUserByEmail(userEmail);
+    const wishListData = await WishlistModel.find({
+      userId: user.id,
+    }).lean();
+    allWishlistItems = await Promise.all(
+      wishListData.map(async (item) => {
+        const product = await ProductModel.findById(item.productId)
+          .select(["name", "thumbnail", "stock", "price", "discount"])
+          .lean();
+        product["userId"] = item.userId;
+        return product;
+      })
+    );
+
+    return removeMongoId(allWishlistItems);
+  }
+}
+
 async function getDeleveryCost(cartItems) {
   const shippingCost = 5;
   const totalshippingCost = cartItems.reduce(
@@ -203,6 +226,7 @@ export {
   getAllCartItemsById,
   getAllCategory,
   getAllProducts,
+  getAllWishlistById,
   getCartData,
   getDeleveryCost,
   getNewArrivalProducts,
