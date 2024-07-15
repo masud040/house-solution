@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import CartWishlistCard from "../card/CartWishlistCard";
+import CatItemCard from "../card/CatItemCard";
 import { NoDataFound } from "../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {
@@ -82,13 +82,12 @@ export default function CartItems({ cartItems }) {
             </div>
           </div>
           {cartItems.map((item) => (
-            <CartWishlistCard
+            <CatItemCard
               key={item.id}
               product={item}
               selectedProduct={selected}
               setSelectedProduct={setSelected}
               handleChange={handleChange}
-              from={"cart"}
             />
           ))}
         </div>

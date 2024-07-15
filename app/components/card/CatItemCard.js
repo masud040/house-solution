@@ -3,12 +3,11 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function CartWishlistCard({
+export default function CatItemCard({
   product,
   selectedProduct,
   setSelectedProduct,
   handleChange,
-  from,
 }) {
   const {
     id,
@@ -35,18 +34,17 @@ export default function CartWishlistCard({
   const discountedPrice = price - (price * discount) / 100;
   return (
     <div className="flex items-center justify-between gap-4 p-4 rounded-sm shadow-custom">
-      {from === "cart" && (
-        <label htmlFor={id}>
-          <input
-            type="checkbox"
-            onChange={(e) => handleChange(e, id)}
-            name={id}
-            className="rounded-sm focus:ring-0"
-            id={id}
-            checked={selectedProduct?.includes(id)}
-          />
-        </label>
-      )}
+      <label htmlFor={id}>
+        <input
+          type="checkbox"
+          onChange={(e) => handleChange(e, id)}
+          name={id}
+          className="rounded-sm focus:ring-0"
+          id={id}
+          checked={selectedProduct?.includes(id)}
+        />
+      </label>
+
       <div className="w-28">
         <Image
           src={thumbnail}
@@ -74,27 +72,26 @@ export default function CartWishlistCard({
           <span className="text-sm text-gray-700 line-through">{price}</span>
           <span className="text-sm text-gray-700">{discount}%</span>
         </div>
-        {from === "cart" && (
-          <div className="flex text-gray-600 border border-gray-300 divide-x divide-gray-300 w-max">
-            <button
-              onClick={decreseQuantity}
-              disabled={quantity === 1}
-              className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
-            >
-              -
-            </button>
-            <div className="flex items-center justify-center text-base w-7 h-7">
-              {quantity}
-            </div>
-            <button
-              onClick={increaseQuantity}
-              disabled={quantity === 5}
-              className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
-            >
-              +
-            </button>
+
+        <div className="flex text-gray-600 border border-gray-300 divide-x divide-gray-300 w-max">
+          <button
+            onClick={decreseQuantity}
+            disabled={quantity === 1}
+            className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+          >
+            -
+          </button>
+          <div className="flex items-center justify-center text-base w-7 h-7">
+            {quantity}
           </div>
-        )}
+          <button
+            onClick={increaseQuantity}
+            disabled={quantity === 5}
+            className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <div
