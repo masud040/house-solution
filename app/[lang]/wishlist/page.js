@@ -1,4 +1,4 @@
-import CartItemCard from "@/app/components/card/CartItemCard";
+import CartItemCard from "@/app/components/card/CartWishlistCard";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";

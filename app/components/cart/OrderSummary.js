@@ -31,9 +31,9 @@ export const OrderSummary = async ({ cartItems }) => {
           Apply
         </button>
       </div>
-      <div className="flex items-center justify-between text-sm font-bold">
+      <div className="flex items-center justify-between font-bold ">
         <p>Total</p>
-        <p>${totalPrice}</p>
+        <p className="text-primary">${totalPrice}</p>
       </div>
 
       <button

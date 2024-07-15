@@ -2,7 +2,8 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { useEffect, useState } from "react";
-import CartItemCard from "../card/CartItemCard";
+import { flushSync } from "react-dom";
+import CartWishlistCard from "../card/CartWishlistCard";
 import { NoDataFound } from "../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {
@@ -43,6 +44,19 @@ export default function CartItems({ cartItems }) {
     }
     router.replace(`${pathName}?${params.toString()}`);
   }, [selected]);
+
+  useEffect(() => {
+    const selectedProduct = searchParams.get("selected")?.split(",");
+    if (selectedProduct?.length > 0) {
+      flushSync(() => {
+        setSelected(selectedProduct);
+      });
+      if (selectedProduct?.length === cartItems?.length) {
+        setSelectAll(true);
+      }
+    }
+  }, []);
+
   return (
     <aside className="col-span-1 md:col-span-3">
       {cartItems?.length > 0 ? (
@@ -68,12 +82,13 @@ export default function CartItems({ cartItems }) {
             </div>
           </div>
           {cartItems.map((item) => (
-            <CartItemCard
+            <CartWishlistCard
               key={item.id}
               product={item}
               selectedProduct={selected}
               setSelectedProduct={setSelected}
               handleChange={handleChange}
+              from={"cart"}
             />
           ))}
         </div>
