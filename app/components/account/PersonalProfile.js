@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 export const PersonalProfile = () => {
   return (
     <div className="px-4 pt-6 pb-8 bg-white rounded shadow">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-medium text-gray-800">Personal Profile</h3>
-        <a href="#" className="text-primary">
+        <Link href="/account/profile/edit" className="text-primary">
           Edit
-        </a>
+        </Link>
       </div>
       <div className="space-y-1">
         <h4 className="font-medium text-gray-700">John Doe</h4>
