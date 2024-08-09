@@ -1,9 +1,12 @@
-import { getTrendingProducts } from "@/db/queries";
+import { auth } from "@/auth";
+import { getTrendingProducts, getUserByEmail } from "@/db/queries";
 import ProductCard from "../card/ProductCard";
 import { NoDataFound } from "../shared/NoDataFound";
 
 const TrendingProduct = async () => {
   const trendingProducts = await getTrendingProducts();
+  const session = await auth();
+  const user = await getUserByEmail(session?.user?.email);
 
   return (
     <div className="container pb-16">
@@ -14,7 +17,7 @@ const TrendingProduct = async () => {
       {trendingProducts?.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
           {trendingProducts?.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} userId={user?.id} />
           ))}
         </div>
       ) : (

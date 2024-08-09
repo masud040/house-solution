@@ -11,7 +11,6 @@ export const FilterByCategory = ({ categories }) => {
   const [query, setQuery] = useState([]);
 
   function handleChange(e) {
-    e.preventDefault();
     const name = e.target.name;
     const checked = e.target.checked;
     if (checked) {
@@ -35,7 +34,7 @@ export const FilterByCategory = ({ categories }) => {
       params.delete("category");
     }
     replace(`${pathname}?${params.toString()}`);
-  }, [query]);
+  }, [query, pathname, replace]);
 
   return (
     <div>
@@ -51,7 +50,7 @@ export const FilterByCategory = ({ categories }) => {
               name={category.name}
               id={category.name}
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              defaultChecked={query.includes(category.name.toLowerCase())}
+              checked={query.includes(category?.name?.toLowerCase())}
             />
             <label
               htmlFor={category.name}

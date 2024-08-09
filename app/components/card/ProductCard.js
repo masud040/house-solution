@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import AddToCartBtn from "../Butttons/AddToCartBtn";
 
-export default function ProductCard({ product }) {
+export default async function ProductCard({ product, userId }) {
   const { id, name, price, discount, thumbnail } = product || {};
 
   const discountPrice = price - (price * discount) / 100;
@@ -56,12 +57,7 @@ export default function ProductCard({ product }) {
         </div>
       </div>
       <div className="flex-1"></div>
-      <button
-        href="#"
-        className="block w-full py-1 text-center text-white transition border rounded-b bg-primary border-primary hover:bg-transparent hover:text-primary"
-      >
-        Add to cart
-      </button>
+      <AddToCartBtn productId={id} userId={userId} />
     </div>
   );
 }

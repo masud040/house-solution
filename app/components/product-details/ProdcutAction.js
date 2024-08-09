@@ -23,7 +23,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
         const response = await addToCart(id, userId, quantity);
-        if (response.status === 200) {
+        if (response?.status === 200) {
           toast.success(response.message, { autoClose: 2000 });
         }
       }

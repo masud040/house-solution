@@ -54,7 +54,7 @@ async function getAllCategory() {
 // find to new arrival products
 async function getNewArrivalProducts() {
   const date = new Date();
-  date.setDate(date.getDate() - 60);
+  date.setDate(date.getDate() - 90);
 
   await connectMongo();
   const products = await ProductModel.find({

@@ -14,8 +14,8 @@ export default async function CartPage({ searchParams: { selected } }) {
   return (
     <section>
       <Breadcrumb name="Cart" />
-      <div class="container  items-start gap-6 pt-4 pb-16">
-        <div className="container grid items-start grid-cols-1 gap-6 pt-4 pb-16 md:grid-cols-4">
+      <div className="container items-start gap-6 pt-4 pb-16">
+        <div className="grid items-start grid-cols-1 gap-6 md:grid-cols-4">
           <CartItems cartItems={cartItems} />
           <OrderSummary
             cartItems={cartItems?.filter((item) => item?.selected)}
