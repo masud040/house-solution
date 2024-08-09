@@ -222,6 +222,28 @@ async function getDeleveryCost(cartItems) {
   return totalshippingCost;
 }
 
+async function updateQuantity(productId, userId, type) {
+  try {
+    const product = await CartModel.findOne({
+      productId: productId,
+      userId: userId,
+    });
+
+    if (type === "increase") {
+      product.quantity += 1;
+    } else {
+      product.quantity -= 1;
+    }
+    product.save();
+    return {
+      status: 200,
+      message: "Quantity updated successfully.",
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   getAllCartItemsById,
   getAllCategory,
@@ -235,5 +257,6 @@ export {
   getTrendingProducts,
   getUserByEmail,
   setItemInCart,
+  updateQuantity,
   updateWishlist,
 };

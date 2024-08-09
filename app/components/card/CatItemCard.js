@@ -1,4 +1,5 @@
 "use client";
+import { updateProductQuantity } from "@/actions";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -20,17 +21,23 @@ export default function CatItemCard({
     discount,
     selected,
   } = product || {};
-  const [quantity, setQuantity] = useState(1);
+
+  const [quantity, setQuantity] = useState(productQuantity);
+  const [loading, setLaoding] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  function decreseQuantity() {
-    if (quantity > 1) setQuantity((q) => q - 1);
+  async function increaseDecreaseQuantity(type) {
+    if (type === "increase") {
+      if (quantity < 5) setQuantity((q) => q + 1);
+      const response = await updateProductQuantity(id, userId, type);
+    } else if (type === "decrease") {
+      if (quantity > 1) setQuantity((q) => q - 1);
+      const response = await updateProductQuantity(id, userId, type);
+    }
   }
-  function increaseQuantity() {
-    if (quantity < 5) setQuantity((q) => q + 1);
-  }
+
   const discountedPrice = price - (price * discount) / 100;
   return (
     <div className="flex items-center justify-between gap-4 p-4 rounded-sm shadow-custom">
@@ -75,7 +82,7 @@ export default function CatItemCard({
 
         <div className="flex text-gray-600 border border-gray-300 divide-x divide-gray-300 w-max">
           <button
-            onClick={decreseQuantity}
+            onClick={() => increaseDecreaseQuantity("decrease")}
             disabled={quantity === 1}
             className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
           >
@@ -85,7 +92,7 @@ export default function CatItemCard({
             {quantity}
           </div>
           <button
-            onClick={increaseQuantity}
+            onClick={() => increaseDecreaseQuantity("increase")}
             disabled={quantity === 5}
             className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
           >
