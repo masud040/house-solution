@@ -1,5 +1,6 @@
 "use client";
 import { updateProductQuantity } from "@/actions";
+import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -23,18 +24,33 @@ export default function CatItemCard({
   } = product || {};
 
   const [quantity, setQuantity] = useState(productQuantity);
-  const [loading, setLaoding] = useState(false);
+  const { loading, setLoading } = useCartData();
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   async function increaseDecreaseQuantity(type) {
-    if (type === "increase") {
-      if (quantity < 5) setQuantity((q) => q + 1);
-      const response = await updateProductQuantity(id, userId, type);
-    } else if (type === "decrease") {
-      if (quantity > 1) setQuantity((q) => q - 1);
-      const response = await updateProductQuantity(id, userId, type);
+    try {
+      setLoading(true);
+      if (type === "increase") {
+        if (quantity < 5) setQuantity((q) => q + 1);
+        const response = await updateProductQuantity(id, userId, type);
+        if (response?.status === 200) {
+          setLoading(false);
+        }
+      } else if (type === "decrease") {
+        if (quantity > 1) setQuantity((q) => q - 1);
+        const response = await updateProductQuantity(id, userId, type);
+        if (response?.status === 200) {
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   }
 
