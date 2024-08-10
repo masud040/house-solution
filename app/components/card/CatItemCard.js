@@ -126,7 +126,7 @@ export default function CatItemCard({
         <div
           onClick={deleteCartItem}
           title="Remove from cart"
-          className="text-gray-600 cursor-pointer hover:text-primary"
+          className="text-gray-600 transition-all duration-300 cursor-pointer hover:text-primary"
         >
           <i className="fa-solid fa-trash"></i>
         </div>
