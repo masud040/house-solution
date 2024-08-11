@@ -244,37 +244,20 @@ async function updateQuantity(productId, userId, type) {
   }
 }
 
-async function deleteAddedItem(productId, userId, from) {
+async function deleteItems(productId, userId, from) {
   try {
     if (from === "cart") {
-      const respose = await CartModel.deleteOne({
-        productId: productId,
-        userId: userId,
-      });
-      return {
-        status: 200,
-        message: "Item deleted successfully from cart.",
-      };
-    } else {
-      return {
-        status: 404,
-        message: "Item not found in cart.",
-      };
+      const response = await deleteCartItem(productId, userId);
+      console.log(response);
+      return response;
     }
     if (from === "wishlist") {
-      const respose = await WishlistModel.deleteOne({
-        productId: productId,
-        userId: userId,
-      });
-      return {
-        status: 200,
-        message: "Item deleted successfully from wishlist.",
-      };
-    } else {
-      return {
-        status: 404,
-        message: "Item not found in wishlist.",
-      };
+      const response = await deleteWishListItem(productId, userId);
+      return response;
+    }
+    if (from === "all") {
+      const response = await deleteAllCartItems(userId);
+      return response;
     }
   } catch (error) {
     console.log(error);
@@ -282,8 +265,44 @@ async function deleteAddedItem(productId, userId, from) {
   }
 }
 
+async function deleteAllCartItems(userId) {
+  try {
+    const response = await CartModel.deleteMany({
+      userId: userId,
+    });
+    return {
+      status: 200,
+      message: "All cart items deleted successfully.",
+    };
+  } catch (error) {
+    console.log(error);
+    throw new Error({ status: 500, message: "Failed to delete item." });
+  }
+}
+
+async function deleteWishListItem(productId, userId) {
+  const respose = await WishlistModel.deleteOne({
+    productId: productId,
+    userId: userId,
+  });
+  return {
+    status: 200,
+    message: "Item deleted successfully from wishlist.",
+  };
+}
+async function deleteCartItem(productId, userId) {
+  const respose = await CartModel.deleteOne({
+    productId: productId,
+    userId: userId,
+  });
+  return {
+    status: 200,
+    message: "Item deleted successfully from cart.",
+  };
+}
+
 export {
-  deleteAddedItem,
+  deleteItems,
   getAllCartItemsById,
   getAllCategory,
   getAllProducts,

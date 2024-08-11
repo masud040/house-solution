@@ -7,11 +7,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import CatItemCard from "../card/CatItemCard";
+import { DeleteConfirmation } from "../modal/DeleteConfirmation";
 import { NoDataFound } from "../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {
   const [selected, setSelected] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const pathName = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -61,7 +63,9 @@ export default function CartItems({ cartItems }) {
       }
     }
   }, []);
-
+  function handleDelete() {
+    setIsOpen(true);
+  }
   return (
     <>
       <aside className="col-span-1 md:col-span-3">
@@ -80,6 +84,7 @@ export default function CartItems({ cartItems }) {
                 <span>Select All ({cartItems.length} Items)</span>
               </label>
               <div
+                onClick={handleDelete}
                 title="Remove all products"
                 className="flex items-center gap-2 text-gray-500 cursor-pointer hover:text-primary"
               >
@@ -107,6 +112,7 @@ export default function CartItems({ cartItems }) {
           <Image src={LoadingImage} width={40} height={40} alt="loading..." />
         </div>
       )}
+      <DeleteConfirmation isOpen={isOpen} setIsOpen={setIsOpen} from="all" />
     </>
   );
 }

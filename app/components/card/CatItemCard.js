@@ -4,7 +4,7 @@ import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { CartOrWishItemDeleteModal } from "../modal/CartOrWishItemDeleteModal";
+import { DeleteConfirmation } from "../modal/DeleteConfirmation";
 
 export default function CatItemCard({
   product,
@@ -55,7 +55,7 @@ export default function CatItemCard({
       setLoading(false);
     }
   }
-  async function deleteCartItem() {
+  function handleDelete() {
     setIsOpen(true);
   }
 
@@ -124,18 +124,18 @@ export default function CatItemCard({
         </div>
 
         <div
-          onClick={deleteCartItem}
+          onClick={handleDelete}
           title="Remove from cart"
           className="text-gray-600 transition-all duration-300 cursor-pointer hover:text-primary"
         >
           <i className="fa-solid fa-trash"></i>
         </div>
       </div>
-      <CartOrWishItemDeleteModal
+      <DeleteConfirmation
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         productId={id}
-        userId={userId}
+        from="cart"
       />
     </>
   );

@@ -1,7 +1,8 @@
 "use server";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import {
-  deleteAddedItem,
+  deleteItems,
+  getUserByEmail,
   setItemInCart,
   updateQuantity,
   updateWishlist,
@@ -60,15 +61,19 @@ export async function updateProductQuantity(productId, userId, type) {
   }
 }
 
-export async function deleteItem(productId, userId, from) {
+export async function performDelete(productId, from) {
   try {
-    const response = await deleteAddedItem(productId, userId, from);
+    const session = await auth();
+    const user = await getUserByEmail(session?.user?.email);
+    const response = await deleteItems(productId, user?.id, from);
     if (response.status === 200) {
-      if (from === "cart") {
+      if (from === "cart" || from === "all") {
         revalidatePath("/cart");
-      } else {
+      }
+      if (from === "wishlist") {
         revalidatePath("/wishlist");
       }
+
       return response;
     }
   } catch (error) {
