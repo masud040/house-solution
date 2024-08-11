@@ -20,12 +20,12 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   async function handleAddToCart() {
     try {
       if (!userId) {
-        toast.warning("Please Login.", { autoClose: 2000 });
+        toast.warning("Please Login.", { autoClose: 1500 });
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
         const response = await addToCart(id, userId, quantity);
         if (response?.status === 200) {
-          toast.success(response.message, { autoClose: 2000 });
+          toast.success(response.message, { autoClose: 1500 });
         }
       }
     } catch (error) {
@@ -39,7 +39,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
         await performAddWishlist(id, userId);
-        toast.success("Update wishlist", { autoClose: 2000 });
+        toast.success("Update wishlist", { autoClose: 1500 });
       }
     } catch (error) {
       console.log(error);
@@ -72,7 +72,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
       </div>
 
       <div className="flex gap-3 py-4 mt-2 text-sm border-b border-gray-200">
-        <button className="flex items-center gap-2 px-8 py-2 font-medium text-white text-gray-600 uppercase transition border border-gray-300 rounded bg-secondary/70 hover:bg-white hover:text-primary">
+        <button className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border border-gray-300 rounded bg-secondary/70 hover:bg-white hover:text-primary">
           Buy Now
         </button>
         <button
@@ -91,7 +91,8 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
         <button
           onClick={handleAddToWishlist}
           className={`flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500 ${
-            wishlist?.includes(userId) && "bg-primary text-white"
+            wishlist?.includes(userId) &&
+            "bg-gray-600 text-white hover:text-gray-200"
           }`}
         >
           <i className="fa-regular fa-heart"></i>

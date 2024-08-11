@@ -72,25 +72,32 @@ async function findRatingProducts(id) {
 
 // get trending products
 async function getTrendingProducts() {
-  await connectMongo();
-  const allProducts = await ProductModel.find().lean();
-  return removeMongoId(allProducts?.slice(0, 8));
+  try {
+    await connectMongo();
+    const allProducts = await ProductModel.find().lean();
+    return removeMongoId(allProducts?.slice(0, 8));
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 // get products by category
 async function getProductsCountByCategory() {
-  await connectMongo();
-  const allCategory = await getAllCategory();
-  const productsCountByCategory = await Promise.all(
-    allCategory.map(async (category) => {
-      const regex = new RegExp(category.value, "i");
-      const products = await ProductModel.find({
-        category: { $regex: regex },
-      }).lean();
+  try {
+    const allCategory = await getAllCategory();
+    const productsCountByCategory = await Promise.all(
+      allCategory.map(async (category) => {
+        const regex = new RegExp(category.value, "i");
+        const products = await ProductModel.find({
+          category: { $regex: regex },
+        }).lean();
 
-      return { name: category.value, products: products.length };
-    })
-  );
-  return productsCountByCategory;
+        return { name: category.value, products: products.length };
+      })
+    );
+    return productsCountByCategory;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 // get user by email
@@ -130,8 +137,8 @@ async function setItemInCart(cartData) {
 // add to wishlist if already added delet from wishlist
 async function updateWishlist(productId, userId) {
   try {
-    await connectMongo();
     const product = await ProductModel.findById(productId);
+
     if (product) {
       const foundUser = product.wishlist?.find(
         (id) => id.toString() === userId
@@ -143,6 +150,10 @@ async function updateWishlist(productId, userId) {
       }
     }
     product.save();
+    return {
+      status: 200,
+      message: "Update wishlist",
+    };
   } catch (error) {
     throw new Error(error.message);
   }
@@ -151,6 +162,7 @@ async function updateWishlist(productId, userId) {
 // get all cart items
 async function getCartData(userEmail) {
   try {
+    await connectMongo();
     if (userEmail) {
       const user = await getUserByEmail(userEmail);
       const response = await CartModel.find({
@@ -165,34 +177,39 @@ async function getCartData(userEmail) {
 
 // get all cart items by id
 async function getAllCartItemsById(userEmail, selected) {
-  if (userEmail) {
-    let allCartItems;
-    const cartData = await getCartData(userEmail);
-    allCartItems = await Promise.all(
-      cartData.map(async (item) => {
-        const product = await ProductModel.findById(item.productId)
-          .select(["name", "thumbnail", "stock", "price", "discount"])
-          .lean();
-        product["quantity"] = item.quantity;
-        product["userId"] = item.userId;
-        return product;
-      })
-    );
-    const selectedArr = selected?.split(",");
-    if (selectedArr?.length > 0) {
-      allCartItems.forEach((item) => {
-        if (selectedArr.includes(item._id.toString())) {
-          item["selected"] = true;
-        }
-      });
+  try {
+    if (userEmail) {
+      let allCartItems;
+      const cartData = await getCartData(userEmail);
+      allCartItems = await Promise.all(
+        cartData.map(async (item) => {
+          const product = await ProductModel.findById(item.productId)
+            .select(["name", "thumbnail", "stock", "price", "discount"])
+            .lean();
+          product["quantity"] = item.quantity;
+          product["userId"] = item.userId;
+          return product;
+        })
+      );
+      const selectedArr = selected?.split(",");
+      if (selectedArr?.length > 0) {
+        allCartItems.forEach((item) => {
+          if (selectedArr.includes(item._id.toString())) {
+            item["selected"] = true;
+          }
+        });
+      }
+      return removeMongoId(allCartItems);
     }
-    return removeMongoId(allCartItems);
+  } catch (error) {
+    throw new Error(error);
   }
 }
 
 // get all wishlist items by id
 async function getAllWishlistByEmail(userEmail) {
   try {
+    await connectMongo();
     if (userEmail) {
       const user = await getUserByEmail(userEmail);
       const response = await ProductModel.find({
@@ -245,6 +262,10 @@ async function deleteItems(productId, userId, from) {
   try {
     if (from === "cart") {
       const response = await deleteCartItem(productId, userId);
+      return response;
+    }
+    if (from === "wishlist") {
+      const response = await updateWishlist(productId, userId);
       return response;
     }
     if (from === "all") {

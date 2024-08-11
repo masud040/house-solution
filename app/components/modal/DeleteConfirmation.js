@@ -1,6 +1,7 @@
 import { performDelete } from "@/actions";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { toast } from "react-toastify";
 
 export const DeleteConfirmation = ({
   isOpen,
@@ -14,6 +15,9 @@ export const DeleteConfirmation = ({
   async function handleDelete() {
     try {
       const response = await performDelete(productId, from);
+      if (response?.status === 200) {
+        toast.success(response.message, { autoClose: 1500 });
+      }
     } catch (error) {
       console.log(error);
     } finally {

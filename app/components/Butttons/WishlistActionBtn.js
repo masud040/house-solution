@@ -3,7 +3,6 @@ import { useState } from "react";
 import { DeleteConfirmation } from "../modal/DeleteConfirmation";
 
 const WishlistActionBtn = ({ productId }) => {
-  console.log(productId);
   const [isOpen, setIsOpen] = useState(false);
   function handleDelete() {
     setIsOpen(true);

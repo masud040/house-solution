@@ -67,9 +67,14 @@ export async function performDelete(productId, from) {
     const user = await getUserByEmail(session?.user?.email);
     const response = await deleteItems(productId, user?.id, from);
     if (response.status === 200) {
-      revalidatePath("/cart");
-      return response;
+      if (from === "cart" || from === "all") {
+        revalidatePath("/cart");
+      }
+      if (from === "wishlist") {
+        revalidatePath("/wishlist");
+      }
     }
+    return response;
   } catch (error) {
     console.log(error);
   }

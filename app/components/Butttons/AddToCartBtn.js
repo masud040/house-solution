@@ -12,12 +12,12 @@ export default function AddToCartBtn({ productId, userId }) {
       e.preventDefault();
       e.stopPropagation();
       if (!userId) {
-        toast.warning("Please login.", { autoClose: 2000 });
+        toast.warning("Please login.", { autoClose: 1500 });
         router.push(`/en/login?product_id=${productId}&quantity=${1}`);
       } else {
         const response = await addToCart(productId, userId, 1);
         if (response?.status === 200) {
-          toast.success(response.message, { autoClose: 2000 });
+          toast.success(response.message, { autoClose: 1500 });
         }
       }
     } catch (error) {
