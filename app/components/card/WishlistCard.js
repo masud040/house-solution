@@ -1,4 +1,5 @@
 import Image from "next/image";
+import WishlistActionBtn from "../Butttons/WishlistActionBtn";
 
 export const WishlistCard = ({ product }) => {
   const {
@@ -44,17 +45,7 @@ export const WishlistCard = ({ product }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-8">
-        <div title="Move on cart" className="text-gray-600 cursor-pointer">
-          <i className="text-xl fa fa-cart-plus"></i>
-        </div>
-        <div
-          title="Remove from cart"
-          className="text-gray-600 cursor-pointer hover:text-primary"
-        >
-          <i className="ext-xl fa-solid fa-trash"></i>
-        </div>
-      </div>
+      <WishlistActionBtn productId={id} />
     </div>
   );
 };

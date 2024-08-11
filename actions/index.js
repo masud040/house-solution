@@ -40,7 +40,7 @@ export async function addToCart(productId, userId, quantity) {
 }
 
 // add to wishlist if already added to wishlist remove from wishlist
-export async function toggleWishList(productId, userId) {
+export async function performAddWishlist(productId, userId) {
   try {
     await updateWishlist(productId, userId);
     revalidatePath("/");

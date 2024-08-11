@@ -213,15 +213,6 @@ async function getAllWishlistById(userEmail) {
   }
 }
 
-async function getDeleveryCost(cartItems) {
-  const shippingCost = 5;
-  const totalshippingCost = cartItems.reduce(
-    (total, item) => total + item.quantity * shippingCost,
-    0
-  );
-  return totalshippingCost;
-}
-
 async function updateQuantity(productId, userId, type) {
   try {
     const product = await CartModel.findOne({
@@ -308,7 +299,6 @@ export {
   getAllProducts,
   getAllWishlistById,
   getCartData,
-  getDeleveryCost,
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,

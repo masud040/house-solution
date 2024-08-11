@@ -1,4 +1,4 @@
-import { getDeleveryCost } from "@/db/queries";
+import { getDeleveryCost } from "@/app/utils";
 
 export const OrderSummary = async ({ cartItems }) => {
   const subTotal = Math.floor(

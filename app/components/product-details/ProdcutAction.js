@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart, toggleWishList } from "@/actions";
+import { addToCart, performAddWishlist } from "@/actions";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   const [quantity, setQuantity] = useState(1);
+
   const router = useRouter();
   function decreseQuantity() {
     if (quantity > 1) setQuantity((q) => q - 1);
@@ -32,12 +33,12 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
     }
   }
   // handle wishlist
-  async function handleToggleWishlist() {
+  async function handleAddToWishlist() {
     try {
       if (!userId) {
         router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
       } else {
-        await toggleWishList(id, userId);
+        await performAddWishlist(id, userId);
         toast.success("Update wishlist", { autoClose: 2000 });
       }
     } catch (error) {
@@ -85,13 +86,15 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
 
       <div className="flex gap-3 mt-4">
         <button className="flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500">
-          <i className="fa-brands fa-facebook-f"></i>
+          <i class="fa-solid fa-share"></i>
         </button>
-        <button className="flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500">
-          <i className="fa-brands fa-twitter"></i>
-        </button>
-        <button className="flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500">
-          <i className="fa-brands fa-instagram"></i>
+        <button
+          onClick={handleAddToWishlist}
+          className={`flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500 ${
+            wishlist?.includes(userId) && "bg-primary text-white"
+          }`}
+        >
+          <i className="fa-regular fa-heart"></i>
         </button>
       </div>
     </>
