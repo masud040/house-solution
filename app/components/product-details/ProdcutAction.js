@@ -86,7 +86,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
 
       <div className="flex gap-3 mt-4">
         <button className="flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500">
-          <i class="fa-solid fa-share"></i>
+          <i className="fa-solid fa-share"></i>
         </button>
         <button
           onClick={handleAddToWishlist}

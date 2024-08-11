@@ -4,7 +4,6 @@ import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { UserModel } from "@/models/users-model";
-import { WishlistModel } from "@/models/wishlist-model";
 import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
 
@@ -192,24 +191,31 @@ async function getAllCartItemsById(userEmail, selected) {
 }
 
 // get all wishlist items by id
-async function getAllWishlistById(userEmail) {
-  if (userEmail) {
-    let allWishlistItems;
-    const user = await getUserByEmail(userEmail);
-    const wishListData = await WishlistModel.find({
-      userId: user.id,
-    }).lean();
-    allWishlistItems = await Promise.all(
-      wishListData.map(async (item) => {
-        const product = await ProductModel.findById(item.productId)
-          .select(["name", "thumbnail", "stock", "price", "discount"])
-          .lean();
-        product["userId"] = item.userId;
-        return product;
-      })
-    );
+async function getAllWishlistByEmail(userEmail) {
+  try {
+    if (userEmail) {
+      const user = await getUserByEmail(userEmail);
+      const response = await ProductModel.find({
+        wishlist: new mongoose.Types.ObjectId(user.id),
+      }).lean();
 
-    return removeMongoId(allWishlistItems);
+      return removeMongoId(response);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getWishlistCount(userEmail) {
+  try {
+    const user = await getUserByEmail(userEmail);
+
+    const response = await ProductModel.find({
+      wishlist: new mongoose.Types.ObjectId(user.id),
+    }).countDocuments();
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -239,11 +245,6 @@ async function deleteItems(productId, userId, from) {
   try {
     if (from === "cart") {
       const response = await deleteCartItem(productId, userId);
-      console.log(response);
-      return response;
-    }
-    if (from === "wishlist") {
-      const response = await deleteWishListItem(productId, userId);
       return response;
     }
     if (from === "all") {
@@ -271,16 +272,6 @@ async function deleteAllCartItems(userId) {
   }
 }
 
-async function deleteWishListItem(productId, userId) {
-  const respose = await WishlistModel.deleteOne({
-    productId: productId,
-    userId: userId,
-  });
-  return {
-    status: 200,
-    message: "Item deleted successfully from wishlist.",
-  };
-}
 async function deleteCartItem(productId, userId) {
   const respose = await CartModel.deleteOne({
     productId: productId,
@@ -297,13 +288,14 @@ export {
   getAllCartItemsById,
   getAllCategory,
   getAllProducts,
-  getAllWishlistById,
+  getAllWishlistByEmail,
   getCartData,
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
   getTrendingProducts,
   getUserByEmail,
+  getWishlistCount,
   setItemInCart,
   updateQuantity,
   updateWishlist,

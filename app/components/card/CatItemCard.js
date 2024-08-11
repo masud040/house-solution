@@ -79,7 +79,7 @@ export default function CatItemCard({
             src={thumbnail}
             width={200}
             height={200}
-            alt="product 6"
+            alt={name}
             className="w-full"
           />
         </div>

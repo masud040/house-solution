@@ -2,7 +2,7 @@ import { WishlistCard } from "@/app/components/card/WishlistCard";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { NoDataFound } from "@/app/components/shared/NoDataFound";
 import { auth } from "@/auth";
-import { getAllWishlistById } from "@/db/queries";
+import { getAllWishlistByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";
 
 export default async function WishlistPage() {
@@ -11,7 +11,7 @@ export default async function WishlistPage() {
     return redirect("/login");
   }
 
-  const allCartItems = await getAllWishlistById(session?.user?.email);
+  const allCartItems = await getAllWishlistByEmail(session?.user?.email);
   return (
     <section>
       <Breadcrumb name="Wishlist" />
