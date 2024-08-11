@@ -244,7 +244,46 @@ async function updateQuantity(productId, userId, type) {
   }
 }
 
+async function deleteAddedItem(productId, userId, from) {
+  try {
+    if (from === "cart") {
+      const respose = await CartModel.deleteOne({
+        productId: productId,
+        userId: userId,
+      });
+      return {
+        status: 200,
+        message: "Item deleted successfully from cart.",
+      };
+    } else {
+      return {
+        status: 404,
+        message: "Item not found in cart.",
+      };
+    }
+    if (from === "wishlist") {
+      const respose = await WishlistModel.deleteOne({
+        productId: productId,
+        userId: userId,
+      });
+      return {
+        status: 200,
+        message: "Item deleted successfully from wishlist.",
+      };
+    } else {
+      return {
+        status: 404,
+        message: "Item not found in wishlist.",
+      };
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error({ status: 500, message: "Failed to delete item." });
+  }
+}
+
 export {
+  deleteAddedItem,
   getAllCartItemsById,
   getAllCategory,
   getAllProducts,

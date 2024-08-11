@@ -131,7 +131,12 @@ export default function CatItemCard({
           <i className="fa-solid fa-trash"></i>
         </div>
       </div>
-      <CartOrWishItemDeleteModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <CartOrWishItemDeleteModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        productId={id}
+        userId={userId}
+      />
     </>
   );
 }

@@ -1,6 +1,11 @@
 "use server";
 import { signIn } from "@/auth";
-import { setItemInCart, updateQuantity, updateWishlist } from "@/db/queries";
+import {
+  deleteAddedItem,
+  setItemInCart,
+  updateQuantity,
+  updateWishlist,
+} from "@/db/queries";
 import { revalidatePath } from "next/cache";
 
 export async function loginWithCredentials(formData) {
@@ -48,6 +53,22 @@ export async function updateProductQuantity(productId, userId, type) {
     const response = await updateQuantity(productId, userId, type);
     if (response?.status === 200) {
       revalidatePath("/cart");
+      return response;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteItem(productId, userId, from) {
+  try {
+    const response = await deleteAddedItem(productId, userId, from);
+    if (response.status === 200) {
+      if (from === "cart") {
+        revalidatePath("/cart");
+      } else {
+        revalidatePath("/wishlist");
+      }
       return response;
     }
   } catch (error) {

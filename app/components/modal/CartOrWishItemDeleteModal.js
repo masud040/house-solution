@@ -1,9 +1,21 @@
+import { deleteItem } from "@/actions";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-export const CartOrWishItemDeleteModal = ({ isOpen, setIsOpen }) => {
+export const CartOrWishItemDeleteModal = ({
+  isOpen,
+  setIsOpen,
+  productId,
+  userId,
+}) => {
   function closeModal() {
     setIsOpen(false);
+  }
+  async function deleteCartOrWishlistItem() {
+    try {
+      const response = await deleteItem(productId, userId, "cart");
+      console.log(response);
+    } catch {}
   }
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -47,6 +59,7 @@ export const CartOrWishItemDeleteModal = ({ isOpen, setIsOpen }) => {
                   </button>
                   <button
                     type="button"
+                    onClick={deleteCartOrWishlistItem}
                     className="px-4 py-2 text-sm font-medium text-blue-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   >
                     Remove
