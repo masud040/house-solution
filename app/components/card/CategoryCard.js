@@ -22,7 +22,7 @@ export default function CategoryCard({ categoryData }) {
       />
       <a
         href="#"
-        className="absolute inset-0 flex items-center justify-center text-xl font-medium text-white transition bg-black bg-opacity-40 font-roboto group-hover:bg-opacity-60"
+        className="absolute inset-0 flex items-center justify-center font-medium text-white transition bg-black text:sm md:text-xl bg-opacity-40 font-roboto group-hover:bg-opacity-60"
       >
         {categoryData?.name}
       </a>

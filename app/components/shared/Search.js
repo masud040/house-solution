@@ -12,7 +12,9 @@ export const Search = () => {
   const params = new URLSearchParams(searchParams);
   function handleSearch(e) {
     const searchValue = e.target.value;
-    setSearchTerm(searchValue);
+    if (!parseInt(searchValue)) {
+      setSearchTerm(searchValue);
+    }
   }
   const debounce = useDebounce((e) => {
     handleSearch(e);
@@ -34,22 +36,16 @@ export const Search = () => {
     }
   }, []);
   return (
-    <div className="relative flex w-full max-w-xl">
-      <span className="absolute text-lg text-gray-400 left-4 top-3">
-        <i className="fa-solid fa-magnifying-glass"></i>
-      </span>
+    <div className="max-w-xl ">
       <input
         onChange={(e) => debounce(e)}
-        type="text"
+        type="search"
         name="search"
         id="search"
         defaultValue={search_term}
-        className="w-full py-3 pl-12 pr-3 border border-r-0 border-primary rounded-l-md focus:outline-none"
+        className="w-full py-1.5 px-5 text-gray-600 border rounded-2xl border-gray-500 focus:outline-none"
         placeholder="search"
       />
-      <button className="px-8 text-white transition border bg-primary border-primary rounded-r-md hover:bg-transparent hover:text-primary">
-        Search
-      </button>
     </div>
   );
 };

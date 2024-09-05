@@ -5,44 +5,47 @@ import Image from "next/image";
 
 export default function Features() {
   return (
-    <div className="container py-16">
-      <div className="grid justify-center w-10/12 grid-cols-1 gap-6 mx-auto md:grid-cols-3">
-        <div className="flex items-center justify-center gap-5 px-3 py-6 border rounded-sm border-primary">
-          <Image
-            src={DeliveryVanImage}
-            alt="Delivery"
-            className="object-contain w-12 h-12"
-            width={20}
-            height={20}
-          />
+    <div className="my-14">
+      <div className="w-10/12 grid-cols-1 gap-6 mx-auto grid-center md:grid-cols-3">
+        <div className="features-card">
+          <div className="relative size-12">
+            <Image
+              src={DeliveryVanImage}
+              alt="Free Delivery"
+              className="object-contain"
+              fill
+            />
+          </div>
           <div>
-            <h4 className="text-lg font-medium capitalize">Free Shipping</h4>
+            <h4 className="capitalize h4-medium">Free Shipping</h4>
             <p className="text-sm text-gray-500">Order over $200</p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-5 px-3 py-6 border rounded-sm border-primary">
-          <Image
-            src={MoneyReturnImage}
-            alt="Delivery"
-            className="object-contain w-12 h-12"
-            width={20}
-            height={20}
-          />
+        <div className="features-card">
+          <div className="relative size-12">
+            <Image
+              src={MoneyReturnImage}
+              alt="Money Return"
+              className="object-contain"
+              fill
+            />
+          </div>
           <div>
-            <h4 className="text-lg font-medium capitalize">Money Rturns</h4>
+            <h4 className="capitalize h4-medium">Money Returns</h4>
             <p className="text-sm text-gray-500">30 days money returs</p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-5 px-3 py-6 border rounded-sm border-primary">
-          <Image
-            src={ServiceImage}
-            alt="Delivery"
-            className="object-contain w-12 h-12"
-            height={20}
-            width={20}
-          />
+        <div className="features-card">
+          <div className="relative size-12">
+            <Image
+              src={ServiceImage}
+              alt="Support"
+              className="object-contain"
+              fill
+            />
+          </div>
           <div>
-            <h4 className="text-lg font-medium capitalize">24/7 Support</h4>
+            <h4 className="capitalize h4-medium">24/7 Support</h4>
             <p className="text-sm text-gray-500">Customer support</p>
           </div>
         </div>

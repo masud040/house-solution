@@ -9,6 +9,7 @@ import Sofa from "@/public/assets/images/icons/sofa.svg";
 import Terrage from "@/public/assets/images/icons/terrace.svg";
 import Link from "next/link";
 import SignInSignUp from "../auth/SignInSignUp";
+import { ActiveLink } from "./ActiveLink";
 
 export default async function Navbar() {
   const session = await auth();
@@ -88,30 +89,10 @@ export default async function Navbar() {
 
         <div className="flex items-center justify-between flex-grow py-5 md:pl-12">
           <div className="flex items-center space-x-6 capitalize">
-            <Link
-              href="/"
-              className="text-gray-200 transition hover:text-white"
-            >
-              Home
-            </Link>
-            <Link
-              href="/shop"
-              className="text-gray-200 transition hover:text-white"
-            >
-              Shop
-            </Link>
-            <Link
-              href="/about-us"
-              className="text-gray-200 transition hover:text-white"
-            >
-              About us
-            </Link>
-            <Link
-              href="/contact-us"
-              className="text-gray-200 transition hover:text-white"
-            >
-              Contact us
-            </Link>
+            <ActiveLink name="Home" path="/en" />
+            <ActiveLink name="Shop" path="/shop" />
+            <ActiveLink name="About us" path="/about-us" />
+            <ActiveLink name="Contact us" path="/contact-us" />
           </div>
           <SignInSignUp email={session?.user?.email} />
         </div>

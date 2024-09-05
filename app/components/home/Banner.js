@@ -2,11 +2,11 @@ import BannerImage from "@/public/assets/images/banner-bg.jpg";
 export default function Banner() {
   return (
     <div
-      className="bg-center bg-no-repeat bg-cover py-36"
+      className="bg-center bg-no-repeat bg-cover py-9"
       style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
-      <div className="container">
-        <h1 className="mb-4 text-6xl font-medium text-gray-800 capitalize">
+      <div className="container space-y-8">
+        <h1 className="capitalize h2-semibold-lg-h1-semibold">
           best collection for <br />
           home decoration
         </h1>
@@ -17,11 +17,8 @@ export default function Banner() {
           accusantium perspiciatis, sapiente magni eos dolorum ex quos dolores
           odio
         </p>
-        <div className="mt-12">
-          <a
-            href="#"
-            className="px-8 py-3 font-medium text-white border rounded-md bg-primary border-primary hover:bg-transparent hover:text-primary"
-          >
+        <div>
+          <a href="#" className="btn-primary">
             Shop Now
           </a>
         </div>

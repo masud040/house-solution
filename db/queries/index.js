@@ -53,13 +53,14 @@ async function getAllCategory() {
 // find to new arrival products
 async function getNewArrivalProducts() {
   const date = new Date();
-  date.setDate(date.getDate() - 90);
+  date.setDate(date.getDate() - 200);
 
   await connectMongo();
   const products = await ProductModel.find({
     createdAt: { $gte: date.getTime() },
   })
     .select(["name", "price", "thumbnail", "discount"])
+    .limit(8)
     .lean();
 
   return removeMongoId(products);
@@ -114,7 +115,10 @@ async function setItemInCart(cartData) {
   try {
     await connectMongo();
     if (cartData) {
-      const found = await CartModel.findOne({ productId: cartData.productId });
+      const found = await CartModel.findOne({
+        productId: cartData.productId,
+        userId: cartData.userId,
+      });
       if (!found) {
         await CartModel.create(cartData);
         return {
@@ -294,14 +298,50 @@ async function deleteAllCartItems(userId) {
 }
 
 async function deleteCartItem(productId, userId) {
-  const respose = await CartModel.deleteOne({
-    productId: productId,
-    userId: userId,
-  });
-  return {
-    status: 200,
-    message: "Item deleted successfully from cart.",
-  };
+  try {
+    const respose = await CartModel.deleteOne({
+      productId: productId,
+      userId: userId,
+    });
+    return {
+      status: 200,
+      message: "Item deleted successfully from cart.",
+    };
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+async function moveToCart(productId, userId) {
+  console.log(userId);
+  try {
+    const product = await ProductModel.findById(productId);
+
+    product.wishlist.pull(new mongoose.Types.ObjectId(userId));
+    product.save();
+    const foundItem = await CartModel.findOne({
+      productId: productId,
+      userId: userId,
+    });
+    if (!foundItem) {
+      await CartModel.create({
+        userId,
+        productId: productId,
+        quantity: 1,
+      });
+      return {
+        status: 200,
+        message: "Moved to cart successfully.",
+      };
+    } else {
+      return {
+        status: 200,
+        message: "This Item is already added to cart.",
+      };
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 export {
@@ -317,6 +357,7 @@ export {
   getTrendingProducts,
   getUserByEmail,
   getWishlistCount,
+  moveToCart,
   setItemInCart,
   updateQuantity,
   updateWishlist,

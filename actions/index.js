@@ -3,6 +3,7 @@ import { auth, signIn } from "@/auth";
 import {
   deleteItems,
   getUserByEmail,
+  moveToCart,
   setItemInCart,
   updateQuantity,
   updateWishlist,
@@ -73,6 +74,20 @@ export async function performDelete(productId, from) {
       if (from === "wishlist") {
         revalidatePath("/wishlist");
       }
+    }
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function handleMovingToCart(productId) {
+  try {
+    const session = await auth();
+    const user = await getUserByEmail(session?.user?.email);
+    const response = await moveToCart(productId, user?.id);
+    if (response.status === 200) {
+      revalidatePath("/");
     }
     return response;
   } catch (error) {

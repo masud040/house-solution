@@ -12,11 +12,13 @@ export default async function Home({ params: { lang } }) {
   return (
     <>
       <Banner />
-      <Features />
-      <Categories />
-      <NewArrival />
-      <AddSection />
-      <TrendingProduct />
+      <div className="page-container">
+        <Features />
+        <Categories />
+        <NewArrival />
+        <AddSection />
+        <TrendingProduct />
+      </div>
     </>
   );
 }

@@ -3,16 +3,29 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply font-poppins;
+  .dark {
+    @apply bg-background-dark text-tertiary;
   }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-secondary font-roboto;
+  .light {
+    @apply bg-background-light text-secondary;
+  }
+
+  * {
+    @apply p-0 m-0 scroll-smooth;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 }
 
@@ -27,4 +40,124 @@
   .input-box {
     @apply block w-full px-4 py-3 text-sm text-gray-600 placeholder-gray-400 border border-gray-300 rounded focus:border-primary focus:ring-0;
   }
+  .nav-link {
+    @apply text-[12px] uppercase transition-colors duration-300 hover:text-primary;
+  }
+
+  .page-container {
+    @apply mx-auto max-w-7xl lg:container;
+  }
+}
+@layer utilities {
+  /* layout related styles like flex and grid */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between;
+  }
+
+  .flex-end {
+    @apply flex items-center justify-end;
+  }
+
+  .flex-start {
+    @apply flex items-center justify-start;
+  }
+  .flex-colum {
+    @apply flex flex-col;
+  }
+  .grid-center {
+    @apply grid justify-center;
+  }
+  .grid-start {
+    @apply grid items-center justify-start;
+  }
+
+  /* heading related styles */
+  .h2-bold-lg-h1-bold {
+    @apply text-4xl font-bold lg:text-5xl;
+  }
+  .h2-semibold-lg-h1-semibold {
+    @apply text-3xl font-semibold lg:text-4xl;
+  }
+  .h3-semibold-lg-h2-semibold {
+    @apply text-2xl font-semibold lg:text-3xl;
+  }
+  .h3-bold-lg-h2-bold-profile {
+    @apply text-2xl font-bold text-gray-500 lg:text-3xl;
+  }
+  .h4-semibold-lg-h2-semibold {
+    @apply text-[22px] font-semibold lg:text-[28px];
+  }
+  .h4-semibold {
+    @apply text-xl font-semibold;
+  }
+  .h4-medium {
+    @apply text-xl font-medium;
+  }
+
+  /* paragraph related styles */
+  .paragraph-light {
+    @apply text-sm font-light leading-[20.8px];
+  }
+  .paragraph-semibold {
+    @apply text-sm font-semibold;
+  }
+  .normal-light {
+    @apply text-[15px] font-light;
+  }
+  .footer-links-header {
+    @apply mb-3 font-normal uppercase transition-colors duration-300 text-primary-light hover:text-primary;
+  }
+
+  /* button related styles */
+  .btn-primary {
+    @apply px-8 py-3 font-medium text-white border rounded-md bg-primary border-primary hover:bg-transparent hover:text-primary;
+  }
+
+  .shadow-light-elevated_dark-elevated-dark {
+    @apply shadow-elevated dark:shadow-elevated-dark;
+  }
+
+  /* card related*/
+  .features-card {
+    @apply gap-5 p-6 border rounded-sm flex-center border-primary;
+  }
+
+  /* border related styles */
+  .border-b-light-default_dark-none {
+    @apply border-b dark:border-none;
+  }
+  .border-b-light-default_dark-tertiary {
+    @apply border-b dark:border-tertiary/20;
+  }
+  .border-t-light-default_dark-tertiary {
+    @apply border-t dark:border-tertiary/20;
+  }
+  .border-light-default_dark-tertiary {
+    @apply border dark:border-tertiary/10;
+  }
+
+  /* button related styles */
+  .btn-light-default_dark-primary {
+    @apply relative px-8 py-3 text-lg font-semibold rounded-md shadow-light-elevated_dark-elevated-dark w-fit text-primary-dark;
+  }
+
+  /* hover animation */
+  .hover-animation {
+    @apply absolute bottom-0 left-0 w-0 transition-all duration-700 ease-in-out rounded-b-md bg-primary-dark;
+  }
+
+  .rounded-btn-with-inset-shadow {
+    @apply shadow-custom-inset dark:shadow-custom-inset-dark rounded-full p-1.5 transition-all duration-300 ease-in-out hover:scale-105 text-2xl;
+  }
+  .input-field {
+    @apply shadow-custom-inset dark:shadow-custom-inset-dark p-2.5 rounded-md w-full bg-transparent border border-transparent focus:border-primary/60 transition-colors duration-700 ease-in-out focus:outline-none;
+  }
+}
+
+.action-btn-hover-effect {
+  @apply shadow-light-elevated_dark-elevated-dark rounded-md  text-primary dark:text-primary-light font-semibold transition-transform duration-500 ease-in-out hover:-translate-y-1.5;
 }

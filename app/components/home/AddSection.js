@@ -2,7 +2,7 @@ import AddImage from "@/public/assets/images/offer.jpg";
 import Image from "next/image";
 export default function AddSection() {
   return (
-    <div className="container pb-16">
+    <div className="mb-14">
       <a href="#">
         <Image
           src={AddImage}
