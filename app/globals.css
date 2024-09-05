@@ -88,11 +88,9 @@
   .h3-bold-lg-h2-bold-profile {
     @apply text-2xl font-bold text-gray-500 lg:text-3xl;
   }
-  .h4-semibold-lg-h2-semibold {
-    @apply text-[22px] font-semibold lg:text-[28px];
-  }
-  .h4-semibold {
-    @apply text-xl font-semibold;
+
+  .h4-md-h2-semibold {
+    @apply text-xl font-semibold md:text-2xl;
   }
   .h4-medium {
     @apply text-xl font-medium;
@@ -110,6 +108,10 @@
   }
   .footer-links-header {
     @apply mb-3 font-normal uppercase transition-colors duration-300 text-primary-light hover:text-primary;
+  }
+
+  .section-title {
+    @apply mb-5 uppercase h4-md-h2-semibold;
   }
 
   /* button related styles */

@@ -18,7 +18,7 @@ export default function Features() {
           </div>
           <div>
             <h4 className="capitalize h4-medium">Free Shipping</h4>
-            <p className="text-sm text-gray-500">Order over $200</p>
+            <p>Order over $200</p>
           </div>
         </div>
         <div className="features-card">
@@ -32,7 +32,7 @@ export default function Features() {
           </div>
           <div>
             <h4 className="capitalize h4-medium">Money Returns</h4>
-            <p className="text-sm text-gray-500">30 days money returs</p>
+            <p>30 days money returs</p>
           </div>
         </div>
         <div className="features-card">
@@ -46,7 +46,7 @@ export default function Features() {
           </div>
           <div>
             <h4 className="capitalize h4-medium">24/7 Support</h4>
-            <p className="text-sm text-gray-500">Customer support</p>
+            <p>Customer support</p>
           </div>
         </div>
       </div>
