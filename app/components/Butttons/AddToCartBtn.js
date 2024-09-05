@@ -25,10 +25,7 @@ export default function AddToCartBtn({ productId, userId }) {
     }
   }
   return (
-    <button
-      onClick={handleAddToCart}
-      className="block w-full py-1 font-semibold text-center text-white uppercase transition border rounded-b bg-primary border-primary hover:bg-transparent hover:text-primary"
-    >
+    <button onClick={handleAddToCart} className="py-3 btn-primary-hover-effect">
       Add to cart
     </button>
   );

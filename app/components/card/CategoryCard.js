@@ -22,7 +22,7 @@ export default function CategoryCard({ categoryData }) {
       />
       <a
         href="#"
-        className="absolute inset-0 text-white transition bg-black flex-center h5-md-h2-medium bg-opacity-40 group-hover:bg-opacity-60"
+        className="text-white bg-overlay group-hover:bg-opacity-60 flex-center h5-md-h4-medium"
       >
         {categoryData?.name}
       </a>

@@ -8,47 +8,35 @@ export default async function ProductCard({ product, userId }) {
   const discountPrice = price - (price * discount) / 100;
 
   return (
-    <div className="flex flex-col overflow-hidden bg-white rounded shadow group">
+    <div className="flex-col p-5 rounded-lg flex-between shadow-light-elevated_dark-elevated-dark group size-full">
       <div>
-        <div className="relative transition-transform duration-300 ease-in-out transform hover:scale-105 w-full h-[120px] md:h-[120px] lg:h-[157px] xl:h-[200px] overflow-hidden">
-          <Image src={thumbnail} alt={name} fill className="object-cover" />
-          <div className="absolute inset-0 flex items-center justify-center gap-2 transition bg-black opacity-0 bg-opacity-40 group-hover:opacity-100 ">
-            <Link
-              href={`shop/${id}/product-details`}
-              className="flex items-center justify-center text-lg text-white transition rounded-full w-7 md:w-8 h-7 md:h-8 bg-primary hover:bg-gray-800"
-              title="view product"
-            >
-              <i className="text-sm md:text-base fa-solid fa-magnifying-glass"></i>
-            </Link>
-            <button
-              className="flex items-center justify-center text-lg text-white transition rounded-full w-7 md:w-8 h-7 md:h-8 bg-primary hover:bg-gray-800"
-              title="add to wishlist"
-            >
-              <i className="text-sm fa-solid md:text-base fa-heart"></i>
-            </button>
-          </div>
+        <div className="relative w-full overflow-hidden transform h-52">
+          <Image
+            src={thumbnail}
+            alt={name}
+            fill
+            className="object-cover transition-all duration-500 ease-in-out rounded-md group-hover:scale-105"
+          />
         </div>
-        <div className="px-4 pt-4 pb-3">
+        <div className="p-4">
           <Link href={`shop/${id}/product-details`}>
-            <h4 className="mb-2 text-sm font-medium text-gray-800 uppercase transition md:text-lg hover:text-primary">
+            <h4 className="mb-2 uppercase transition-all duration-300 ease-in-out paragraph-md-h6-medium hover:text-primary">
               {name}
             </h4>
           </Link>
           <div className="flex items-baseline mb-1 space-x-2">
-            <p className="text-sm font-semibold md:text-xl text-primary">
+            <p className="paragraph-md-h5-semibold text-primary">
               ${discountPrice?.toFixed(2)}
             </p>
-            <p className="text-xs text-gray-400 line-through md:text-sm">
-              ${price}
-            </p>
+            <p className="text-xs line-through md:text-sm">${price}</p>
           </div>
           <div className="flex items-center">
-            <div className="flex gap-1 text-sm text-yellow-400">
+            <div className="flex gap-1 text-sm text-primary-light">
               <span>
                 <i className="text-sm fa-solid fa-star"></i>
               </span>
             </div>
-            <div className="ml-3 text-xs text-gray-500">(100)</div>
+            <div className="ml-3 text-xs">(100)</div>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ export default function Banner() {
       style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
       <div className="container space-y-8">
-        <h1 className="capitalize h2-semibold-lg-h1-semibold">
+        <h1 className="capitalize h3-semibold-lg-h2-semibold">
           best collection for <br />
           home decoration
         </h1>

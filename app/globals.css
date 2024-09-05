@@ -76,27 +76,30 @@
   }
 
   /* heading related styles */
-  .h2-bold-lg-h1-bold {
-    @apply text-4xl font-bold lg:text-5xl;
-  }
-  .h2-semibold-lg-h1-semibold {
-    @apply text-3xl font-semibold lg:text-4xl;
+  .h2-bold-lg-h1 {
+    @apply text-4xl lg:text-5xl;
   }
   .h3-semibold-lg-h2-semibold {
+    @apply text-3xl font-semibold lg:text-4xl;
+  }
+  .h4-semibold-lg-h3-semibold {
     @apply text-2xl font-semibold lg:text-3xl;
   }
-  .h3-bold-lg-h2-bold-profile {
-    @apply text-2xl font-bold text-gray-500 lg:text-3xl;
-  }
 
-  .h5-md-h2-semibold {
+  .h5-md-h4-semibold {
     @apply text-xl font-semibold md:text-2xl;
   }
   .h5-medium {
     @apply text-xl font-medium;
   }
-  .h5-md-h2-medium {
+  .h5-md-h4-medium {
     @apply text-xl font-medium md:text-2xl;
+  }
+  .paragraph-md-h6-medium {
+    @apply font-medium md:text-lg;
+  }
+  .paragraph-md-h5-semibold {
+    @apply text-sm font-semibold md:text-xl;
   }
   /* paragraph related styles */
   .paragraph-light {
@@ -113,7 +116,7 @@
   }
 
   .section-title {
-    @apply mb-5 uppercase h5-md-h2-semibold;
+    @apply mb-5 uppercase h5-md-h4-semibold;
   }
 
   /* button related styles */
@@ -162,6 +165,10 @@
   }
 }
 
-.action-btn-hover-effect {
-  @apply shadow-light-elevated_dark-elevated-dark rounded-md  text-primary dark:text-primary-light font-semibold transition-transform duration-500 ease-in-out hover:-translate-y-1.5;
+.btn-primary-hover-effect {
+  @apply font-semibold transition-transform duration-500 ease-in-out rounded-md shadow-light-elevated_dark-elevated-dark text-primary dark:text-primary-light hover:-translate-y-1;
+}
+
+.bg-overlay {
+  @apply absolute inset-0 transition bg-black bg-opacity-40;
 }
