@@ -7,7 +7,7 @@ export default async function Categories() {
   return (
     <div className="mb-14">
       <SectionTitle name="shop by category" />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-8">
         {allCategory?.map((category) => (
           <CategoryCard key={category.id} categoryData={category} />
         ))}

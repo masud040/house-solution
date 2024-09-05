@@ -11,18 +11,18 @@ export default function CategoryCard({ categoryData }) {
       onClick={() =>
         replace(`${pathName}/shop?category=${categoryData?.value}`)
       }
-      className="relative overflow-hidden rounded-sm group"
+      className="relative h-64 overflow-hidden rounded-md group"
     >
       <Image
         src={categoryData?.image}
-        alt="category 1"
-        className="w-full"
-        width={100}
-        height={100}
+        alt={categoryData?.name}
+        fill
+        objectFit="cover"
+        className="transition-all duration-500 ease-in-out group-hover:scale-105"
       />
       <a
         href="#"
-        className="absolute inset-0 flex items-center justify-center font-medium text-white transition bg-black text:sm md:text-xl bg-opacity-40 font-roboto group-hover:bg-opacity-60"
+        className="absolute inset-0 text-white transition bg-black flex-center h5-md-h2-medium bg-opacity-40 group-hover:bg-opacity-60"
       >
         {categoryData?.name}
       </a>

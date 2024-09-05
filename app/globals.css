@@ -89,13 +89,15 @@
     @apply text-2xl font-bold text-gray-500 lg:text-3xl;
   }
 
-  .h4-md-h2-semibold {
+  .h5-md-h2-semibold {
     @apply text-xl font-semibold md:text-2xl;
   }
-  .h4-medium {
+  .h5-medium {
     @apply text-xl font-medium;
   }
-
+  .h5-md-h2-medium {
+    @apply text-xl font-medium md:text-2xl;
+  }
   /* paragraph related styles */
   .paragraph-light {
     @apply text-sm font-light leading-[20.8px];
@@ -111,7 +113,7 @@
   }
 
   .section-title {
-    @apply mb-5 uppercase h4-md-h2-semibold;
+    @apply mb-5 uppercase h5-md-h2-semibold;
   }
 
   /* button related styles */
