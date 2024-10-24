@@ -36,14 +36,14 @@ export const Search = () => {
     }
   }, []);
   return (
-    <div className="max-w-xl ">
+    <div className="flex-1 max-w-xl mx-8">
       <input
         onChange={(e) => debounce(e)}
         type="search"
         name="search"
         id="search"
         defaultValue={search_term}
-        className="w-full py-1.5 px-5 text-gray-600 border rounded-2xl border-gray-500 focus:outline-none"
+        className="w-full px-5 py-2.5 text-secondary border-indigo-400 rounded-2xl focus:outline-none focus:border-indigo-500 transition duration-500 "
         placeholder="search"
       />
     </div>

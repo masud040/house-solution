@@ -10,47 +10,38 @@ export default async function Header() {
   const count = await getWishlistCount(session?.user?.email);
 
   return (
-    <header className="py-4 bg-white shadow-sm">
-      <div className="container flex items-center justify-between">
+    <header className="shadow-sm bg-background-light">
+      <div className="container items-center py-6 flex-between">
         <Link href="/">
-          <h1 className="inline-block font-bold text-transparent sm:text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+          <h1 className="inline-block font-bold text-transparent h6-md-h5-lg-h4 bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
             Sokher Corner
           </h1>
         </Link>
         <Search />
-        <div className="flex items-center space-x-5 ">
-          <Link
-            href="/wishlist"
-            className="relative text-center text-gray-700 transition hover:text-primary"
-          >
-            <div className="text-xl">
+        <div className="space-x-5 flex-end">
+          <Link href="/wishlist" className="header-link">
+            <div className="h5-medium">
               <i className="fa-regular fa-heart"></i>
             </div>
-            <div className="text-xs leading-3">Wishlist</div>
-            <div className="absolute right-0 flex items-center justify-center w-5 h-5 text-xs text-white rounded-full -top-1 bg-primary">
+            <div className="text-sm leading-3">Wishlist</div>
+            <div className="absolute right-0 text-xs text-white rounded-full size-5 flex-center -top-1 bg-primary-light">
               {count > 0 ? count : 0}
             </div>
           </Link>
-          <Link
-            href="/cart"
-            className="relative text-center text-gray-700 transition hover:text-primary"
-          >
-            <div className="text-xl">
+          <Link href="/cart" className="header-link">
+            <div className="h5-medium">
               <i className="fa-solid fa-bag-shopping"></i>
             </div>
-            <div className="text-xs leading-3">Cart</div>
-            <div className="absolute flex items-center justify-center w-5 h-5 text-xs text-white rounded-full -right-3 -top-1 bg-primary">
+            <div className="text-sm leading-3">Cart</div>
+            <div className="absolute text-xs text-white rounded-full size-5 -right-3 flex-center -top-1 bg-primary-light">
               {cartItems?.length > 0 ? cartItems.length : 0}
             </div>
           </Link>
-          <Link
-            href="/account"
-            className="relative text-center text-gray-700 transition hover:text-primary"
-          >
+          <Link href="/account" className="header-link">
             <div
               className={`${
                 session?.user?.image || session?.user?.name
-                  ? "flex items-center justify-center text-xl"
+                  ? "flex-center text-xl"
                   : "text-xl"
               }`}
             >
@@ -61,7 +52,7 @@ export default async function Header() {
                     height={18}
                     width={18}
                     alt="profile"
-                    className="mb-0.5 rounded-full w-7 h-7 border border-indigo-600 p-0.5 "
+                    className="mb-0.5 rounded-full size-7 border border-indigo-600 p-0.5 "
                   />
                 ) : (
                   <GenerateImageByLetter name={session?.user?.name} />
@@ -70,7 +61,7 @@ export default async function Header() {
                 <i className="fa-regular fa-user "></i>
               )}
             </div>
-            <div className="text-xs leading-3">Account</div>
+            <div className="text-sm leading-3">Account</div>
           </Link>
         </div>
       </div>

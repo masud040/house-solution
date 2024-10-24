@@ -11,7 +11,7 @@ export default function CategoryCard({ categoryData }) {
       onClick={() =>
         replace(`${pathName}/shop?category=${categoryData?.value}`)
       }
-      className="relative h-64 overflow-hidden rounded-md group"
+      className="relative overflow-hidden rounded-md h-44 lg:h-60 group"
     >
       <Image
         src={categoryData?.image}

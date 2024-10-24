@@ -45,13 +45,16 @@
   }
 
   .page-container {
-    @apply mx-auto max-w-7xl lg:container;
+    @apply container mx-auto max-w-[1400px];
   }
 }
 @layer utilities {
   /* layout related styles like flex and grid */
   .flex-center {
     @apply flex items-center justify-center;
+  }
+  .flex-baseline {
+    @apply flex items-baseline;
   }
 
   .flex-between {
@@ -95,6 +98,9 @@
   .h5-md-h4-medium {
     @apply text-xl font-medium md:text-2xl;
   }
+  .h6-md-h5-lg-h4 {
+    @apply text-lg md:text-xl lg:text-2xl;
+  }
   .paragraph-md-h6-medium {
     @apply font-medium md:text-lg;
   }
@@ -114,14 +120,21 @@
   .footer-links-header {
     @apply mb-3 font-normal uppercase transition-colors duration-300 text-primary-light hover:text-primary;
   }
-
-  .section-title {
-    @apply mb-5 uppercase h5-md-h4-semibold;
+  .small-md-paragraph {
+    @apply text-xs md:text-sm;
   }
-
+  .section-title {
+    @apply mb-5 uppercase h4-semibold-lg-h3-semibold;
+  }
+  .header-link {
+    @apply relative text-center transition-all duration-300 ease-in-out text-secondary hover:text-primary;
+  }
+  .product-title {
+    @apply uppercase transition-all duration-300 ease-in-out paragraph-md-h6-medium hover:text-primary;
+  }
   /* button related styles */
   .btn-primary {
-    @apply px-8 py-3 font-medium text-white border rounded-md bg-primary border-primary hover:bg-transparent hover:text-primary;
+    @apply px-8 py-3 font-medium border rounded-md text-background-light bg-primary border-primary hover:bg-transparent hover:text-primary;
   }
 
   .shadow-light-elevated_dark-elevated-dark {
