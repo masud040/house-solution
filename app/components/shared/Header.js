@@ -11,9 +11,9 @@ export default async function Header() {
 
   return (
     <header className="shadow-sm bg-background-light">
-      <div className="container items-center py-6 flex-between">
+      <div className="container items-center gap-8 py-6 flex-between">
         <Link href="/">
-          <h1 className="inline-block font-bold text-transparent h6-md-h5-lg-h4 bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+          <h1 className="hidden font-bold text-transparent md:inline h6-md-h5-lg-h4 bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
             Sokher Corner
           </h1>
         </Link>

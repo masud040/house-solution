@@ -26,7 +26,7 @@ export default async function ProductCard({ product, userId }) {
             <p className="paragraph-md-h5-semibold text-primary">
               ${discountPrice?.toFixed(2)}
             </p>
-            <p className="line-through small-md-paragraph">${price}</p>
+            <p className="line-through extra-small-md-paragraph">${price}</p>
           </div>
           <div className="flex-start">
             <div className="gap-1 text-sm flex-start text-primary-light">

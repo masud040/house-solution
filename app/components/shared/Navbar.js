@@ -31,7 +31,7 @@ export default async function Navbar() {
               className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image src={Sofa} alt="sofa" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary/80">Sofa</span>
+              <span className="ml-6 text-sm text-secondary-lighter">Sofa</span>
             </Link>
             <Link
               href="/shop?category=terrace"
@@ -42,14 +42,16 @@ export default async function Navbar() {
                 alt="terrace"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary/80">Terarce</span>
+              <span className="ml-6 text-sm text-secondary-lighter">
+                Terarce
+              </span>
             </Link>
             <Link
               href="/shop?category=bed"
               className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image src={Bed} alt="bed" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary/80">Bed</span>
+              <span className="ml-6 text-sm text-secondary-lighter">Bed</span>
             </Link>
             <Link
               href="/shop?category=office"
@@ -60,7 +62,9 @@ export default async function Navbar() {
                 alt="office"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary/80">office</span>
+              <span className="ml-6 text-sm text-secondary-lighter">
+                office
+              </span>
             </Link>
             <Link
               href="/shop?category=outdoor"
@@ -71,7 +75,9 @@ export default async function Navbar() {
                 alt="outdoor"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary/80">Outdoor</span>
+              <span className="ml-6 text-sm text-secondary-lighter">
+                Outdoor
+              </span>
             </Link>
             <Link
               href="/shop?category=mattress"
@@ -82,7 +88,9 @@ export default async function Navbar() {
                 alt="Mattress"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary/80">Mattress</span>
+              <span className="ml-6 text-sm text-secondary-lighter">
+                Mattress
+              </span>
             </Link>
           </div>
         </div>

@@ -34,7 +34,7 @@ export default function FilterBySize() {
   }, []);
   return (
     <div className="pt-4">
-      <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">size</h3>
+      <h3 className="filter-section-title">size</h3>
       <div className="flex items-center gap-2">
         <div className="size-selector">
           <input
@@ -45,10 +45,7 @@ export default function FilterBySize() {
             className="sr-only"
             checked={searchParams.get("size") === "size-xs"}
           />
-          <label
-            htmlFor="size-xs"
-            className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-          >
+          <label htmlFor="size-xs" className="filter-by-size">
             XS
           </label>
         </div>
@@ -61,10 +58,7 @@ export default function FilterBySize() {
             className="sr-only"
             checked={searchParams.get("size") === "size-sm"}
           />
-          <label
-            htmlFor="size-sm"
-            className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-          >
+          <label htmlFor="size-sm" className="filter-by-size">
             S
           </label>
         </div>
@@ -77,10 +71,7 @@ export default function FilterBySize() {
             className="sr-only"
             checked={searchParams.get("size") === "size-m"}
           />
-          <label
-            htmlFor="size-m"
-            className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-          >
+          <label htmlFor="size-m" className="filter-by-size">
             M
           </label>
         </div>
@@ -93,10 +84,7 @@ export default function FilterBySize() {
             className="sr-only"
             checked={searchParams.get("size") === "size-l"}
           />
-          <label
-            htmlFor="size-l"
-            className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-          >
+          <label htmlFor="size-l" className="filter-by-size">
             L
           </label>
         </div>
@@ -109,10 +97,7 @@ export default function FilterBySize() {
             className="sr-only"
             checked={searchParams.get("size") === "size-xl"}
           />
-          <label
-            htmlFor="size-xl"
-            className="flex items-center justify-center w-6 h-6 text-xs text-gray-600 border border-gray-200 rounded-sm shadow-sm cursor-pointer"
-          >
+          <label htmlFor="size-xl" className="filter-by-size">
             XL
           </label>
         </div>

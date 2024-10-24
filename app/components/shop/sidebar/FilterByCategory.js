@@ -38,27 +38,27 @@ export const FilterByCategory = ({ categories }) => {
 
   return (
     <div>
-      <h3 className="mb-3 text-xl font-medium text-gray-800 uppercase">
-        Categories
-      </h3>
+      <h3 className="filter-section-title">Categories</h3>
       <div className="space-y-2">
         {categories?.map((category) => (
-          <div key={category.name} className="flex items-center">
-            <input
-              onChange={(e) => handleChange(e)}
-              type="checkbox"
-              name={category.name}
-              id={category.name}
-              className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              checked={query.includes(category?.name?.toLowerCase())}
-            />
-            <label
-              htmlFor={category.name}
-              className="ml-3 text-gray-600 cusror-pointer"
-            >
-              {category?.name}
-            </label>
-            <div className="ml-auto text-sm text-gray-600">
+          <div key={category.name} className="flex-between">
+            <div className="gap-2 flex-start">
+              <input
+                onChange={(e) => handleChange(e)}
+                type="checkbox"
+                name={category.name}
+                id={category.name}
+                className="rounded-sm cursor-pointer text-primary focus:ring-0"
+                checked={query.includes(category?.name?.toLowerCase())}
+              />
+              <label
+                htmlFor={category.name}
+                className="text-secondary-lighter cusror-pointer"
+              >
+                {category?.name}
+              </label>
+            </div>
+            <div className="text-sm text-secondary-lighter">
               ({category?.products ? category.products : 0})
             </div>
           </div>

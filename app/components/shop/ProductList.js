@@ -18,7 +18,7 @@ export const ProductList = async ({
   return (
     <>
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 col-span-3 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 col-span-2 gap-4 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

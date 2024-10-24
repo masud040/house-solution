@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const NoDataFound = ({ message, cart }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-20 font-medium text-secondary">
+    <div className="flex-col h-20 font-medium flex-center text-secondary">
       {message}
       {cart && (
         <Link href="/">
