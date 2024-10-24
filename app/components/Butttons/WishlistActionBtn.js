@@ -21,18 +21,18 @@ const WishlistActionBtn = ({ productId }) => {
   }
   return (
     <>
-      <div className="flex items-center gap-8">
+      <div className="gap-8 flex-start">
         <div
           onClick={handleMove}
           title="Move on cart"
-          className="text-gray-600 cursor-pointer"
+          className="cursor-pointer text-secondary-dark"
         >
           <i className="text-xl fa fa-cart-plus"></i>
         </div>
         <div
           onClick={handleDelete}
           title="Remove from cart"
-          className="text-gray-600 cursor-pointer hover:text-primary"
+          className="cursor-pointer text-secondary-dark hover:text-primary"
         >
           <i className="ext-xl fa-solid fa-trash"></i>
         </div>
