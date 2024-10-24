@@ -88,9 +88,15 @@
   .h4-semibold-lg-h3-semibold {
     @apply text-2xl font-semibold lg:text-3xl;
   }
+  .h4-medium-lg-h3-medium {
+    @apply text-2xl font-medium lg:text-3xl;
+  }
 
   .h5-md-h4-semibold {
     @apply text-xl font-semibold md:text-2xl;
+  }
+  .h5-semibold {
+    @apply text-xl font-semibold;
   }
   .h5-medium {
     @apply text-xl font-medium;
@@ -107,6 +113,7 @@
   .paragraph-md-h6-medium {
     @apply text-sm font-medium md:text-lg;
   }
+
   .paragraph-md-h5-semibold {
     @apply text-sm font-semibold md:text-xl;
   }
@@ -119,6 +126,9 @@
   }
   .base-semibold {
     @apply text-[17px] font-semibold leading-[25.2px];
+  }
+  .base-lg-h6-medium {
+    @apply text-base font-medium lg:text-lg;
   }
   .paragraph-semibold {
     @apply text-sm font-semibold;
@@ -135,13 +145,13 @@
 
   /* footer */
   .footer-link {
-    @apply block text-base text-secondary-lighter hover:text-secondary;
+    @apply block text-base text-secondary hover:text-secondary-dark;
   }
   .footer-title {
-    @apply text-sm font-semibold tracking-wider uppercase text-secondary/60;
+    @apply text-sm font-semibold tracking-wider uppercase text-secondary;
   }
   .footer-social-link {
-    @apply transition duration-300 ease-in-out text-secondary/50 hover:text-secondary/60;
+    @apply transition duration-300 ease-in-out text-secondary hover:text-secondary-dark;
   }
   .product-title {
     @apply uppercase transition-all duration-300 ease-in-out paragraph-md-h6-medium hover:text-primary;
@@ -156,7 +166,7 @@
 
   /* filter section */
   .filter-section-title {
-    @apply mb-3 uppercase text-secondary-lighter h5-medium;
+    @apply mb-3 uppercase text-secondary-dark h5-medium;
   }
 
   .filter-by-size {
@@ -170,6 +180,10 @@
 
   .shadow-light-elevated_dark-elevated-dark {
     @apply shadow-elevated dark:shadow-elevated-dark;
+  }
+
+  .quantity-icrease-decrease-btn {
+    @apply text-xl cursor-pointer select-none flex-center hover:bg-primary-light hover:text-background-light disabled:cursor-not-allowed disabled:bg-secondary-light;
   }
 
   /* card related*/
@@ -191,6 +205,10 @@
     @apply border dark:border-tertiary/10;
   }
 
+  /* divide  related styles*/
+  .divide-x-light-default-dark-secondary {
+    @apply divide-x divide-secondary-lighter;
+  }
   /* button related styles */
   .btn-light-default_dark-primary {
     @apply relative px-8 py-3 text-lg font-semibold rounded-md shadow-light-elevated_dark-elevated-dark w-fit text-primary-dark;

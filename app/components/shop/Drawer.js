@@ -11,7 +11,7 @@ export default function Drawer({ categories, showDrawer, setShowDrawer }) {
     >
       <h5
         id="drawer-label"
-        className="inline-flex items-center mb-4 text-base font-semibold text-secondary-lighter dark:text-secondary-lighter/40"
+        className="inline-flex items-center mb-4 text-base font-semibold text-secondary dark:text-secondary-light"
       >
         <svg
           className="w-5 h-5 mr-2"
@@ -48,7 +48,7 @@ export default function Drawer({ categories, showDrawer, setShowDrawer }) {
         </svg>
         <span className="sr-only">Close menu</span>
       </button>
-      <div className="space-y-5 divide-y divide-gray-200">
+      <div className="space-y-5 divide-y divide-secondary-lighter">
         <FilterByCategory categories={categories} />
         <FilterByPrice />
         <FilterBySize />

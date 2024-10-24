@@ -71,7 +71,7 @@ export default function CartItems({ cartItems }) {
       <aside className="col-span-1 md:col-span-3">
         {cartItems?.length > 0 ? (
           <div className="max-w-6xl mx-auto space-y-4">
-            <div className="flex items-center justify-between p-4 text-xs uppercase rounded-sm shadow-custom">
+            <div className="flex items-center justify-between p-4 text-xs uppercase rounded-sm shadow-light-elevated_dark-elevated-dark">
               <label htmlFor="all" className="flex items-center gap-3">
                 <input
                   type="checkbox"
@@ -86,7 +86,7 @@ export default function CartItems({ cartItems }) {
               <div
                 onClick={handleDelete}
                 title="Remove all products"
-                className="flex items-center gap-2 text-gray-500 cursor-pointer hover:text-primary"
+                className="gap-2 cursor-pointer text-secondary flex-start hover:text-primary"
               >
                 <i className="fa-solid fa-trash"></i>
                 <span className="">Delete</span>
@@ -108,7 +108,7 @@ export default function CartItems({ cartItems }) {
       </aside>
 
       {loading && (
-        <div className="absolute flex items-center justify-center w-full h-full transform -translate-x-1/2 -translate-y-1/2 bg-gray-200 opacity-50 cursor-not-allowed top-1/2 left-1/2">
+        <div className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-50 cursor-not-allowed bg-secondary-lightest size-full flex-center top-1/2 left-1/2">
           <Image src={LoadingImage} width={40} height={40} alt="loading..." />
         </div>
       )}

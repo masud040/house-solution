@@ -1,7 +1,7 @@
 import Link from "next/link";
 export default function Footer() {
   return (
-    <footer className="pt-16 pb-12 border-t-light-default_dark-tertiary bg-background-light">
+    <footer className="pt-16 pb-12 border-t-light-default_dark-tertiary">
       <div className="container grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="col-span-1 mr-2 space-y-8">
           <Link href="/">
@@ -10,7 +10,7 @@ export default function Footer() {
             </h1>
           </Link>
           <div className="mr-2">
-            <p className="text-secondary-lighter">
+            <p className="text-secondary">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
               hic?
             </p>

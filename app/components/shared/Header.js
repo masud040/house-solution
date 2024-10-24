@@ -24,7 +24,7 @@ export default async function Header() {
               <i className="fa-regular fa-heart"></i>
             </div>
             <div className="text-sm leading-3">Wishlist</div>
-            <div className="absolute right-0 text-xs text-white rounded-full size-5 flex-center -top-1 bg-primary-light">
+            <div className="absolute right-0 text-xs rounded-full text-background-light size-5 flex-center -top-1 bg-primary-light">
               {count > 0 ? count : 0}
             </div>
           </Link>
@@ -33,7 +33,7 @@ export default async function Header() {
               <i className="fa-solid fa-bag-shopping"></i>
             </div>
             <div className="text-sm leading-3">Cart</div>
-            <div className="absolute text-xs text-white rounded-full size-5 -right-3 flex-center -top-1 bg-primary-light">
+            <div className="absolute text-xs rounded-full text-background-light size-5 -right-3 flex-center -top-1 bg-primary-light">
               {cartItems?.length > 0 ? cartItems.length : 0}
             </div>
           </Link>

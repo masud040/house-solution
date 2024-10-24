@@ -59,7 +59,7 @@ export const FilterByPrice = () => {
           defaultValue={price?.min}
           placeholder="min"
         />
-        <span className="mx-2 text-secondary-lighter">-</span>
+        <span className="mx-2 text-secondary">-</span>
         <input
           onChange={doSearch}
           type="text"

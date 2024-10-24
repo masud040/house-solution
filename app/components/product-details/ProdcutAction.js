@@ -49,35 +49,35 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   return (
     <>
       <div className="mt-4">
-        <h3 className="mb-1 text-sm text-gray-800 uppercase">Quantity</h3>
-        <div className="flex text-gray-600 border border-gray-300 divide-x divide-gray-300 w-max">
+        <h3 className="mb-1 text-sm font-medium uppercase text-secondary-darker">
+          Quantity
+        </h3>
+        <div className="flex border divide-x border-secondary-lighter divide-secondary-lighter text-secondary-dark w-max">
           <button
             onClick={decreseQuantity}
             disabled={quantity === 1}
-            className="flex items-center justify-center w-8 h-8 text-xl cursor-pointer select-none hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="quantity-icrease-decrease-btn size-8"
           >
             -
           </button>
-          <div className="flex items-center justify-center w-8 h-8 text-base">
-            {quantity}
-          </div>
+          <div className="text-base flex-center size-8">{quantity}</div>
           <button
             onClick={increaseQuantity}
             disabled={quantity === 5}
-            className="flex items-center justify-center w-8 h-8 text-xl cursor-pointer select-none hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+            className="quantity-icrease-decrease-btn size-8"
           >
             +
           </button>
         </div>
       </div>
 
-      <div className="flex gap-3 py-4 mt-2 text-sm border-b border-gray-200">
-        <button className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border border-gray-300 rounded bg-secondary/70 hover:bg-white hover:text-primary">
+      <div className="gap-6 py-4 mt-2 text-sm border-b-light-default_dark-tertiary flex-start ">
+        <button className="gap-2 px-8 py-4 uppercase btn-primary-hover-effect flex-start">
           Buy Now
         </button>
         <button
           onClick={handleAddToCart}
-          className="flex items-center gap-2 px-8 py-2 font-medium text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary"
+          className="gap-2 px-8 py-4 uppercase btn-primary-hover-effect flex-start"
         >
           <i className="fa-solid fa-bag-shopping"></i>
           Add to cart
@@ -85,14 +85,14 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
       </div>
 
       <div className="flex gap-3 mt-4">
-        <button className="flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500">
+        <button className="rounded-full text-secondary-light border-light-default_dark-tertiary size-8 flex-center hover:text-secondary">
           <i className="fa-solid fa-share"></i>
         </button>
         <button
           onClick={handleAddToWishlist}
-          className={`flex items-center justify-center w-8 h-8 text-gray-400 border border-gray-300 rounded-full hover:text-gray-500 ${
+          className={`rounded-full text-secondary-light border-light-default_dark-tertiary size-8 flex-center hover:text-secondary ${
             wishlist?.includes(userId) &&
-            "bg-gray-600 text-white hover:text-gray-200"
+            "bg-secondary-dark text-background-light hover:text-secondary-lightest"
           }`}
         >
           <i className="fa-regular fa-heart"></i>

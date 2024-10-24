@@ -53,12 +53,12 @@ export const FilterByCategory = ({ categories }) => {
               />
               <label
                 htmlFor={category.name}
-                className="text-secondary-lighter cusror-pointer"
+                className="font-medium text-secondary cusror-pointer"
               >
                 {category?.name}
               </label>
             </div>
-            <div className="text-sm text-secondary-lighter">
+            <div className="text-sm font-semibold text-secondary">
               ({category?.products ? category.products : 0})
             </div>
           </div>

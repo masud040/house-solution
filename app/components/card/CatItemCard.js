@@ -62,8 +62,8 @@ export default function CatItemCard({
   const discountedPrice = price - (price * discount) / 100;
   return (
     <>
-      <div className="flex items-center justify-between gap-4 p-4 rounded-sm shadow-custom">
-        <div className="flex items-center gap-6">
+      <div className="gap-3 p-5 overflow-hidden rounded-sm md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark ">
+        <div className="gap-3 flex-start">
           <label htmlFor={id}>
             <input
               type="checkbox"
@@ -75,53 +75,53 @@ export default function CatItemCard({
             />
           </label>
 
-          <div className="w-24">
+          <div className="relative w-24">
             <Image
               src={thumbnail}
               width={200}
               height={200}
               alt={name}
-              className="w-full h-14"
+              className="object-cover w-full rounded-sm h-14"
             />
           </div>
         </div>
-        <div className="flex flex-col items-center justify-between flex-1 gap-2 md:gap-4 md:flex-row">
-          <div className="w-full md:w-1/3">
-            <h2 className="text-sm text-gray-800 md:text-lg">{name}</h2>
-            <p className="text-xs text-gray-500">
+        <div className="flex-col flex-1 gap-2 flex-between md:gap-4 md:flex-row">
+          <div className="w-full md:w-2/3">
+            <h2 className="base-lg-h6-medium text-secondary-darker">{name}</h2>
+            <p className="text-xs font-medium text-secondary">
               Availability:{" "}
               {stock > 0 ? (
                 <span className="text-green-600">In Stock</span>
               ) : (
-                <span className="text-red-600">Out Of Stock</span>
+                <span className="text-primary">Out Of Stock</span>
               )}
             </p>
           </div>
 
-          <div className="flex flex-row items-center justify-end w-full gap-6">
+          <div className="flex-row w-full gap-2 md:gap-4 flex-end">
             <div className="space-x-2 text-primary">
               <span>{discountedPrice?.toFixed(2)}</span>
-              <span className="text-sm text-gray-700 line-through">
+              <span className="text-sm line-through text-secondary-darker">
                 {price}
               </span>
-              <span className="text-sm text-gray-700">{discount}%</span>
+              <span className="text-sm text-secondary-darker">{discount}%</span>
             </div>
 
-            <div className="flex text-gray-600 border border-gray-300 divide-x divide-gray-300 w-max">
+            <div className="flex divide-x-light-default-dark-secondary text-secondary-dark border-light-default_dark-tertiary w-max">
               <button
                 onClick={() => increaseDecreaseQuantity("decrease")}
                 disabled={quantity === 1}
-                className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                className="quantity-icrease-decrease-btn size-6 md:size-7"
               >
                 -
               </button>
-              <div className="flex items-center justify-center text-base w-7 h-7">
+              <div className="text-base flex-center size-6 md:size-7">
                 {quantity}
               </div>
               <button
                 onClick={() => increaseDecreaseQuantity("increase")}
                 disabled={quantity === 5}
-                className="flex items-center justify-center text-xl cursor-pointer select-none w-7 h-7 hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+                className="quantity-icrease-decrease-btn size-6 md:size-7"
               >
                 +
               </button>
@@ -129,7 +129,7 @@ export default function CatItemCard({
             <div
               onClick={handleDelete}
               title="Remove from cart"
-              className="text-gray-600 transition-all duration-300 cursor-pointer hover:text-primary"
+              className="transition-all duration-300 cursor-pointer text-secondary-dark hover:text-primary"
             >
               <i className="fa-solid fa-trash"></i>
             </div>

@@ -28,69 +28,61 @@ export default async function Navbar() {
           <div className="absolute left-0 invisible w-32 py-3 transition duration-300 divide-y divide-gray-300 shadow-md opacity-0 bg-background-light top-full divide-dashed group-hover:opacity-100 group-hover:visible">
             <Link
               href="/shop/category=sofa"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image src={Sofa} alt="sofa" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary-lighter">Sofa</span>
+              <span className="ml-6 text-sm text-secondary-dark">Sofa</span>
             </Link>
             <Link
               href="/shop?category=terrace"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image
                 src={Terrage}
                 alt="terrace"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-lighter">
-                Terarce
-              </span>
+              <span className="ml-6 text-sm text-secondary-dark">Terarce</span>
             </Link>
             <Link
               href="/shop?category=bed"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image src={Bed} alt="bed" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary-lighter">Bed</span>
+              <span className="ml-6 text-sm text-secondary-dark">Bed</span>
             </Link>
             <Link
               href="/shop?category=office"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image
                 src={Office}
                 alt="office"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-lighter">
-                office
-              </span>
+              <span className="ml-6 text-sm text-secondary-dark">office</span>
             </Link>
             <Link
               href="/shop?category=outdoor"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image
                 src={Outdoor}
                 alt="outdoor"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-lighter">
-                Outdoor
-              </span>
+              <span className="ml-6 text-sm text-secondary-dark">Outdoor</span>
             </Link>
             <Link
               href="/shop?category=mattress"
-              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image
                 src={Mattress}
                 alt="Mattress"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-lighter">
-                Mattress
-              </span>
+              <span className="ml-6 text-sm text-secondary-dark">Mattress</span>
             </Link>
           </div>
         </div>

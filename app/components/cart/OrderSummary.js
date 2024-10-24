@@ -22,11 +22,11 @@ export const OrderSummary = async ({ cartItems }) => {
         <p>${shippingCost}</p>
       </div>
       <div className="flex text-sm">
-        <input
+        {/* <input
           type="text"
           placeholder="Enter Voucher Code"
           className="py-1 text-sm rounded-l-md focus:ring-0"
-        />
+        /> */}
         <button className="w-full text-white rounded-r-md bg-secondary">
           Apply
         </button>
