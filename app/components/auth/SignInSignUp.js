@@ -6,12 +6,15 @@ export default function SignInSignUp({ email }) {
   return email ? (
     <button
       onClick={signOut}
-      className="text-gray-200 transition hover:text-white"
+      className="transition base-normal text-background-light/90 hover:text-background-light"
     >
       Logout
     </button>
   ) : (
-    <Link href="/login" className="text-gray-200 transition hover:text-white">
+    <Link
+      href="/login"
+      className="transition base-normal text-background-light/90 hover:text-background-light"
+    >
       Login
     </Link>
   );

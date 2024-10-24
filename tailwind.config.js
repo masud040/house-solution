@@ -34,7 +34,12 @@ module.exports = {
           darkest: "#660020",
           "extra-dark": "#330010",
         },
-        secondary: { DEFAULT: "#3C3E41", light: "#d9dee2", dark: "#1b1c1d" },
+        secondary: {
+          DEFAULT: "#3C3E41",
+          light: "#d9dee2",
+          dark: "#1b1c1d",
+          darkist: "#1f2937",
+        },
         tertiary: { DEFAULT: "#C4CFDE" },
         "soft-petch": {
           DEFAULT: "#f0efef",

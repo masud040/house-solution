@@ -13,8 +13,8 @@ export function ActiveLink({ name, path }) {
       className={`${
         slicePath === path || pathname === path
           ? "text-indigo-500 transition hover:text-indigo-600"
-          : "text-gray-200 transition hover:text-white"
-      }`}
+          : "text-background-light/90 transition hover:text-background-light"
+      } base-normal`}
     >
       {name}
     </Link>

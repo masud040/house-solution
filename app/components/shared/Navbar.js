@@ -14,10 +14,10 @@ import { ActiveLink } from "./ActiveLink";
 export default async function Navbar() {
   const session = await auth();
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-secondary-darkist">
       <div className="container flex">
-        <div className="relative items-center hidden px-8 py-4 cursor-pointer bg-primary md:flex group">
-          <span className="text-white">
+        <div className="relative hidden px-8 py-4 cursor-pointer bg-primary md:flex-center group">
+          <span className="text-background-light">
             <i className="fa-solid fa-bars"></i>
           </span>
 
@@ -25,70 +25,70 @@ export default async function Navbar() {
             All Categories
           </span>
 
-          <div className="absolute left-0 invisible w-32 py-3 transition duration-300 bg-white divide-y divide-gray-300 shadow-md opacity-0 top-full divide-dashed group-hover:opacity-100 group-hover:visible">
+          <div className="absolute left-0 invisible w-32 py-3 transition duration-300 divide-y divide-gray-300 shadow-md opacity-0 bg-background-light top-full divide-dashed group-hover:opacity-100 group-hover:visible">
             <Link
               href="/shop/category=sofa"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
-              <Image src={Sofa} alt="sofa" className="object-contain w-5 h-5" />
-              <span className="ml-6 text-sm text-gray-600">Sofa</span>
+              <Image src={Sofa} alt="sofa" className="object-contain size-5" />
+              <span className="ml-6 text-sm text-secondary/80">Sofa</span>
             </Link>
             <Link
               href="/shop?category=terrace"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image
                 src={Terrage}
                 alt="terrace"
-                className="object-contain w-5 h-5"
+                className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-gray-600">Terarce</span>
+              <span className="ml-6 text-sm text-secondary/80">Terarce</span>
             </Link>
             <Link
               href="/shop?category=bed"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
-              <Image src={Bed} alt="bed" className="object-contain w-5 h-5" />
-              <span className="ml-6 text-sm text-gray-600">Bed</span>
+              <Image src={Bed} alt="bed" className="object-contain size-5" />
+              <span className="ml-6 text-sm text-secondary/80">Bed</span>
             </Link>
             <Link
               href="/shop?category=office"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image
                 src={Office}
                 alt="office"
-                className="object-contain w-5 h-5"
+                className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-gray-600">office</span>
+              <span className="ml-6 text-sm text-secondary/80">office</span>
             </Link>
             <Link
               href="/shop?category=outdoor"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image
                 src={Outdoor}
                 alt="outdoor"
-                className="object-contain w-5 h-5"
+                className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-gray-600">Outdoor</span>
+              <span className="ml-6 text-sm text-secondary/80">Outdoor</span>
             </Link>
             <Link
               href="/shop?category=mattress"
-              className="flex items-center px-4 py-3 transition hover:bg-gray-100"
+              className="px-4 py-3 transition flex-start hover:bg-background-dark/15"
             >
               <Image
                 src={Mattress}
                 alt="Mattress"
-                className="object-contain w-5 h-5"
+                className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-gray-600">Mattress</span>
+              <span className="ml-6 text-sm text-secondary/80">Mattress</span>
             </Link>
           </div>
         </div>
 
-        <div className="flex items-center justify-between flex-grow py-5 md:pl-12">
-          <div className="flex items-center space-x-6 capitalize">
+        <div className="flex-grow py-5 flex-between md:pl-12">
+          <div className="space-x-6 capitalize flex-center">
             <ActiveLink name="Home" path="/en" />
             <ActiveLink name="Shop" path="/shop" />
             <ActiveLink name="About us" path="/about-us" />

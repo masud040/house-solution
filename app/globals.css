@@ -102,7 +102,7 @@
     @apply text-lg md:text-xl lg:text-2xl;
   }
   .paragraph-md-h6-medium {
-    @apply font-medium md:text-lg;
+    @apply text-sm font-medium md:text-lg;
   }
   .paragraph-md-h5-semibold {
     @apply text-sm font-semibold md:text-xl;
@@ -110,6 +110,9 @@
   /* paragraph related styles */
   .paragraph-light {
     @apply text-sm font-light leading-[20.8px];
+  }
+  .base-normal {
+    @apply text-[17px] font-normal leading-[25.2px];
   }
   .paragraph-semibold {
     @apply text-sm font-semibold;
