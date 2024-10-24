@@ -108,7 +108,7 @@ export default function CartItems({ cartItems }) {
       </aside>
 
       {loading && (
-        <div className="absolute transform -translate-x-1/2 -translate-y-1/2 opacity-50 cursor-not-allowed bg-secondary-lightest size-full flex-center top-1/2 left-1/2">
+        <div className="absolute z-20 w-screen transform -translate-x-1/2 -translate-y-1/2 cursor-not-allowed opacity-60 bg-secondary-light size-full flex-center inset-1/2">
           <Image src={LoadingImage} width={40} height={40} alt="loading..." />
         </div>
       )}

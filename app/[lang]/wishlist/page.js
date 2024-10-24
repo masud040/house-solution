@@ -13,9 +13,9 @@ export default async function WishlistPage() {
 
   const allCartItems = await getAllWishlistByEmail(session?.user?.email);
   return (
-    <section>
+    <section className="container">
       <Breadcrumb name="Wishlist" />
-      <div className="container gap-6 pt-4 pb-16">
+      <div className="gap-6 pb-16">
         {allCartItems?.length > 0 ? (
           <div className="max-w-6xl mx-auto space-y-4">
             {allCartItems.map((product) => (

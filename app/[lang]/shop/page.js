@@ -17,9 +17,9 @@ const ShopPage = async ({
   const allCategory = await getProductsCountByCategory();
 
   return (
-    <section>
+    <section className="container">
       <Breadcrumb name="Shop" />
-      <div className="container grid grid-cols-1 gap-6 pt-4 pb-16 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 pb-16 md:grid-cols-3 lg:grid-cols-4">
         <DrawerComponent categories={allCategory} />
         <Sidebar categories={allCategory} />
         <ProductList

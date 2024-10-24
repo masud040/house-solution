@@ -127,8 +127,8 @@
   .base-semibold {
     @apply text-[17px] font-semibold leading-[25.2px];
   }
-  .base-lg-h6-medium {
-    @apply text-base font-medium lg:text-lg;
+  .paragraph-lg-base {
+    @apply text-sm lg:text-base;
   }
   .paragraph-semibold {
     @apply text-sm font-semibold;

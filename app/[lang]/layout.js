@@ -19,9 +19,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="light">
-        <Header />
-        <Navbar />
-        <div>{children}</div>
+        <div className="fixed z-30 w-full">
+          <Header />
+          <Navbar />
+        </div>
+        <div className="pt-36">{children}</div>
         <ToastContainer />
         <Footer />
         <CopyRight />

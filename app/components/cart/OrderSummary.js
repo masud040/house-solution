@@ -11,8 +11,10 @@ export const OrderSummary = async ({ cartItems }) => {
   const shippingCost = await getDeleveryCost(cartItems);
   const totalPrice = Math.floor(subTotal + shippingCost);
   return (
-    <aside className="grid-cols-1 p-4 space-y-2 text-base bg-white rounded-sm shadow-custom">
-      <h4 className="text-">Order Summary</h4>
+    <aside className="grid-cols-1 top-0 relative md:sticky md:top-36 col-span-1 p-4 space-y-2.5 text-base bg-white rounded-sm md:col-span-2 shadow-light-elevated_dark-elevated-dark">
+      <h4 className="pb-2 text-lg text-secondary-dark border-b-light-default_dark-tertiary">
+        Order Summary
+      </h4>
       <div className="flex items-center justify-between text-sm font-bold">
         <p>Subtotal ({cartItems?.length > 0 ? cartItems.length : 0} items)</p>
         <p>${subTotal}</p>
@@ -22,12 +24,12 @@ export const OrderSummary = async ({ cartItems }) => {
         <p>${shippingCost}</p>
       </div>
       <div className="flex text-sm">
-        {/* <input
+        <input
           type="text"
           placeholder="Enter Voucher Code"
-          className="py-1 text-sm rounded-l-md focus:ring-0"
-        /> */}
-        <button className="w-full text-white rounded-r-md bg-secondary">
+          className="p-1.5 rounded-l-md input-field"
+        />
+        <button className="px-5 text-background-light rounded-r-md bg-secondary">
           Apply
         </button>
       </div>
@@ -38,7 +40,7 @@ export const OrderSummary = async ({ cartItems }) => {
 
       <button
         type="submit"
-        className="w-full px-6 py-2 text-sm font-medium text-center text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary font-roboto"
+        className="relative w-full px-6 py-2 uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
       >
         Proceed to Checkout ({cartItems?.length})
       </button>

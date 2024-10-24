@@ -62,7 +62,7 @@ export default function CatItemCard({
   const discountedPrice = price - (price * discount) / 100;
   return (
     <>
-      <div className="gap-3 p-5 overflow-hidden rounded-sm md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark ">
+      <div className="gap-3 px-4 py-5 overflow-hidden rounded-sm md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark">
         <div className="gap-3 flex-start">
           <label htmlFor={id}>
             <input
@@ -87,7 +87,7 @@ export default function CatItemCard({
         </div>
         <div className="flex-col flex-1 gap-2 flex-between md:gap-4 md:flex-row">
           <div className="w-full md:w-2/3">
-            <h2 className="base-lg-h6-medium text-secondary-darker">{name}</h2>
+            <h2 className="paragraph-lg-base text-secondary-darker">{name}</h2>
             <p className="text-xs font-medium text-secondary">
               Availability:{" "}
               {stock > 0 ? (
@@ -99,12 +99,13 @@ export default function CatItemCard({
           </div>
 
           <div className="flex-row w-full gap-2 md:gap-4 flex-end">
-            <div className="space-x-2 text-primary">
-              <span>{discountedPrice?.toFixed(2)}</span>
-              <span className="text-sm line-through text-secondary-darker">
+            <div className="items-start justify-start text-primary flex-column">
+              <p className="text-sm">{discountedPrice?.toFixed(2)}</p>
+
+              <p className="text-sm line-through text-secondary-darker">
                 {price}
-              </span>
-              <span className="text-sm text-secondary-darker">{discount}%</span>
+              </p>
+              <p className="text-sm text-secondary-darker">{discount}%</p>
             </div>
 
             <div className="flex divide-x-light-default-dark-secondary text-secondary-dark border-light-default_dark-tertiary w-max">
