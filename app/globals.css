@@ -41,7 +41,7 @@
     @apply block w-full px-4 py-3 text-sm text-gray-600 placeholder-gray-400 border border-gray-300 rounded focus:border-primary focus:ring-0;
   }
   .nav-link {
-    @apply text-[12px] uppercase transition-colors duration-300 hover:text-primary;
+    @apply text-[15px] uppercase transition-colors ease-in-out duration-500;
   }
 
   .page-container {
@@ -100,6 +100,9 @@
   }
   .h5-medium {
     @apply text-xl font-medium;
+  }
+  .h6-medium {
+    @apply text-lg font-medium;
   }
   .h5-md-h4-medium {
     @apply text-xl font-medium md:text-2xl;
@@ -175,7 +178,7 @@
 
   /* button related styles */
   .btn-primary {
-    @apply px-8 py-3 font-medium border rounded-md text-background-light bg-primary border-primary hover:bg-transparent hover:text-primary;
+    @apply px-8 py-3 font-medium uppercase transition duration-500 ease-in-out border rounded-md text-background-light bg-primary border-primary hover:bg-transparent hover:text-primary;
   }
 
   .shadow-light-elevated_dark-elevated-dark {
@@ -188,7 +191,7 @@
 
   /* card related*/
   .features-card {
-    @apply gap-5 p-6 border rounded-sm flex-center border-primary;
+    @apply gap-5 p-5 border rounded flex-center border-primary;
   }
 
   /* border related styles */

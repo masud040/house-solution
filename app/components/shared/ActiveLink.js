@@ -12,9 +12,9 @@ export function ActiveLink({ name, path }) {
       href={path}
       className={`${
         slicePath === path || pathname === path
-          ? "text-indigo-500 transition hover:text-indigo-600"
-          : "text-secondary-lightest transition hover:text-secondary-extra-light"
-      } base-normal`}
+          ? "text-indigo-500  hover:text-indigo-600"
+          : "text-secondary-lightest hover:text-secondary-extra-light"
+      } nav-link`}
     >
       {name}
     </Link>

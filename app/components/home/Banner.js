@@ -1,26 +1,27 @@
 import BannerImage from "@/public/assets/images/banner-bg.jpg";
+import Link from "next/link";
 export default function Banner() {
   return (
     <div
       className="bg-center bg-no-repeat bg-cover py-9"
       style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
-      <div className="container space-y-8">
+      <div className="container space-y-8 text-secondary-dark">
         <h1 className="capitalize h3-semibold-lg-h2-semibold">
           best collection for <br />
           home decoration
         </h1>
 
-        <p>
+        <p className="text-secondary">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam
           <br />
           accusantium perspiciatis, sapiente magni eos dolorum ex quos dolores
           odio
         </p>
         <div>
-          <a href="#" className="btn-primary">
+          <Link href="#" className="btn-primary">
             Shop Now
-          </a>
+          </Link>
         </div>
       </div>
     </div>
