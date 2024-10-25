@@ -6,7 +6,7 @@ export const NoDataFound = ({ message, cart }) => {
       {message}
       {cart && (
         <Link href="/">
-          <button className="px-4 py-2 mt-4 text-sm uppercase transition-all duration-300 border border-secondary hover:bg-secondary/20">
+          <button className="px-4 py-2 mt-4 btn-light-default_dark-primary">
             Continue Shopping
           </button>
         </Link>

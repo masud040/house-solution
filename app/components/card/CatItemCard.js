@@ -62,7 +62,7 @@ export default function CatItemCard({
   const discountedPrice = price - (price * discount) / 100;
   return (
     <>
-      <div className="gap-3 px-4 py-5 overflow-hidden rounded-sm md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark">
+      <div className="gap-3 px-4 py-5 overflow-hidden rounded-md md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark">
         <div className="gap-3 flex-start">
           <label htmlFor={id}>
             <input

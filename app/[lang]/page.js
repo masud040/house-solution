@@ -12,7 +12,7 @@ export default async function Home({ params: { lang } }) {
   return (
     <>
       <Banner />
-      <div className="page-container">
+      <div className="container">
         <Features />
         <Categories />
         <NewArrival />

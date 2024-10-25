@@ -11,9 +11,9 @@ export default async function AccountPage() {
     return redirect("/login");
   }
   return (
-    <section>
+    <section className="container">
       <Breadcrumb name="Account" />
-      <div className=" grid grid-cols-3 gap-4 mx-auto max-w-5xl">
+      <div className="grid max-w-5xl grid-cols-3 gap-4 pb-16 mx-auto">
         <PersonalProfile />
         <ShippingAddress />
         <BillingAddress />

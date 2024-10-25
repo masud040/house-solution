@@ -1,17 +1,19 @@
+import Link from "next/link";
+
 export const BillingAddress = () => {
   return (
-    <div className="px-4 pt-6 pb-8 bg-white rounded shadow">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium text-gray-800">Billing address</h3>
-        <a href="#" className="text-primary">
+    <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark bg-background-light">
+      <div className="mb-4 flex-between">
+        <h3 className="h6-medium text-secondary-darkist">Billing address</h3>
+        <Link href="/account/billing-address/edit" className="text-primary">
           Edit
-        </a>
+        </Link>
       </div>
       <div className="space-y-1">
-        <h4 className="font-medium text-gray-700">John Doe</h4>
-        <p className="text-gray-800">Medan, North Sumatera</p>
-        <p className="text-gray-800">20317</p>
-        <p className="text-gray-800">0811 8877 988</p>
+        <h4 className="font-medium text-secondary-darker">John Doe</h4>
+        <p className="text-secondary-dark">Medan, North Sumatera</p>
+        <p className="text-secondary-dark">20317</p>
+        <p className="text-secondary-dark">0811 8877 988</p>
       </div>
     </div>
   );

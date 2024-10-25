@@ -71,7 +71,7 @@ export default function CartItems({ cartItems }) {
       <aside className="col-span-1 md:col-span-3">
         {cartItems?.length > 0 ? (
           <div className="max-w-6xl mx-auto space-y-4">
-            <div className="flex items-center justify-between p-4 text-xs uppercase rounded-sm shadow-light-elevated_dark-elevated-dark">
+            <div className="flex items-center justify-between p-4 text-xs uppercase rounded-md shadow-light-elevated_dark-elevated-dark">
               <label htmlFor="all" className="flex items-center gap-3">
                 <input
                   type="checkbox"

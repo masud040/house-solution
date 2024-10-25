@@ -37,15 +37,8 @@
     @apply ring-2 ring-primary;
   }
 
-  .input-box {
-    @apply block w-full px-4 py-3 text-sm text-gray-600 placeholder-gray-400 border border-gray-300 rounded focus:border-primary focus:ring-0;
-  }
   .nav-link {
     @apply text-[15px] uppercase transition-colors ease-in-out duration-500;
-  }
-
-  .page-container {
-    @apply container mx-auto max-w-[1400px];
   }
 }
 @layer utilities {
@@ -68,20 +61,15 @@
   .flex-start {
     @apply flex items-center justify-start;
   }
-  .flex-colum {
+  .flex-column {
     @apply flex flex-col;
   }
   .grid-center {
     @apply grid justify-center;
   }
-  .grid-start {
-    @apply grid items-center justify-start;
-  }
 
   /* heading related styles */
-  .h2-bold-lg-h1 {
-    @apply text-4xl lg:text-5xl;
-  }
+
   .h3-semibold-lg-h2-semibold {
     @apply text-3xl font-semibold lg:text-4xl;
   }
@@ -92,9 +80,6 @@
     @apply text-2xl font-medium lg:text-3xl;
   }
 
-  .h5-md-h4-semibold {
-    @apply text-xl font-semibold md:text-2xl;
-  }
   .h5-semibold {
     @apply text-xl font-semibold;
   }
@@ -121,27 +106,11 @@
     @apply text-sm font-semibold md:text-xl;
   }
   /* paragraph related styles */
-  .paragraph-light {
-    @apply text-sm font-light leading-[20.8px];
-  }
-  .base-normal {
-    @apply text-[17px] font-normal leading-[25.2px];
-  }
-  .base-semibold {
-    @apply text-[17px] font-semibold leading-[25.2px];
-  }
+
   .paragraph-lg-base {
     @apply text-sm lg:text-base;
   }
-  .paragraph-semibold {
-    @apply text-sm font-semibold;
-  }
-  .paragraph-medium {
-    @apply text-sm font-medium;
-  }
-  .normal-light {
-    @apply text-[15px] font-light;
-  }
+
   .extra-small-md-paragraph {
     @apply text-xs md:text-sm;
   }
@@ -195,9 +164,7 @@
   }
 
   /* border related styles */
-  .border-b-light-default_dark-none {
-    @apply border-b dark:border-none;
-  }
+
   .border-b-light-default_dark-tertiary {
     @apply border-b dark:border-tertiary/20;
   }
@@ -214,7 +181,7 @@
   }
   /* button related styles */
   .btn-light-default_dark-primary {
-    @apply relative px-8 py-3 text-lg font-semibold rounded-md shadow-light-elevated_dark-elevated-dark w-fit text-primary-dark;
+    @apply relative px-8 py-3 text-lg font-semibold rounded-md shadow-light-elevated_dark-elevated-dark w-fit text-primary;
   }
 
   /* hover animation */
