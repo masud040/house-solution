@@ -72,12 +72,12 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
       </div>
 
       <div className="gap-6 py-4 mt-2 text-sm border-b-light-default_dark-tertiary flex-start ">
-        <button className="gap-2 px-8 py-4 uppercase btn-primary-hover-effect flex-start">
+        <button className="gap-2 px-8 py-4 uppercase btn-shadow-with-hover-effect text-primary flex-start">
           Buy Now
         </button>
         <button
           onClick={handleAddToCart}
-          className="gap-2 px-8 py-4 uppercase btn-primary-hover-effect flex-start"
+          className="gap-2 px-8 py-4 uppercase btn-shadow-with-hover-effect text-primary flex-start"
         >
           <i className="fa-solid fa-bag-shopping"></i>
           Add to cart

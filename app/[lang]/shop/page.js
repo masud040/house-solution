@@ -18,7 +18,7 @@ const ShopPage = async ({
 
   return (
     <section className="container">
-      <Breadcrumb name="Shop" />
+      <Breadcrumb name1="Shop" />
       <div className="grid grid-cols-1 gap-6 pb-16 md:grid-cols-3 lg:grid-cols-4">
         <DrawerComponent categories={allCategory} />
         <Sidebar categories={allCategory} />

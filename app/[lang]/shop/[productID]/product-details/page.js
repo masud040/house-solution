@@ -9,7 +9,7 @@ export default async function ProductDetailsPage({ params: { productID } }) {
 
   return (
     <section className="container">
-      <Breadcrumb name="Product Details" />
+      <Breadcrumb name1="Product Details" />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <ProductImages
           name={product?.name}

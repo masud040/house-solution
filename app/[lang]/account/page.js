@@ -12,7 +12,7 @@ export default async function AccountPage() {
   }
   return (
     <section className="container">
-      <Breadcrumb name="Account" />
+      <Breadcrumb name1="Account" name2="Profile" />
       <div className="grid max-w-5xl grid-cols-3 gap-4 pb-16 mx-auto">
         <PersonalProfile />
         <ShippingAddress />

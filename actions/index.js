@@ -10,11 +10,11 @@ import {
 } from "@/db/queries";
 import { revalidatePath } from "next/cache";
 
-export async function loginWithCredentials(formData) {
+export async function loginWithCredentials(data) {
   try {
     const response = await signIn("credentials", {
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email: data?.email,
+      password: data?.password,
       redirect: false,
     });
 

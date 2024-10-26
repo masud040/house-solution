@@ -3,72 +3,61 @@
 import { loginWithCredentials } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Field from "../shared/Field";
 
 export default function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [error, setError] = useState("");
   const router = useRouter();
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setError("");
-    const formData = new FormData(event.currentTarget);
-    if (!formData.get("email")) {
-      setError("Email field is required!");
-      return;
-    }
-    if (!formData.get("password")) {
-      setError("Password field is required!");
-      return;
-    }
+  async function handleOnSubmit(data) {
     try {
-      const response = await loginWithCredentials(formData);
+      const response = await loginWithCredentials(data);
       if (!response.error) {
         router.push("/");
       }
     } catch (error) {
-      setError(error.message);
+      console.log(error);
     }
   }
   return (
     <>
-      {error && <div className="text-red-500 text-md">{error}</div>}
-      <form autocomplete="off" onSubmit={handleSubmit}>
-        <div className="space-y-2">
-          <div>
-            <label htmlFor="email" className="block mb-2 text-gray-600">
-              Email address
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="block w-full px-4 py-3 text-sm text-gray-600 placeholder-gray-400 border border-gray-300 rounded focus:ring-0 focus:border-primary"
-              placeholder="youremail.@domain.com"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block mb-2 text-gray-600">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="block w-full px-4 py-3 text-sm text-gray-600 placeholder-gray-400 border border-gray-300 rounded focus:ring-0 focus:border-primary"
-              placeholder="*******"
-            />
-          </div>
-        </div>
-        <div className="flex items-center justify-between mt-6">
+      <form autoComplete="off" onSubmit={handleSubmit(handleOnSubmit)}>
+        <Field label="Email Address" htmlFor="email" error={errors?.email}>
+          <input
+            type="email"
+            id="email"
+            className="py-3 rounded-md input-field"
+            placeholder="youremail.@domain.com"
+            {...register("email", { required: "Email is required!" })}
+          />
+        </Field>
+        <Field label="Password" htmlFor="password" error={errors?.password}>
+          <input
+            type="password"
+            id="password"
+            className="py-3 rounded-md input-field"
+            {...register("password", { required: "Password is required!" })}
+          />
+        </Field>
+
+        <div className="mt-6 flex-between">
           <div className="flex items-center">
             <input
               type="checkbox"
               name="remember"
               id="remember"
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
+              {...register("remember")}
             />
             <label
               htmlFor="remember"
-              className="ml-3 text-gray-600 cursor-pointer"
+              className="ml-3 cursor-pointer text-secondary-dark"
             >
               Remember me
             </label>
@@ -77,12 +66,12 @@ export default function LoginForm() {
             Forgot password
           </a>
         </div>
-        <div className="mt-4">
+        <div className="mt-6">
           <button
             type="submit"
-            className="block w-full py-2 font-medium text-center text-white uppercase transition border rounded bg-primary border-primary hover:bg-transparent hover:text-primary font-roboto"
+            className="w-full py-3 uppercase btn-shadow-light-defaut-dark-primary"
           >
-            Login
+            Sign In
           </button>
         </div>
       </form>

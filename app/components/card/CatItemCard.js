@@ -88,7 +88,7 @@ export default function CatItemCard({
         <div className="flex-col flex-1 gap-2 flex-between md:gap-4 md:flex-row">
           <div className="w-full">
             <h2 className="paragraph-lg-base text-secondary-darker">{name}</h2>
-            <p className="text-xs font-medium text-secondary">
+            <p className="text-xs font-medium">
               Availability:{" "}
               {stock > 0 ? (
                 <span className="text-green-600">In Stock</span>

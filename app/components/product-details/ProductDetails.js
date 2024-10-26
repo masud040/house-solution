@@ -55,25 +55,23 @@ export const ProductDetails = async ({ product }) => {
         </p>
         <p className="space-x-2">
           <span className="font-semibold text-secondary-dark">Brand: </span>
-          <span className="text-secondary">{brand}</span>
+          <span>{brand}</span>
         </p>
         <p className="space-x-2">
           <span className="font-semibold text-secondary-dark">Category: </span>
-          <span className="text-secondary">{category}</span>
+          <span>{category}</span>
         </p>
         <p className="space-x-2">
           <span className="font-semibold text-secondary-dark">SKU: </span>
-          <span className="text-secondary">{SKU}</span>
+          <span>{SKU}</span>
         </p>
       </div>
       <div className="flex items-baseline mt-4 mb-1 space-x-2 font-roboto">
         <p className="h5-semibold text-primary">${discountPrice.toFixed(2)}</p>
-        <p className="text-base line-through text-secondary">
-          ${price.toFixed(2)}
-        </p>
+        <p className="text-base line-through">${price.toFixed(2)}</p>
       </div>
 
-      <p className="mt-4 text-secondary">{details}</p>
+      <p className="mt-4">{details}</p>
 
       <ProdcutAction product={plainProduct} userId={user?.id} />
     </div>

@@ -12,14 +12,14 @@ export default function Banner() {
           home decoration
         </h1>
 
-        <p className="text-secondary">
+        <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam
           <br />
           accusantium perspiciatis, sapiente magni eos dolorum ex quos dolores
           odio
         </p>
         <div>
-          <Link href="#" className="btn-primary">
+          <Link href="#" className="py-3 btn-primary">
             Shop Now
           </Link>
         </div>

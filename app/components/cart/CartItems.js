@@ -86,7 +86,7 @@ export default function CartItems({ cartItems }) {
               <div
                 onClick={handleDelete}
                 title="Remove all products"
-                className="gap-2 cursor-pointer text-secondary flex-start hover:text-primary"
+                className="gap-2 cursor-pointer flex-start hover:text-primary"
               >
                 <i className="fa-solid fa-trash"></i>
                 <span className="">Delete</span>

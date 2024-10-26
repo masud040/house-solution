@@ -1,16 +1,34 @@
 import Link from "next/link";
 
-const Breadcrumb = ({ name1, name2, name3, name4 }) => {
+const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
   return (
     <div className="gap-3 py-4 flex-start">
       <Link href="/" className="text-base text-primary">
         <i className="fa-solid fa-house"></i>
       </Link>
-      <span className="text-sm">
-        <i className="fa-solid fa-chevron-right"></i>
-      </span>
-      <p className="font-medium">{name1}</p>
+      {nameWithPath?.name && (
+        <>
+          <span className="text-sm">
+            <i className="fa-solid fa-chevron-right"></i>
+          </span>
+          <Link
+            href={nameWithPath?.path}
+            className="transition-colors duration-500 ease-in-out hover:text-primary"
+          >
+            <p className="font-medium">{nameWithPath?.name}</p>
+          </Link>
+        </>
+      )}
 
+      {name1 && (
+        <>
+          {" "}
+          <span className="text-sm">
+            <i className="fa-solid fa-chevron-right"></i>
+          </span>
+          <p className="font-medium">{name1}</p>
+        </>
+      )}
       {name2 && (
         <>
           {" "}
@@ -18,24 +36,6 @@ const Breadcrumb = ({ name1, name2, name3, name4 }) => {
             <i className="fa-solid fa-chevron-right"></i>
           </span>
           <p className="font-medium">{name2}</p>
-        </>
-      )}
-      {name3 && (
-        <>
-          {" "}
-          <span className="text-sm">
-            <i className="fa-solid fa-chevron-right"></i>
-          </span>
-          <p className="font-medium">{name3}</p>
-        </>
-      )}
-      {name4 && (
-        <>
-          {" "}
-          <span className="text-sm">
-            <i className="fa-solid fa-chevron-right"></i>
-          </span>
-          <p className="font-medium">{name4}</p>
         </>
       )}
     </div>

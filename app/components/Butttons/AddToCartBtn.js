@@ -25,7 +25,10 @@ export default function AddToCartBtn({ productId, userId }) {
     }
   }
   return (
-    <button onClick={handleAddToCart} className="py-3 btn-primary-hover-effect">
+    <button
+      onClick={handleAddToCart}
+      className="py-3 btn-shadow-with-hover-effect text-primary "
+    >
       Add to cart
     </button>
   );

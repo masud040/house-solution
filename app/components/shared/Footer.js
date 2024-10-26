@@ -10,7 +10,7 @@ export default function Footer() {
             </h1>
           </Link>
           <div className="mr-2">
-            <p className="text-secondary">
+            <p className="">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia,
               hic?
             </p>
