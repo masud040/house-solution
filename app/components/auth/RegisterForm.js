@@ -11,36 +11,19 @@ export default function RegisterForm() {
     handleSubmit,
     reset,
     formState: { errors },
+    setError,
   } = useForm();
 
   const [show, setShow] = useState(false);
-  async function handleOnSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+  const [showConfirm, setShowConfirm] = useState(false);
+  async function handleOnSubmit(data) {
+    if (data?.password !== data?.confirmPassword) {
+      setError("confirmPassword", {
+        type: "custom",
+        message: "Password and confirm password does not match!",
+      });
+    }
 
-    // if (!formData.get("name")) {
-    //   setError("Name is required!");
-    //   return;
-    // }
-    // if (!formData.get("email")) {
-    //   setError("Email is required!");
-    //   return;
-    // }
-    // if (!formData.get("password") || !formData.get("confirm")) {
-    //   setError("Password is required!");
-    //   return;
-    // }
-    // if (formData.get("password") !== formData.get("confirm")) {
-    //   setError("Confirm password do not match!");
-    //   return;
-    // }
-    // if (!formData.get("aggrement")) {
-    //   setError("Please select an aggregate!");
-    //   return;
-    // }
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const password = formData.get("password");
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -48,24 +31,29 @@ export default function RegisterForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          email,
-          password,
+          name: data?.name,
+          email: data?.email,
+          password: data?.password,
         }),
       });
     } catch (err) {
-      // setError(err.message);
+      console.log(err);
     }
   }
   return (
-    <form action="#" method="post" autocomplete="off" onSubmit={handleOnSubmit}>
+    <form
+      action="#"
+      method="post"
+      autocomplete="off"
+      onSubmit={handleSubmit(handleOnSubmit)}
+    >
       <div className="space-y-2">
         <Field label="Full Name" htmlFor="name" error={errors?.name}>
           <input
             type="text"
             id="name"
-            className="py-3 rounded-md input-field"
-            placeholder="fulan fulana"
+            className="py-3 capitalize rounded-md input-field"
+            placeholder="Jhon Doe"
             {...register("name", { required: "Name is required!" })}
           />
         </Field>
@@ -85,13 +73,20 @@ export default function RegisterForm() {
               type={show ? "text" : "password"}
               id="password"
               className="py-3 rounded-md input-field"
-              {...register("password", { required: "Password is required!" })}
+              placeholder="Password"
+              {...register("password", {
+                required: "Password is required!",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+              })}
             />
             <span
               onClick={() => setShow((i) => !i)}
               className="absolute text-2xl translate-y-1/2 right-2"
             >
-              {show ? <BiSolidHide /> : <BiSolidShow />}
+              {show ? <BiSolidShow /> : <BiSolidHide />}
             </span>
           </div>
         </Field>
@@ -102,18 +97,19 @@ export default function RegisterForm() {
         >
           <div className="relative">
             <input
-              type={show ? "text" : "password"}
+              type={showConfirm ? "text" : "password"}
               id="confirmPassword"
               className="py-3 rounded-md input-field"
+              placeholder="Confirm Password"
               {...register("confirmPassword", {
                 required: "Confirm password is required!",
               })}
             />
             <span
-              onClick={() => setShow((i) => !i)}
+              onClick={() => setShowConfirm((i) => !i)}
               className="absolute text-2xl translate-y-1/2 right-2"
             >
-              {show ? <BiSolidHide /> : <BiSolidShow />}
+              {showConfirm ? <BiSolidShow /> : <BiSolidHide />}
             </span>
           </div>
         </Field>
@@ -126,7 +122,9 @@ export default function RegisterForm() {
               name="agreement"
               id="agreement"
               className="rounded-sm cursor-pointer text-primary focus:ring-0"
-              {...register("agreement", { required: "Agrement is required!" })}
+              {...register("agreement", {
+                required: "Please confirm our terms & conditions!",
+              })}
             />
             <label htmlFor="agreement" className="ml-3 cursor-pointer">
               I have read and agree to the{" "}

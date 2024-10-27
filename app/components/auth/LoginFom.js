@@ -49,7 +49,7 @@ export default function LoginForm() {
             onClick={() => setShow((i) => !i)}
             className="absolute text-2xl translate-y-1/2 right-2"
           >
-            {show ? <BiSolidHide /> : <BiSolidShow />}
+            {show ? <BiSolidShow /> : <BiSolidHide />}
           </span>
         </div>
       </Field>
