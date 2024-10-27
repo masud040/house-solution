@@ -4,7 +4,7 @@ const Field = ({ label, error, children, htmlFor }) => {
   const id = htmlFor || getChildId(children);
 
   return (
-    <div className="w-full mb-4">
+    <div className="w-full mb-3">
       {!!label && (
         <label className="block mb-2.5 capitalize" htmlFor={id}>
           {label}

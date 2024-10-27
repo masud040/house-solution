@@ -187,7 +187,7 @@
   /* button related styles */
 
   .btn-shadow-light-defaut-dark-primary {
-    @apply relative px-8 text-lg font-semibold rounded shadow-light-elevated_dark-elevated-dark text-primary;
+    @apply relative px-8 text-lg font-normal rounded shadow-light-elevated_dark-elevated-dark text-primary;
   }
 
   /* hover animation */
