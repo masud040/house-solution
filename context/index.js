@@ -1,4 +1,5 @@
 const { createContext } = require("react");
 
 const CartContext = createContext(null);
-export { CartContext };
+const ThemeContext = createContext(null);
+export { CartContext, ThemeContext };
