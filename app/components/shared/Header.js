@@ -3,6 +3,8 @@ import { getCartData, getWishlistCount } from "@/db/queries";
 import Image from "next/image";
 import Link from "next/link";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
+
+import ModeButton from "./ModeButton";
 import { Search } from "./Search";
 export default async function Header() {
   const session = await auth();
@@ -18,52 +20,59 @@ export default async function Header() {
           </h1>
         </Link>
         <Search />
-        <div className="space-x-5 flex-end">
-          <Link href="/wishlist" className="header-link">
-            <div className="h5-medium">
-              <i className="fa-regular fa-heart"></i>
-            </div>
-            <div className="text-sm leading-3">Wishlist</div>
-            <div className="absolute right-0 text-xs rounded-full text-background-light size-5 flex-center -top-1 bg-primary-light">
-              {count > 0 ? count : 0}
-            </div>
-          </Link>
-          <Link href="/cart" className="header-link">
-            <div className="h5-medium">
-              <i className="fa-solid fa-bag-shopping"></i>
-            </div>
-            <div className="text-sm leading-3">Cart</div>
-            <div className="absolute text-xs rounded-full text-background-light size-5 -right-3 flex-center -top-1 bg-primary-light">
-              {cartItems?.length > 0 ? cartItems.length : 0}
-            </div>
-          </Link>
-          <Link href="/account" className="header-link">
-            <div
-              className={`${
-                session?.user?.image || session?.user?.name
-                  ? "flex-center text-xl"
-                  : "text-xl"
-              }`}
-            >
-              {session?.user ? (
-                session?.user?.image ? (
-                  <Image
-                    src={session?.user?.image}
-                    height={18}
-                    width={18}
-                    alt="profile"
-                    className="mb-0.5 rounded-full size-7 border border-indigo-600 p-0.5 "
-                  />
+        <ul className="space-x-5 flex-end">
+          <li>
+            <Link href="/wishlist" className="header-link">
+              <div className="h5-medium">
+                <i className="fa-regular fa-heart"></i>
+              </div>
+              <p className="text-sm leading-3">Wishlist</p>
+              <div className="absolute right-0 text-xs rounded-full text-background-light size-5 flex-center -top-1 bg-primary-light">
+                {count > 0 ? count : 0}
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/cart" className="header-link">
+              <div className="h5-medium">
+                <i className="fa-solid fa-bag-shopping"></i>
+              </div>
+              <p className="text-sm leading-3">Cart</p>
+              <div className="absolute text-xs rounded-full text-background-light size-5 -right-3 flex-center -top-1 bg-primary-light">
+                {cartItems?.length > 0 ? cartItems.length : 0}
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link href="/account" className="header-link">
+              <div
+                className={`${
+                  session?.user?.image || session?.user?.name
+                    ? "flex-center text-xl"
+                    : "text-xl"
+                }`}
+              >
+                {session?.user ? (
+                  session?.user?.image ? (
+                    <Image
+                      src={session?.user?.image}
+                      height={18}
+                      width={18}
+                      alt="profile"
+                      className="mb-0.5 rounded-full size-7 border border-indigo-600 p-0.5 "
+                    />
+                  ) : (
+                    <GenerateImageByLetter name={session?.user?.name} />
+                  )
                 ) : (
-                  <GenerateImageByLetter name={session?.user?.name} />
-                )
-              ) : (
-                <i className="fa-regular fa-user "></i>
-              )}
-            </div>
-            <div className="text-sm leading-3">Account</div>
-          </Link>
-        </div>
+                  <i className="fa-regular fa-user "></i>
+                )}
+              </div>
+              <p className="text-sm leading-3">Account</p>
+            </Link>
+          </li>
+          <ModeButton />
+        </ul>
       </div>
     </header>
   );

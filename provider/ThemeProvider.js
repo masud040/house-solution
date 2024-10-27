@@ -1,5 +1,6 @@
 "use client";
 import { ThemeContext } from "@/context";
+import { useState } from "react";
 
 export default function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");

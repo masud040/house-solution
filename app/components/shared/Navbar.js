@@ -87,13 +87,21 @@ export default async function Navbar() {
           </div>
         </div>
 
-        <div className="flex-grow py-5 flex-between md:pl-12">
-          <div className="space-x-6 capitalize flex-center">
-            <ActiveLink name="Home" path="/en" />
-            <ActiveLink name="Shop" path="/shop" />
-            <ActiveLink name="About us" path="/about-us" />
-            <ActiveLink name="Contact us" path="/contact-us" />
-          </div>
+        <div className="flex-grow py-4 flex-between md:pl-12">
+          <ul className="space-x-6 capitalize flex-center">
+            <li>
+              <ActiveLink name="Home" path="/en" />
+            </li>
+            <li>
+              <ActiveLink name="Shop" path="/shop" />
+            </li>
+            <li>
+              <ActiveLink name="About us" path="/about-us" />
+            </li>
+            <li>
+              <ActiveLink name="Contact us" path="/contact-us" />
+            </li>
+          </ul>
           <SignInSignUp email={session?.user?.email} />
         </div>
       </div>
