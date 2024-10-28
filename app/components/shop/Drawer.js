@@ -48,7 +48,7 @@ export default function Drawer({ categories, showDrawer, setShowDrawer }) {
         </svg>
         <span className="sr-only">Close menu</span>
       </button>
-      <div className="space-y-5 divide-y divide-secondary-lighter">
+      <div className="space-y-5 divide-y divide-x-light-default-dark-tertiary">
         <FilterByCategory categories={categories} />
         <FilterByPrice />
         <FilterBySize />

@@ -42,10 +42,10 @@ export const ProductDetails = async ({ product }) => {
             <i className="fa-solid fa-star"></i>
           </span>
         </div>
-        <div className="ml-3 text-xs text-secondary-dark">(150 Reviews)</div>
+        <div className="ml-3 text-xs">(150 Reviews)</div>
       </div>
       <div className="space-y-2">
-        <p className="space-x-2 font-semibold text-secondary-dark">
+        <p className="space-x-2 font-semibold">
           <span>Availability: </span>
           {stock > 0 ? (
             <span className="text-green-600">In Stock</span>
@@ -54,15 +54,15 @@ export const ProductDetails = async ({ product }) => {
           )}
         </p>
         <p className="space-x-2">
-          <span className="font-semibold text-secondary-dark">Brand: </span>
+          <span className="font-semibold">Brand: </span>
           <span>{brand}</span>
         </p>
         <p className="space-x-2">
-          <span className="font-semibold text-secondary-dark">Category: </span>
+          <span className="font-semibold">Category: </span>
           <span>{category}</span>
         </p>
         <p className="space-x-2">
-          <span className="font-semibold text-secondary-dark">SKU: </span>
+          <span className="font-semibold">SKU: </span>
           <span>{SKU}</span>
         </p>
       </div>

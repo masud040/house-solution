@@ -2,8 +2,9 @@ import { auth } from "@/auth";
 import { getCartData, getWishlistCount } from "@/db/queries";
 import Image from "next/image";
 import Link from "next/link";
+import { PiHeartThin, PiShoppingCartSimpleThin } from "react-icons/pi";
+import { VscAccount } from "react-icons/vsc";
 import GenerateImageByLetter from "../auth/genrateImageByLetter";
-
 import ModeButton from "./ModeButton";
 import { Search } from "./Search";
 export default async function Header() {
@@ -12,7 +13,7 @@ export default async function Header() {
   const count = await getWishlistCount(session?.user?.email);
 
   return (
-    <header className="shadow-sm bg-background-light">
+    <header className="shadow-sm bg-background-light dark:bg-background-dark">
       <div className="container items-center gap-8 py-5 flex-between">
         <Link href="/">
           <h1 className="hidden font-bold text-transparent md:inline h6-md-h5-lg-h4 bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
@@ -21,29 +22,27 @@ export default async function Header() {
         </Link>
         <Search />
         <ul className="space-x-5 flex-end">
-          <li>
+          <li title="Wishlist">
             <Link href="/wishlist" className="header-link">
-              <div className="h5-medium">
-                <i className="fa-regular fa-heart"></i>
+              <div>
+                <PiHeartThin className="text-3xl" />
               </div>
-              <p className="text-sm leading-3">Wishlist</p>
-              <div className="absolute right-0 text-xs rounded-full text-background-light size-5 flex-center -top-1 bg-primary-light">
+              <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-secondary dark:bg-background-light/80 text-background-light dark:text-secondary-dark">
                 {count > 0 ? count : 0}
               </div>
             </Link>
           </li>
-          <li>
+          <li title="Cart">
             <Link href="/cart" className="header-link">
-              <div className="h5-medium">
-                <i className="fa-solid fa-bag-shopping"></i>
+              <div>
+                <PiShoppingCartSimpleThin className="text-3xl" />
               </div>
-              <p className="text-sm leading-3">Cart</p>
-              <div className="absolute text-xs rounded-full text-background-light size-5 -right-3 flex-center -top-1 bg-primary-light">
+              <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-secondary dark:bg-background-light/80 text-background-light dark:text-secondary-dark">
                 {cartItems?.length > 0 ? cartItems.length : 0}
               </div>
             </Link>
           </li>
-          <li>
+          <li title="Account">
             <Link href="/account" className="header-link">
               <div
                 className={`${
@@ -59,16 +58,15 @@ export default async function Header() {
                       height={18}
                       width={18}
                       alt="profile"
-                      className="mb-0.5 rounded-full size-7 border border-indigo-600 p-0.5 "
+                      className="rounded-full size-8 border border-indigo-600 p-0.5 "
                     />
                   ) : (
                     <GenerateImageByLetter name={session?.user?.name} />
                   )
                 ) : (
-                  <i className="fa-regular fa-user "></i>
+                  <VscAccount className="text-3xl" />
                 )}
               </div>
-              <p className="text-sm leading-3">Account</p>
             </Link>
           </li>
           <ModeButton />

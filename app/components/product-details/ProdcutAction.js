@@ -49,10 +49,8 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   return (
     <>
       <div className="mt-4">
-        <h3 className="mb-1 text-sm font-medium uppercase text-secondary-darker">
-          Quantity
-        </h3>
-        <div className="flex border divide-x border-secondary-lighter divide-secondary-lighter text-secondary-dark w-max">
+        <h3 className="mb-1 text-sm font-medium uppercase">Quantity</h3>
+        <div className="flex border divide-x border-light-default_dark-tertiary divide-x-light-default-dark-tertiary w-max">
           <button
             onClick={decreseQuantity}
             disabled={quantity === 1}
@@ -85,14 +83,14 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
       </div>
 
       <div className="flex gap-3 mt-4">
-        <button className="rounded-full text-secondary-light border-light-default_dark-tertiary size-8 flex-center hover:text-secondary">
+        <button className="rounded-full border-light-default_dark-tertiary size-8 flex-center hover:text-secondary">
           <i className="fa-solid fa-share"></i>
         </button>
         <button
           onClick={handleAddToWishlist}
-          className={`rounded-full text-secondary-light border-light-default_dark-tertiary size-8 flex-center hover:text-secondary ${
+          className={`rounded-full border-light-default_dark-tertiary size-8 flex-center hover:text-secondary ${
             wishlist?.includes(userId) &&
-            "bg-secondary-dark text-background-light hover:text-secondary-lightest"
+            "bg-secondary-dark dark:bg-secondary-darker hover:text-secondary-lightest"
           }`}
         >
           <i className="fa-regular fa-heart"></i>

@@ -9,7 +9,11 @@ export default function ModeButton() {
     setTheme(theme === "dark" ? "light" : "dark");
   }
   return (
-    <li className="p-1.5 rounded-btn-with-inset-shadow" onClick={handleTheme}>
+    <li
+      title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+      className="p-1.5 rounded-btn-with-inset-shadow"
+      onClick={handleTheme}
+    >
       {theme === "dark" ? (
         <TbSunHigh className="text-yellow-300" />
       ) : (

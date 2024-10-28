@@ -118,6 +118,10 @@
     @apply text-xs md:text-sm;
   }
 
+  .paragraph-under-small {
+    @apply text-[10px];
+  }
+
   /* footer */
   .footer-link {
     @apply block text-base hover:text-secondary-dark;
@@ -136,7 +140,7 @@
     @apply mb-5 uppercase h4-semibold-lg-h3-semibold;
   }
   .header-link {
-    @apply relative text-center transition-all duration-300 ease-in-out hover:text-primary;
+    @apply relative text-center transition-all duration-300 ease-in-out;
   }
 
   /* filter section */
@@ -160,7 +164,7 @@
   }
 
   .quantity-icrease-decrease-btn {
-    @apply text-xl cursor-pointer select-none flex-center hover:bg-primary-light hover:text-background-light disabled:cursor-not-allowed disabled:bg-secondary-light;
+    @apply text-xl cursor-pointer select-none flex-center hover:bg-primary-light disabled:cursor-not-allowed dark:disabled:bg-secondary disabled:bg-secondary-light;
   }
 
   /* card related*/
@@ -181,8 +185,8 @@
   }
 
   /* divide  related styles*/
-  .divide-x-light-default-dark-secondary {
-    @apply divide-x divide-secondary-lighter;
+  .divide-x-light-default-dark-tertiary {
+    @apply divide-x dark:divide-tertiary/20;
   }
   /* button related styles */
 
@@ -206,4 +210,8 @@
 
 .bg-overlay {
   @apply absolute inset-0 transition bg-black bg-opacity-40;
+}
+
+.magnifier-image {
+  @apply object-cover h-[200px] md:h-[400px] w-full rounded !important;
 }

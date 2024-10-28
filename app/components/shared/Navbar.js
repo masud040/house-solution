@@ -21,9 +21,7 @@ export default async function Navbar() {
             <i className="fa-solid fa-bars"></i>
           </span>
 
-          <span className="hidden ml-2 text-white capitalize">
-            All Categories
-          </span>
+          <span className="hidden ml-2 capitalize">All Categories</span>
 
           <div className="absolute left-0 invisible w-32 py-3 transition duration-300 divide-y divide-gray-300 shadow-md opacity-0 bg-background-light top-full divide-dashed group-hover:opacity-100 group-hover:visible">
             <Link
@@ -31,7 +29,7 @@ export default async function Navbar() {
               className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
             >
               <Image src={Sofa} alt="sofa" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary-dark">Sofa</span>
+              <span className="ml-6 text-sm text-secondary-dark ">Sofa</span>
             </Link>
             <Link
               href="/shop?category=terrace"

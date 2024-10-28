@@ -108,7 +108,7 @@ export default function CatItemCard({
               <p className="text-sm text-secondary-darker">{discount}%</p>
             </div>
 
-            <div className="flex divide-x-light-default-dark-secondary text-secondary-dark border-light-default_dark-tertiary w-max">
+            <div className="flex divide-x-light-default-dark-tertiary text-secondary-dark border-light-default_dark-tertiary w-max">
               <button
                 onClick={() => increaseDecreaseQuantity("decrease")}
                 disabled={quantity === 1}
