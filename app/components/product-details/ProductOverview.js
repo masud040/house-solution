@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { getUserByEmail } from "@/db/queries";
 import { ProdcutAction } from "./ProdcutAction";
 
-export const ProductDetails = async ({ product }) => {
+export const ProductOverview = async ({ product }) => {
   const {
     name,
     brand,
@@ -44,7 +44,7 @@ export const ProductDetails = async ({ product }) => {
         </div>
         <div className="ml-3 text-xs">(150 Reviews)</div>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-4">
         <p className="space-x-2 font-semibold">
           <span>Availability: </span>
           {stock > 0 ? (
@@ -65,15 +65,15 @@ export const ProductDetails = async ({ product }) => {
           <span className="font-semibold">SKU: </span>
           <span>{SKU}</span>
         </p>
+        <div className="flex items-baseline space-x-2 font-roboto">
+          <p className="h5-semibold text-primary">
+            ${discountPrice.toFixed(2)}
+          </p>
+          <p className="text-base line-through">${price.toFixed(2)}</p>
+        </div>
+        <p className="mt-4">{details}</p>
+        <ProdcutAction product={plainProduct} userId={user?.id} />
       </div>
-      <div className="flex items-baseline mt-4 mb-1 space-x-2 font-roboto">
-        <p className="h5-semibold text-primary">${discountPrice.toFixed(2)}</p>
-        <p className="text-base line-through">${price.toFixed(2)}</p>
-      </div>
-
-      <p className="mt-4">{details}</p>
-
-      <ProdcutAction product={plainProduct} userId={user?.id} />
     </div>
   );
 };

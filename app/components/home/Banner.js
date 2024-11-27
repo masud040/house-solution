@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Banner() {
   return (
     <div
-      className="bg-center bg-no-repeat bg-cover py-9"
+      className="bg-center bg-no-repeat bg-cover py-9 "
       style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
       <div className="container space-y-8 text-secondary-dark">

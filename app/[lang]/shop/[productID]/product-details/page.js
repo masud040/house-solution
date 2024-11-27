@@ -1,6 +1,6 @@
 import { ProdcutDescription } from "@/app/components/product-details/ProdcutDescription";
-import { ProductDetails } from "@/app/components/product-details/ProductDetails";
 import { ProductImages } from "@/app/components/product-details/ProductImages";
+import { ProductOverview } from "@/app/components/product-details/ProductOverview";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { getProductById } from "@/db/queries";
 
@@ -16,7 +16,7 @@ export default async function ProductDetailsPage({ params: { productID } }) {
           thumbnail={product?.thumbnail}
           gallery={product?.images}
         />
-        <ProductDetails product={product} />
+        <ProductOverview product={product} />
       </div>
       <ProdcutDescription description={product?.description} />
     </section>

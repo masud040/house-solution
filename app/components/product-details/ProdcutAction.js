@@ -2,8 +2,8 @@
 
 import { addToCart, performAddWishlist } from "@/actions";
 import { useRouter } from "next/navigation";
-
 import { useState } from "react";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 
 export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
@@ -48,23 +48,23 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
 
   return (
     <>
-      <div className="mt-4">
-        <h3 className="mb-1 text-sm font-medium uppercase">Quantity</h3>
-        <div className="flex border divide-x border-light-default_dark-tertiary divide-x-light-default-dark-tertiary w-max">
+      <div>
+        <h3 className="mb-2 text-sm font-medium uppercase ">Quantity</h3>
+        <div className="flex border divide-x divide-x-light-default-dark-tertiary rounded-3xl w-max border-light-default_dark-tertiary">
           <button
             onClick={decreseQuantity}
             disabled={quantity === 1}
-            className="quantity-icrease-decrease-btn size-8"
+            className="quantity-icrease-decrease-btn size-10 rounded-l-3xl"
           >
-            -
+            <FiMinus />
           </button>
-          <div className="text-base flex-center size-8">{quantity}</div>
+          <div className="text-base flex-center size-10">{quantity}</div>
           <button
             onClick={increaseQuantity}
             disabled={quantity === 5}
-            className="quantity-icrease-decrease-btn size-8"
+            className="quantity-icrease-decrease-btn size-10 rounded-r-3xl"
           >
-            +
+            <FiPlus />
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
           onClick={handleAddToWishlist}
           className={`rounded-full border-light-default_dark-tertiary size-8 flex-center hover:text-secondary ${
             wishlist?.includes(userId) &&
-            "bg-secondary-dark dark:bg-secondary-darker hover:text-secondary-lightest"
+            "bg-secondary-dark dark:bg-secondary-darker text-background-light hover:text-background-light"
           }`}
         >
           <i className="fa-regular fa-heart"></i>

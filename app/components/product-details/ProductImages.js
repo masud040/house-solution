@@ -9,10 +9,15 @@ export const ProductImages = ({ name, thumbnail, gallery }) => {
   return (
     <div>
       <div>
-        <Magnifier src={selectedImage} mgHeight={120} mgWidth={120} />
+        <Magnifier
+          src={selectedImage}
+          mgHeight={120}
+          mgWidth={120}
+          zoomFactor={2.7}
+        />
       </div>
       {gallery?.length > 0 ? (
-        <div className="gap-4 mt-4 flex-start">
+        <div className="w-full mt-4 gap-7 flex-start">
           {gallery.slice(0, 4).map((image, ind) => (
             <div key={ind} className="relative w-16 h-10 lg:w-24 lg:h-16">
               <Image
