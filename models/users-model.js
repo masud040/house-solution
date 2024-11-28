@@ -13,6 +13,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: false,
+    default: "user",
+  },
+  mobile: {
+    type: String,
+    required: false,
+  },
 });
 
 export const UserModel =

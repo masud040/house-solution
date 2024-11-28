@@ -1,12 +1,14 @@
 import { auth } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 import Link from "next/link";
-import { FiPlus } from "react-icons/fi";
+import AddNumberBtn from "../Butttons/AddNumberBtn";
 
 export const PersonalProfile = async () => {
   const session = await auth();
+  const user = await getUserByEmail(session?.user?.email);
 
   return (
-    <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark">
+    <div className="p-5 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">
         <h3 className="h6-medium text-secondary-darkist dark:text-background-light">
           Personal Profile
@@ -16,14 +18,12 @@ export const PersonalProfile = async () => {
         </Link>
       </div>
       <div className="space-y-2">
-        <h4 className="font-medium">{session?.user?.name}</h4>
-        <p>{session?.user?.email}</p>
-        {session?.user?.number ? (
-          <p></p>
+        <h4 className="font-medium">{user?.name}</h4>
+        <p className="text-sm">{user?.email}</p>
+        {user?.mobile ? (
+          <p className="text-sm">{user?.mobile}</p>
         ) : (
-          <button className="py-1.5 px-4 transition-all duration-500 ease-in-out rounded-2xl flex-start shadow-light-elevated_dark-elevated-dark hover:bg-primary">
-            <FiPlus className="text-2xl" /> <p>Add Number</p>
-          </button>
+          <AddNumberBtn userId={user.id} />
         )}
       </div>
     </div>

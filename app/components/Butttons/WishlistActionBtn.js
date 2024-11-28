@@ -1,5 +1,5 @@
 "use client";
-import { handleMovingToCart } from "@/actions";
+import { handleMovingWishlistToCart } from "@/actions";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { DeleteConfirmation } from "../modal/DeleteConfirmation";
@@ -11,7 +11,7 @@ const WishlistActionBtn = ({ productId }) => {
   }
   async function handleMove() {
     try {
-      const response = await handleMovingToCart(productId);
+      const response = await handleMovingWishlistToCart(productId);
       if (response.status === 200) {
         toast.success(response.message, { autoClose: 1500 });
       }

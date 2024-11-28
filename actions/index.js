@@ -8,8 +8,10 @@ import {
   updateQuantity,
   updateWishlist,
 } from "@/db/queries";
+import { UserModel } from "@/models/users-model";
 import { revalidatePath } from "next/cache";
 
+// login wih credentials
 export async function loginWithCredentials(data) {
   try {
     const response = await signIn("credentials", {
@@ -50,6 +52,7 @@ export async function performAddWishlist(productId, userId) {
   }
 }
 
+// handle update product quantity
 export async function updateProductQuantity(productId, userId, type) {
   try {
     const response = await updateQuantity(productId, userId, type);
@@ -62,6 +65,7 @@ export async function updateProductQuantity(productId, userId, type) {
   }
 }
 
+// function for delete product
 export async function performDelete(productId, from) {
   try {
     const session = await auth();
@@ -81,7 +85,8 @@ export async function performDelete(productId, from) {
   }
 }
 
-export async function handleMovingToCart(productId) {
+// move product wishlist to cart
+export async function handleMovingWishlistToCart(productId) {
   try {
     const session = await auth();
     const user = await getUserByEmail(session?.user?.email);
@@ -92,5 +97,20 @@ export async function handleMovingToCart(productId) {
     return response;
   } catch (error) {
     console.log(error);
+  }
+}
+
+// upadate user data
+export async function updateUserData(data, id) {
+  try {
+    const res = await UserModel.findByIdAndUpdate(id, data, { new: true });
+    return {
+      status: 200,
+      success: true,
+      message: "Added successfully!",
+      id: res?._id.toString(),
+    };
+  } catch (error) {
+    throw new Error(error.message);
   }
 }

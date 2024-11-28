@@ -1,16 +1,30 @@
+import { updateUserData } from "@/actions";
 import useMode from "@/app/hooks/useMode";
 import { Dialog, Transition } from "@headlessui/react";
+import { revalidatePath } from "next/cache";
 import { Fragment } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Field from "../shared/Field";
 
-export const AddNumberModal = ({ isOpen, setIsOpen, userId, from }) => {
+export const AddNumberModal = ({ isOpen, setIsOpen, userId }) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const { theme } = useMode();
-
   function closeModal() {
     setIsOpen(false);
   }
-  async function handleDelete() {
+  async function handleOnSubmit(data) {
     try {
-      console.log("Hello");
+      const response = await updateUserData(data, userId);
+      if (response?.status === 200) {
+        toast.success("Mobile added successfully!", { autoClose: 1500 });
+        revalidatePath("/en/account");
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -46,47 +60,55 @@ export const AddNumberModal = ({ isOpen, setIsOpen, userId, from }) => {
               <Dialog.Panel
                 className={`w-full max-w-md p-5 overflow-hidden text-left align-middle transition-all transform shadow-xl ${
                   theme === "dark"
-                    ? "bg-background-dark"
-                    : "bg-background-light"
+                    ? "bg-background-dark text-background-light"
+                    : "bg-background-light text-background-dark"
                 } rounded-2xl`}
               >
-                <div className="space-y-1 ">
-                  <h3
-                    className={`text-lg ${
-                      theme === "dark"
-                        ? "text-secondary-light"
-                        : "text-background-dark"
-                    } font-medium`}
+                <form onSubmit={handleSubmit(handleOnSubmit)}>
+                  <Field
+                    label="Mobile Number"
+                    htmlFor="number"
+                    error={errors?.number}
                   >
-                    Are you sure?
-                  </h3>
-                  <p
-                    className={`text-sm ${
-                      theme === "dark"
-                        ? "text-secondary-light"
-                        : "text-background-dark"
-                    } font-medium`}
-                  >
-                    Please Add Your Mobile Number
-                  </p>
-                </div>
+                    <input
+                      type="number"
+                      id="number"
+                      className={`w-full font-medium transition-colors duration-500 ease-in-out bg-transparent border rounded-md border-transparent py-3 ${
+                        theme === "dark"
+                          ? "shadow-custom-inset-dark"
+                          : "shadow-custom-inset"
+                      } focus:border-primary focus:outline-none focus:ring-0`}
+                      placeholder="Enter your mobile number"
+                      {...register("mobile", {
+                        required: "Mobile number is required!",
+                        minLength: {
+                          value: 11,
+                          message: "Mobile number cannot exceed 11 digits",
+                        },
+                        maxLength: {
+                          value: 14,
+                          message: "Mobile number cannot exceed 11 digits",
+                        },
+                      })}
+                    />
+                  </Field>
 
-                <div className="flex justify-end gap-4 mt-4">
-                  <button
-                    type="button"
-                    className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={closeModal}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDelete}
-                    className="px-4 py-2 text-sm font-medium text-blue-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  >
-                    Remove
-                  </button>
-                </div>
+                  <div className="flex justify-end gap-4 mt-4">
+                    <button
+                      type="button"
+                      className="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-sm font-medium text-blue-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>

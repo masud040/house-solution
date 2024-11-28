@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { Field } from "./Field";
+import Field from "../shared/Field";
+
 export const ProfileEditForm = () => {
   const {
     register,
