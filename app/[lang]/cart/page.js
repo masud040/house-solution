@@ -15,15 +15,13 @@ export default async function CartPage({ searchParams: { selected } }) {
 
   return (
     <CartProvider>
-      <section className="container">
+      <section className="container pb-16">
         <Breadcrumb name1="Cart" />
-        <div className="relative items-start gap-6 pb-16">
-          <div className="grid items-start grid-cols-1 gap-4 md:grid-cols-5">
-            <CartItems cartItems={cartItems} />
-            <OrderSummary
-              cartItems={cartItems?.filter((item) => item?.selected)}
-            />
-          </div>
+        <div className="grid items-start grid-cols-1 gap-6 md:grid-cols-5">
+          <CartItems cartItems={cartItems} />
+          <OrderSummary
+            cartItems={cartItems?.filter((item) => item?.selected)}
+          />
         </div>
       </section>
     </CartProvider>

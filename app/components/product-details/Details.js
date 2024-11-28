@@ -1,3 +1,3 @@
-export default function Details() {
-  return <div>I am from details page</div>;
+export default function Details({ description }) {
+  return <div>{description}</div>;
 }

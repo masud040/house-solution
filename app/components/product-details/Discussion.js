@@ -1,5 +1,5 @@
-const Discussion = () => {
-  return <div>I am from the discussion</div>;
+const Discussion = ({ description }) => {
+  return <div>{description}</div>;
 };
 
 export default Discussion;

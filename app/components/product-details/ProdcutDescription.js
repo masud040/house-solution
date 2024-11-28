@@ -14,13 +14,13 @@ export const ProdcutDescription = ({ description }) => {
           <Tab>Discussion</Tab>
         </TabList>
         <TabPanel>
-          <Details />
+          <Details description={description} />
         </TabPanel>
         <TabPanel>
-          <RatingAndReview />
+          <RatingAndReview description={description} />
         </TabPanel>
         <TabPanel>
-          <Discussion />
+          <Discussion description={description} />
         </TabPanel>
       </Tabs>
     </div>
