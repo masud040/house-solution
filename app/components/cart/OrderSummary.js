@@ -40,7 +40,7 @@ export const OrderSummary = async ({ cartItems }) => {
 
       <button
         type="submit"
-        className="relative w-full text-base px-6 py-2.5 uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+        className="relative w-full text-sm px-6 py-2.5 uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
       >
         Proceed to Checkout ({cartItems?.length})
       </button>

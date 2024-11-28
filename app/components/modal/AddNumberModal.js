@@ -1,15 +1,8 @@
-import { performDelete } from "@/actions";
 import useMode from "@/app/hooks/useMode";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { toast } from "react-toastify";
 
-export const DeleteConfirmation = ({
-  isOpen,
-  setIsOpen,
-  productId = undefined,
-  from,
-}) => {
+export const AddNumberModal = ({ isOpen, setIsOpen, userId, from }) => {
   const { theme } = useMode();
 
   function closeModal() {
@@ -17,10 +10,7 @@ export const DeleteConfirmation = ({
   }
   async function handleDelete() {
     try {
-      const response = await performDelete(productId, from);
-      if (response?.status === 200) {
-        toast.success(response.message, { autoClose: 1500 });
-      }
+      console.log("Hello");
     } catch (error) {
       console.log(error);
     } finally {
@@ -77,7 +67,7 @@ export const DeleteConfirmation = ({
                         : "text-background-dark"
                     } font-medium`}
                   >
-                    Items will be remove from your cart
+                    Please Add Your Mobile Number
                   </p>
                 </div>
 

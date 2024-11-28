@@ -102,13 +102,15 @@ export default function CatItemCard({
           </div>
 
           <div className="flex-row w-full gap-2 md:gap-4 flex-end">
-            <div className="items-start justify-start text-primary flex-column">
-              <p className="text-sm">{discountedPrice?.toFixed(2)}</p>
+            <div className="flex flex-row items-start justify-start w-full gap-2 md:flex-col ">
+              <p className="text-sm text-primary">
+                {discountedPrice?.toFixed(2)}
+              </p>
 
               <p className="text-sm line-through text-secondary-darker dark:text-background-light">
                 {price}
               </p>
-              <p className="text-sm text-secondary-darker dark:text-background-light">
+              <p className="hidden text-sm text-secondary-darker md:block dark:text-background-light">
                 {discount}%
               </p>
             </div>

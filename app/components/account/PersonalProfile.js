@@ -21,7 +21,7 @@ export const PersonalProfile = async () => {
         {session?.user?.number ? (
           <p></p>
         ) : (
-          <button className="py-1.5 px-4 transition-transform duration-500 ease-in-out rounded-2xl flex-start shadow-light-elevated_dark-elevated-dark">
+          <button className="py-1.5 px-4 transition-all duration-500 ease-in-out rounded-2xl flex-start shadow-light-elevated_dark-elevated-dark hover:bg-primary">
             <FiPlus className="text-2xl" /> <p>Add Number</p>
           </button>
         )}
