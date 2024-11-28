@@ -54,15 +54,15 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
           <button
             onClick={decreseQuantity}
             disabled={quantity === 1}
-            className="quantity-icrease-decrease-btn size-10 rounded-l-3xl"
+            className="quantity-icrease-decrease-btn size-9 rounded-l-3xl"
           >
             <FiMinus />
           </button>
-          <div className="text-base flex-center size-10">{quantity}</div>
+          <div className="text-base flex-center size-9">{quantity}</div>
           <button
             onClick={increaseQuantity}
             disabled={quantity === 5}
-            className="quantity-icrease-decrease-btn size-10 rounded-r-3xl"
+            className="quantity-icrease-decrease-btn size-9 rounded-r-3xl"
           >
             <FiPlus />
           </button>

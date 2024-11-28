@@ -4,6 +4,7 @@ import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import { DeleteConfirmation } from "../modal/DeleteConfirmation";
 
 export default function CatItemCard({
@@ -69,7 +70,7 @@ export default function CatItemCard({
               type="checkbox"
               onChange={(e) => handleChange(e, id)}
               name={id}
-              className="rounded-sm focus:ring-0"
+              className="rounded-sm focus:ring-0 focus:border-none"
               id={id}
               checked={selectedProduct?.includes(id)}
             />
@@ -87,7 +88,9 @@ export default function CatItemCard({
         </div>
         <div className="flex-col flex-1 gap-2 flex-between md:gap-4 md:flex-row">
           <div className="w-full">
-            <h2 className="paragraph-lg-base text-secondary-darker">{name}</h2>
+            <h2 className="paragraph-lg-base text-secondary-darker dark:text-background-light">
+              {name}
+            </h2>
             <p className="text-xs font-medium">
               Availability:{" "}
               {stock > 0 ? (
@@ -102,19 +105,21 @@ export default function CatItemCard({
             <div className="items-start justify-start text-primary flex-column">
               <p className="text-sm">{discountedPrice?.toFixed(2)}</p>
 
-              <p className="text-sm line-through text-secondary-darker">
+              <p className="text-sm line-through text-secondary-darker dark:text-background-light">
                 {price}
               </p>
-              <p className="text-sm text-secondary-darker">{discount}%</p>
+              <p className="text-sm text-secondary-darker dark:text-background-light">
+                {discount}%
+              </p>
             </div>
 
-            <div className="flex divide-x-light-default-dark-tertiary text-secondary-dark border-light-default_dark-tertiary w-max">
+            <div className="flex divide-x-light-default-dark-tertiary border-light-default_dark-tertiary rounded-3xl w-max">
               <button
                 onClick={() => increaseDecreaseQuantity("decrease")}
                 disabled={quantity === 1}
-                className="quantity-icrease-decrease-btn size-6 md:size-7"
+                className="quantity-icrease-decrease-btn size-6 md:size-7 rounded-l-3xl"
               >
-                -
+                <FiMinus />
               </button>
               <div className="text-base flex-center size-6 md:size-7">
                 {quantity}
@@ -122,15 +127,15 @@ export default function CatItemCard({
               <button
                 onClick={() => increaseDecreaseQuantity("increase")}
                 disabled={quantity === 5}
-                className="quantity-icrease-decrease-btn size-6 md:size-7"
+                className="quantity-icrease-decrease-btn size-6 md:size-7 rounded-r-3xl"
               >
-                +
+                <FiPlus />
               </button>
             </div>
             <div
               onClick={handleDelete}
               title="Remove from cart"
-              className="transition-all duration-300 cursor-pointer text-secondary-dark hover:text-primary"
+              className="transition-all duration-300 cursor-pointer hover:text-primary"
             >
               <i className="fa-solid fa-trash"></i>
             </div>

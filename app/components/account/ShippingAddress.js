@@ -4,7 +4,9 @@ export const ShippingAddress = () => {
   return (
     <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">
-        <h3 className="h6-medium">Shipping address</h3>
+        <h3 className="h6-medium text-secondary-darkist dark:text-background-light">
+          Shipping address
+        </h3>
         <Link href="/account/shipping-address/edit" className="text-primary">
           Edit
         </Link>

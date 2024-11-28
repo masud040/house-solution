@@ -78,7 +78,6 @@ export default function CartItems({ cartItems }) {
                   onChange={handleChange}
                   name="all"
                   id="all"
-                  className="rounded-sm focus:ring-0"
                   checked={selectAll}
                 />
                 <span>Select All ({cartItems.length} Items)</span>

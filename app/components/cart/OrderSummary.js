@@ -11,8 +11,8 @@ export const OrderSummary = async ({ cartItems }) => {
   const shippingCost = await getDeleveryCost(cartItems);
   const totalPrice = Math.floor(subTotal + shippingCost);
   return (
-    <aside className="grid-cols-1 top-0 relative md:sticky md:top-36 col-span-1 p-4 space-y-2.5 text-base bg-white rounded-md md:col-span-2 shadow-light-elevated_dark-elevated-dark">
-      <h4 className="pb-2 text-lg text-secondary-dark border-b-light-default_dark-tertiary">
+    <aside className="relative top-0 grid-cols-1 col-span-1 p-4 space-y-5 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
+      <h4 className="pb-2 text-lg border-b-light-default_dark-tertiary">
         Order Summary
       </h4>
       <div className="flex items-center justify-between text-sm font-bold">
@@ -29,7 +29,7 @@ export const OrderSummary = async ({ cartItems }) => {
           placeholder="Enter Voucher Code"
           className="p-2 rounded-l-md input-field"
         />
-        <button className="px-5 text-background-light rounded-r-md bg-secondary">
+        <button className="px-5 text-background-light rounded-r-md bg-secondary dark:bg-primary">
           Apply
         </button>
       </div>

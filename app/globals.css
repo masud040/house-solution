@@ -164,7 +164,7 @@
   }
 
   .quantity-icrease-decrease-btn {
-    @apply text-xl cursor-pointer select-none flex-center hover:bg-primary transition-colors duration-500 hover:text-background-light disabled:cursor-not-allowed dark:disabled:bg-secondary disabled:bg-secondary-light;
+    @apply text-xl transition-colors duration-500 cursor-pointer select-none flex-center hover:bg-primary hover:text-background-light disabled:cursor-not-allowed dark:disabled:bg-secondary disabled:bg-secondary-light;
   }
 
   /* card related*/
@@ -181,7 +181,7 @@
     @apply border-t dark:border-tertiary/20;
   }
   .border-light-default_dark-tertiary {
-    @apply border dark:border-tertiary/10;
+    @apply border dark:border-tertiary/20;
   }
 
   /* divide  related styles*/
