@@ -115,3 +115,12 @@ export async function updateUserData(data, id) {
     throw new Error(error.message);
   }
 }
+
+// add billing data
+export async function addBillingData(data) {
+  try {
+    console.log(data);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

@@ -22,12 +22,13 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     province: billingAddress?.province ?? "",
     landmark: billingAddress?.landmark ?? "",
     address: billingAddress?.address ?? "",
+    isUseShipping: billingAddress?.isUseShipping ?? false,
   });
   useEffect(() => {
     async function getDivision() {
       const res = await fetch(`https://bdapis.com/api/v1.2/divisions`);
       const data = await res.json();
-      if (data?.status?.code === 200) {
+      if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDivisions(data.data);
       }
     }
@@ -40,7 +41,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
         `https://bdapis.com/api/v1.2/division/${billingAddressData?.area}`
       );
       const data = await res.json();
-      if (data?.status?.code === 200) {
+      if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDistricts(data.data);
         setBillingAddressData({
           ...billingAddressData,
@@ -51,23 +52,25 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
     getCity();
   }, [billingAddressData?.area]);
-  console.log(billingAddressData);
+
   useEffect(() => {
     async function getUpazilla() {
       const res = await fetch(
         `https://bdapis.com/api/v1.2/district/${billingAddressData?.city}`
       );
       const data = await res.json();
-      if (data?.status?.code === 200) {
+      if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setUpazillas(data?.data[0].upazillas);
         setBillingAddressData({
           ...billingAddressData,
           provice: "",
         });
+      } else {
+        setUpazillas([]);
       }
     }
     getUpazilla();
-  }, [billingAddressData.area, billingAddressData.city]);
+  }, [billingAddressData.city, billingAddressData.area]);
   async function onSubmit(data) {
     console.log(data);
     try {
@@ -78,9 +81,11 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-    setBillingAddressData({ ...billingAddressData, [name]: value });
+    setBillingAddressData({
+      ...billingAddressData,
+      [name]: name === "landmark" ? parseInt(value) : value,
+    });
   }
-  console.log(upazillas);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
@@ -100,6 +105,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
               message: "Name must not exceed 100 characters",
             },
           })}
+          onChange={handleChange}
         />
       </Field>
       <Field label="Mobile" error={errors?.mobile} htmlFor="mobile">
@@ -118,6 +124,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
               message: "Mobile number cannot exceed 11 digits",
             },
           })}
+          onChange={handleChange}
         />
       </Field>
 
@@ -142,7 +149,9 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
         <select
           name="city"
           id="city"
-          className="rounded-md input-field"
+          disabled={!billingAddressData.area}
+          title={!billingAddressData.area && "First select your area"}
+          className="rounded-md input-field disabled:cursor-not-allowed"
           {...register("city", { required: "District is required" })}
           onChange={handleChange}
         >
@@ -160,8 +169,11 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
         <select
           name="province"
           id="province"
-          className="rounded-md input-field"
+          className="rounded-md input-field disabled:cursor-not-allowed"
+          disabled={!billingAddressData.city}
+          title={!billingAddressData.city && "First select your city"}
           {...register("province", { required: "Prvince is required" })}
+          onChange={handleChange}
         >
           <option value="">Select Your Province</option>
           {upazillas?.length > 0 &&
@@ -181,6 +193,8 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           type="text"
           placeholder="Enter landmark eg:(123, XYZ)"
           className="py-3 rounded-md input-field"
+          {...register("landmark")}
+          onChange={handleChange}
         />
       </Field>
       <Field label="Address" error={errors?.address} htmlFor="address">
@@ -190,8 +204,43 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           placeholder="Enter your address"
           className="overflow-y-auto rounded-md resize-none input-field"
           {...register("address", { required: "Address is required" })}
+          onChange={handleChange}
         />
       </Field>
+
+      <div className="flex items-center space-x-2">
+        {/* Hidden Checkbox */}
+        <input
+          type="checkbox"
+          {...register("isUseShipping")}
+          id="isUseShipping"
+          className="hidden peer"
+          defaultChecked={billingAddressData.isUseShipping}
+        />
+
+        {/* Custom Label */}
+        <label
+          htmlFor="isUseShipping"
+          className="flex items-center justify-center w-5 h-5 border-2 rounded-md cursor-pointer border-primary peer-checked:bg-primary peer-checked:border-primary peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-primary"
+        >
+          {/* Check Icon */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4 text-white  peer-checked:block"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </label>
+
+        {/* Label Text */}
+        <span className="text-gray-700">Use shipping address</span>
+      </div>
 
       <div className="flex-end">
         <input

@@ -29,7 +29,7 @@ const billingAddresSchema = new Schema({
     type: Number,
     required: true,
   },
-  isUseBilling: {
+  isUseShipping: {
     type: Boolean,
     required: true,
     default: false,
