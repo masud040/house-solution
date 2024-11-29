@@ -1,6 +1,8 @@
 "use client";
+import { addBillingData } from "@/actions";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import Field from "../shared/Field";
 
 export const BillingAddressAddForm = ({ user, billingAddress }) => {
@@ -9,6 +11,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
 
   const [divisions, setDivisions] = useState([]);
@@ -72,8 +75,19 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     getUpazilla();
   }, [billingAddressData.city, billingAddressData.area]);
   async function onSubmit(data) {
-    console.log(data);
     try {
+      const newData = {
+        ...data,
+        landmark: parseInt(data.landmark),
+        userId: user.id,
+      };
+      const res = await addBillingData(newData);
+      if (res.status === 201) {
+        toast.success(res.message, {
+          autoClose: 1500,
+        });
+        reset();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +97,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     const value = e.target.value;
     setBillingAddressData({
       ...billingAddressData,
-      [name]: name === "landmark" ? parseInt(value) : value,
+      [name]: value,
     });
   }
   return (
@@ -226,7 +240,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           {/* Check Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4 text-white  peer-checked:block"
+            className="w-4 h-4 text-white peer-checked:block"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

@@ -21,13 +21,13 @@ export const BillingAddress = async ({ userId }) => {
       </div>
       {billingAddress ? (
         <div className="space-y-2">
-          <h4 className="font-medium">John Doe</h4>
-          <p>Medan, North Sumatera</p>
-          <p>20317</p>
-          <p>0811 8877 988</p>
+          <h4 className="font-medium">{billingAddress?.fullName}</h4>
+          <p>{billingAddress?.address}</p>
+          <p>{billingAddress?.landmark}</p>
+          <p>{billingAddress?.mobile}</p>
         </div>
       ) : (
-        <Link href="/account/profile/edit">Please Add</Link>
+        <p>There is no billing address</p>
       )}
     </div>
   );

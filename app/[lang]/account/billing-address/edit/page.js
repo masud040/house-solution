@@ -1,7 +1,13 @@
 import { ProfileEditForm } from "@/app/components/Form/PersonalProfileAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function EditBillingAddress() {
+export default async function EditBillingAddress() {
+  const session = await auth();
+  if (!session) {
+    return redirect("/login");
+  }
   return (
     <section>
       <Breadcrumb name1="Account" name2="Profile" />

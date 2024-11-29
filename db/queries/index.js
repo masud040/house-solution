@@ -351,7 +351,7 @@ async function moveToCart(productId, userId) {
 async function getBillingAddressByUserId(userId) {
   try {
     await connectMongo();
-    const res = await BillingAddrsstModel.findById(userId);
+    const res = await BillingAddrsstModel.findOne({ userId: userId });
     return res;
   } catch (error) {
     throw new Error(error);

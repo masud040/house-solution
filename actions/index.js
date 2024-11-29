@@ -8,6 +8,7 @@ import {
   updateQuantity,
   updateWishlist,
 } from "@/db/queries";
+import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { UserModel } from "@/models/users-model";
 import { revalidatePath } from "next/cache";
 
@@ -119,7 +120,13 @@ export async function updateUserData(data, id) {
 // add billing data
 export async function addBillingData(data) {
   try {
-    console.log(data);
+    const res = await BillingAddrsstModel.create(data);
+    return {
+      status: 201,
+      success: true,
+      message: "Added successfully!",
+      id: res?._id.toString(),
+    };
   } catch (error) {
     throw new Error(error.message);
   }
