@@ -12,17 +12,17 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
   } = useForm();
 
   const [divisions, setDivisions] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [upazillas, setUpazillas] = useState([]);
   const [billingAddressData, setBillingAddressData] = useState({
     fullName: billingAddress?.fullName ?? user.name ?? "",
     mobile: billingAddress?.mobile ?? "",
     area: billingAddress?.area ?? "",
     city: billingAddress?.city ?? "",
     province: billingAddress?.province ?? "",
-    province: billingAddress?.province ?? "",
     landmark: billingAddress?.landmark ?? "",
     address: billingAddress?.address ?? "",
   });
-  console.log(billingAddressData);
   useEffect(() => {
     async function getDivision() {
       const res = await fetch(`https://bdapis.com/api/v1.2/divisions`);
@@ -33,6 +33,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
     getDivision();
   }, []);
+
   useEffect(() => {
     async function getCity() {
       const res = await fetch(
@@ -40,12 +41,33 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
       );
       const data = await res.json();
       if (data?.status?.code === 200) {
-        console.log(data.data);
+        setDistricts(data.data);
+        setBillingAddressData({
+          ...billingAddressData,
+          city: "",
+          province: "",
+        });
       }
     }
     getCity();
   }, [billingAddressData?.area]);
-
+  console.log(billingAddressData);
+  useEffect(() => {
+    async function getUpazilla() {
+      const res = await fetch(
+        `https://bdapis.com/api/v1.2/district/${billingAddressData?.city}`
+      );
+      const data = await res.json();
+      if (data?.status?.code === 200) {
+        setUpazillas(data?.data[0].upazillas);
+        setBillingAddressData({
+          ...billingAddressData,
+          provice: "",
+        });
+      }
+    }
+    getUpazilla();
+  }, [billingAddressData.area, billingAddressData.city]);
   async function onSubmit(data) {
     console.log(data);
     try {
@@ -56,9 +78,9 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, value);
     setBillingAddressData({ ...billingAddressData, [name]: value });
   }
+  console.log(upazillas);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
@@ -108,23 +130,29 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           onChange={handleChange}
         >
           <option value="">Select Your Area</option>
-          {divisions?.map((division) => (
-            <option key={division.division} value={division.division}>
-              {division.division}
-            </option>
-          ))}
+          {divisions?.length > 0 &&
+            divisions?.map((division) => (
+              <option key={division.division} value={division.division}>
+                {division.division}
+              </option>
+            ))}
         </select>
       </Field>
-      <Field label="City" error={errors?.city} htmlFor="city">
+      <Field label="District" error={errors?.city} htmlFor="city">
         <select
           name="city"
           id="city"
           className="rounded-md input-field"
-          {...register("city", { required: "City is required" })}
+          {...register("city", { required: "District is required" })}
+          onChange={handleChange}
         >
-          <option value="">Select Your City</option>
-          <option value="Dhaka 1">Dhaka 1</option>
-          <option value="Dhaka 1">Dhaka 1</option>
+          <option value="">Select Your District</option>
+          {districts?.length > 0 &&
+            districts?.map((district) => (
+              <option key={district.district} value={district.district}>
+                {district.district}
+              </option>
+            ))}
         </select>
       </Field>
 
@@ -136,8 +164,12 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           {...register("province", { required: "Prvince is required" })}
         >
           <option value="">Select Your Province</option>
-          <option value="Dhaka 1">Dhaka 1</option>
-          <option value="Dhaka 1">Dhaka 1</option>
+          {upazillas?.length > 0 &&
+            upazillas.map((upazilla) => (
+              <option key={upazilla} value={upazilla}>
+                {upazilla}
+              </option>
+            ))}
         </select>
       </Field>
       <Field
