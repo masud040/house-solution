@@ -1,4 +1,4 @@
-import { ProfileEditForm } from "@/app/components/Form/PersonalProfileAddForm";
+import { BillingAddressAddForm } from "@/app/components/Form/BillingAddressAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 
 export default function EditPersonalAddress() {
@@ -14,7 +14,7 @@ export default function EditPersonalAddress() {
       />
       <div className="container items-start gap-6 pt-4 pb-16">
         <h2 className="text-xl">Edit Profile</h2>
-        <ProfileEditForm />
+        <BillingAddressAddForm />
       </div>
     </section>
   );

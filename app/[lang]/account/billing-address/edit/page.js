@@ -1,6 +1,7 @@
-import { ProfileEditForm } from "@/app/components/Form/PersonalProfileAddForm";
+import { BillingAddressAddForm } from "@/app/components/Form/BillingAddressAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
+import { getBillingAddressByUserId, getUserByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";
 
 export default async function EditBillingAddress() {
@@ -8,12 +9,16 @@ export default async function EditBillingAddress() {
   if (!session) {
     return redirect("/login");
   }
+  const user = await getUserByEmail(session?.user?.email);
+  const billingAddress = await getBillingAddressByUserId(user.id);
   return (
     <section>
       <Breadcrumb name1="Account" name2="Profile" />
-      <div className="container items-start gap-6 pt-4 pb-16">
-        <h2 className="text-xl text-black">Edit Profile</h2>
-        <ProfileEditForm />
+      <div className="container pt-4 pb-16">
+        <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
+          <h2 className="text-xl text-center">Edit Your Profile</h2>
+          <BillingAddressAddForm user={user} billingAddress={billingAddress} />
+        </div>
       </div>
     </section>
   );

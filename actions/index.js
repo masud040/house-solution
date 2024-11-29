@@ -118,15 +118,32 @@ export async function updateUserData(data, id) {
 }
 
 // add billing data
-export async function addBillingData(data) {
+export async function addAndUpdateBillingData(data, userId) {
   try {
-    const res = await BillingAddrsstModel.create(data);
-    return {
-      status: 201,
-      success: true,
-      message: "Added successfully!",
-      id: res?._id.toString(),
-    };
+    // update billing data
+    if (userId) {
+      const res = await BillingAddrsstModel.findByIdAndUpdate(userId, data, {
+        new: true,
+      });
+      revalidatePath("/account");
+      return {
+        status: 200,
+        success: true,
+        message: "Updated successfully!",
+        id: res?._id.toString(),
+      };
+    } else {
+      // add billing data
+      const res = await BillingAddrsstModel.create(data);
+      revalidatePath("/account");
+
+      return {
+        status: 201,
+        success: true,
+        message: "Added successfully!",
+        id: res?._id.toString(),
+      };
+    }
   } catch (error) {
     throw new Error(error.message);
   }

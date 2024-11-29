@@ -15,7 +15,7 @@ export default async function AddBillingAddress() {
     <section>
       <Breadcrumb name1="Account" name2="Profile" />
       <div className="container pt-4 pb-16">
-        <div className="max-w-xl p-6 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
+        <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="text-xl text-center">Add Billing Address</h2>
           <BillingAddressAddForm user={user} />
         </div>

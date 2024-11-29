@@ -1,5 +1,6 @@
 "use client";
-import { addBillingData } from "@/actions";
+import { addAndUpdateBillingData } from "@/actions";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -12,6 +13,8 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     watch,
     formState: { errors },
     reset,
+    setValue,
+    setError,
   } = useForm();
 
   const [divisions, setDivisions] = useState([]);
@@ -27,6 +30,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     address: billingAddress?.address ?? "",
     isUseShipping: billingAddress?.isUseShipping ?? false,
   });
+  const router = useRouter();
   useEffect(() => {
     async function getDivision() {
       const res = await fetch(`https://bdapis.com/api/v1.2/divisions`);
@@ -55,7 +59,6 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
     getCity();
   }, [billingAddressData?.area]);
-
   useEffect(() => {
     async function getUpazilla() {
       const res = await fetch(
@@ -66,7 +69,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
         setUpazillas(data?.data[0].upazillas);
         setBillingAddressData({
           ...billingAddressData,
-          provice: "",
+          province: "",
         });
       } else {
         setUpazillas([]);
@@ -74,18 +77,29 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
     getUpazilla();
   }, [billingAddressData.city, billingAddressData.area]);
+
   async function onSubmit(data) {
+    if (!billingAddressData.area) {
+      setError("area", { type: "manual", message: "Area is required" });
+    }
+    if (!billingAddressData.city) {
+      setError("city", { type: "manual", message: "City is required" });
+    }
+    if (!billingAddressData.province) {
+      setError("province", { type: "manual", message: "Province is required" });
+    }
     try {
       const newData = {
-        ...data,
-        landmark: parseInt(data.landmark),
+        ...billingAddressData,
         userId: user.id,
       };
-      const res = await addBillingData(newData);
-      if (res.status === 201) {
+
+      const res = await addAndUpdateBillingData(newData, billingAddress?._id);
+      if (res.success) {
         toast.success(res.message, {
           autoClose: 1500,
         });
+        router.push("/account");
         reset();
       }
     } catch (error) {
@@ -93,13 +107,14 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
   }
   function handleChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
+
     setBillingAddressData({
       ...billingAddressData,
-      [name]: value,
+      [name]: name === "landmark" ? parseInt(value) : value,
     });
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
@@ -127,6 +142,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           type="text"
           placeholder="Enter your mobile number"
           className="py-3 rounded-md input-field"
+          defaultValue={billingAddressData?.mobile}
           {...register("mobile", {
             required: "Mobile number is required!",
             minLength: {
@@ -147,7 +163,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           name="area"
           id="area"
           className="rounded-md input-field"
-          {...register("area", { required: "Area is required" })}
+          value={billingAddressData?.area}
           onChange={handleChange}
         >
           <option value="">Select Your Area</option>
@@ -166,7 +182,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           disabled={!billingAddressData.area}
           title={!billingAddressData.area && "First select your area"}
           className="rounded-md input-field disabled:cursor-not-allowed"
-          {...register("city", { required: "District is required" })}
+          value={billingAddressData?.city}
           onChange={handleChange}
         >
           <option value="">Select Your District</option>
@@ -186,7 +202,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           className="rounded-md input-field disabled:cursor-not-allowed"
           disabled={!billingAddressData.city}
           title={!billingAddressData.city && "First select your city"}
-          {...register("province", { required: "Prvince is required" })}
+          value={billingAddressData?.province}
           onChange={handleChange}
         >
           <option value="">Select Your Province</option>
@@ -207,6 +223,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           type="text"
           placeholder="Enter landmark eg:(123, XYZ)"
           className="py-3 rounded-md input-field"
+          defaultValue={billingAddressData?.landmark}
           {...register("landmark")}
           onChange={handleChange}
         />
@@ -216,6 +233,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           cols={40}
           rows={4}
           placeholder="Enter your address"
+          defaultValue={billingAddressData?.address}
           className="overflow-y-auto rounded-md resize-none input-field"
           {...register("address", { required: "Address is required" })}
           onChange={handleChange}
@@ -259,7 +277,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
       <div className="flex-end">
         <input
           type="submit"
-          value="Submit"
+          value={billingAddress?._id ? "Save" : "Submit"}
           className="px-8 py-2.5 btn-shadow-with-hover-effect text-primary"
         />
       </div>
