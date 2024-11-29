@@ -6,7 +6,7 @@ const Field = ({ label, error, children, htmlFor }) => {
   return (
     <div className="w-full mb-4">
       {!!label && (
-        <label className="block mb-2 uppercase" htmlFor={id}>
+        <label className="block mb-2 capitalize" htmlFor={id}>
           {label}
         </label>
       )}

@@ -1,19 +1,25 @@
-import { ProfileEditForm } from "@/app/components/Form/ProfileEditForm";
+import { PersonalProfileAddForm } from "@/app/components/Form/PersonalProfileAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { auth } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 
-export default function ProfileEdit() {
+export default async function EditPersonalProfile() {
+  const session = await auth();
+  const user = await getUserByEmail(session.user.email);
   return (
-    <section className="container">
+    <section>
       <Breadcrumb
         nameWithPath={{
           name: "Account",
-          path: "/account",
+          path: "/en/account",
         }}
-        name1="Edit Profile"
+        name1="Profile"
       />
-      <div className="container items-start gap-6 pt-4 pb-16">
-        <h2 className="text-xl text-black">Edit Profile</h2>
-        <ProfileEditForm />
+      <div className="container pb-16">
+        <div className="max-w-lg p-6 rounded-md shadow-light-elevated_dark-elevated-dark">
+          <h2 className="text-xl text-black">Edit Profile</h2>
+          <PersonalProfileAddForm userId={user.id} />
+        </div>
       </div>
     </section>
   );

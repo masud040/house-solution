@@ -1,7 +1,6 @@
 import { updateUserData } from "@/actions";
 import useMode from "@/app/hooks/useMode";
 import { Dialog, Transition } from "@headlessui/react";
-import { revalidatePath } from "next/cache";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -18,12 +17,11 @@ export const AddNumberModal = ({ isOpen, setIsOpen, userId }) => {
   function closeModal() {
     setIsOpen(false);
   }
-  async function handleOnSubmit(data) {
+  async function handleUpdate(data) {
     try {
       const response = await updateUserData(data, userId);
       if (response?.status === 200) {
         toast.success("Mobile added successfully!", { autoClose: 1500 });
-        revalidatePath("/en/account");
       }
     } catch (error) {
       console.log(error);
@@ -64,7 +62,7 @@ export const AddNumberModal = ({ isOpen, setIsOpen, userId }) => {
                     : "bg-background-light text-background-dark"
                 } rounded-2xl`}
               >
-                <form onSubmit={handleSubmit(handleOnSubmit)}>
+                <form onSubmit={handleSubmit(handleUpdate)}>
                   <Field
                     label="Mobile Number"
                     htmlFor="number"

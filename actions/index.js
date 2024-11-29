@@ -104,6 +104,7 @@ export async function handleMovingWishlistToCart(productId) {
 export async function updateUserData(data, id) {
   try {
     const res = await UserModel.findByIdAndUpdate(id, data, { new: true });
+    revalidatePath("/en/account");
     return {
       status: 200,
       success: true,

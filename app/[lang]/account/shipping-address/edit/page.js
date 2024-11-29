@@ -1,4 +1,4 @@
-import { ProfileEditForm } from "@/app/components/Form/ProfileEditForm";
+import { ProfileEditForm } from "@/app/components/Form/PersonalProfileAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 
 export default function EditPersonalAddress() {
