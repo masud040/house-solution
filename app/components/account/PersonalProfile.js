@@ -1,12 +1,7 @@
-import { auth } from "@/auth";
-import { getUserByEmail } from "@/db/queries";
 import Link from "next/link";
 import AddNumberBtn from "../Butttons/AddNumberBtn";
 
-export const PersonalProfile = async () => {
-  const session = await auth();
-  const user = await getUserByEmail(session?.user?.email);
-
+export const PersonalProfile = async ({ user }) => {
   return (
     <div className="p-5 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">
@@ -23,7 +18,7 @@ export const PersonalProfile = async () => {
         {user?.mobile ? (
           <p className="text-sm">{user?.mobile}</p>
         ) : (
-          <AddNumberBtn userId={user.id} />
+          <AddNumberBtn userId={user?.id} />
         )}
       </div>
     </div>

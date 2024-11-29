@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const ShippingAddress = () => {
+export const ShippingAddress = ({ userId }) => {
   return (
     <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">

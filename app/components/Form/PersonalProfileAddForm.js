@@ -26,7 +26,7 @@ export const PersonalProfileAddForm = ({ userId }) => {
   }
   return (
     <form onSubmit={handleSubmit(handleUpdate)} className="my-4">
-      <Field label="Full name" error={errors?.fullname} htmlFor="fullName">
+      <Field label="Full name" error={errors?.name} htmlFor="name">
         <input
           type="text"
           placeholder="Enter your full name"

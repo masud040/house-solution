@@ -13,7 +13,7 @@ export default function EditPersonalAddress() {
         name2="Edit"
       />
       <div className="container items-start gap-6 pt-4 pb-16">
-        <h2 className="text-xl text-black">Edit Profile</h2>
+        <h2 className="text-xl">Edit Profile</h2>
         <ProfileEditForm />
       </div>
     </section>

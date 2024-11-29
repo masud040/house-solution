@@ -17,7 +17,7 @@ export default async function EditPersonalProfile() {
       />
       <div className="container pb-16">
         <div className="max-w-lg p-6 rounded-md shadow-light-elevated_dark-elevated-dark">
-          <h2 className="text-xl text-black">Edit Profile</h2>
+          <h2 className="text-xl text-center">Edit Your Name</h2>
           <PersonalProfileAddForm userId={user.id} />
         </div>
       </div>

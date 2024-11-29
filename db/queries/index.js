@@ -1,4 +1,5 @@
 import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
+import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
@@ -227,6 +228,7 @@ async function getAllWishlistByEmail(userEmail) {
   }
 }
 
+// get how many wishlist items
 async function getWishlistCount(userEmail) {
   try {
     const user = await getUserByEmail(userEmail);
@@ -240,6 +242,7 @@ async function getWishlistCount(userEmail) {
   }
 }
 
+// update product quantity on cart
 async function updateQuantity(productId, userId, type) {
   try {
     const product = await CartModel.findOne({
@@ -262,6 +265,7 @@ async function updateQuantity(productId, userId, type) {
   }
 }
 
+// delete items from cart or wishlist
 async function deleteItems(productId, userId, from) {
   try {
     if (from === "cart") {
@@ -313,7 +317,6 @@ async function deleteCartItem(productId, userId) {
 }
 
 async function moveToCart(productId, userId) {
-  console.log(userId);
   try {
     const product = await ProductModel.findById(productId);
 
@@ -344,12 +347,24 @@ async function moveToCart(productId, userId) {
   }
 }
 
+//
+async function getBillingAddressByUserId(userId) {
+  try {
+    await connectMongo();
+    const res = await BillingAddrsstModel.findById(userId);
+    return res;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export {
   deleteItems,
   getAllCartItemsById,
   getAllCategory,
   getAllProducts,
   getAllWishlistByEmail,
+  getBillingAddressByUserId,
   getCartData,
   getNewArrivalProducts,
   getProductById,
