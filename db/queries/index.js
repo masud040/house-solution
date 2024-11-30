@@ -4,6 +4,7 @@ import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
+import { ShippingAddrsstModel } from "@/models/shipping-address-model";
 import { UserModel } from "@/models/users-model";
 import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
@@ -357,7 +358,22 @@ async function getBillingAddressByUserId(userId) {
     throw new Error(error);
   }
 }
-
+async function getShippingAddressByUserId(userId) {
+  try {
+    await connectMongo();
+    const billingAddress = await BillingAddrsstModel.findOne({
+      userId: userId,
+    });
+    if (billingAddress?.isUseShipping) {
+      return billingAddress;
+    } else {
+      const res = await ShippingAddrsstModel.findOne({ userId: userId });
+      return res;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 export {
   deleteItems,
   getAllCartItemsById,
@@ -369,6 +385,7 @@ export {
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
+  getShippingAddressByUserId,
   getTrendingProducts,
   getUserByEmail,
   getWishlistCount,

@@ -1,6 +1,6 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const billingAddresSchema = new Schema({
+const shippingAddresSchema = new Schema({
   userId: {
     type: String,
     required: true,
@@ -29,17 +29,13 @@ const billingAddresSchema = new Schema({
     type: Number,
     required: true,
   },
-  isUseShipping: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
+
   fullName: {
     type: String,
     required: true,
   },
 });
 
-export const BillingAddrsstModel =
-  mongoose.models?.billing_addresses ??
-  mongoose.model("billing_addresses", billingAddresSchema);
+export const ShippingAddrsstModel =
+  mongoose.models?.shipping_addresses ??
+  mongoose.model("shipping_addresses", shippingAddresSchema);

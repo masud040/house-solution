@@ -1,6 +1,9 @@
+import { getShippingAddressByUserId } from "@/db/queries";
 import Link from "next/link";
 
-export const ShippingAddress = ({ userId }) => {
+export const ShippingAddress = async ({ userId }) => {
+  const shippingAddress = await getShippingAddressByUserId(userId);
+  console.log(shippingAddress);
   return (
     <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">

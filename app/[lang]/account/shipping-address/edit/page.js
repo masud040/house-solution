@@ -1,7 +1,15 @@
 import { BillingAddressAddForm } from "@/app/components/Form/BillingAddressAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { auth } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 
-export default function EditPersonalAddress() {
+export default async function EditPersonalAddress() {
+  const session = await auth();
+  if (!session) {
+    return redirect("/login");
+  }
+  const user = await getUserByEmail(session?.user?.email);
+
   return (
     <section className="container">
       <Breadcrumb
@@ -14,7 +22,7 @@ export default function EditPersonalAddress() {
       />
       <div className="container items-start gap-6 pt-4 pb-16">
         <h2 className="text-xl">Edit Profile</h2>
-        <BillingAddressAddForm />
+        <BillingAddressAddForm user={user} />
       </div>
     </section>
   );

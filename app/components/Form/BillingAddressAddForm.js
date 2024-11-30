@@ -30,6 +30,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     address: billingAddress?.address ?? "",
     isUseShipping: billingAddress?.isUseShipping ?? false,
   });
+
   const router = useRouter();
   useEffect(() => {
     async function getDivision() {
@@ -65,14 +66,14 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
         `https://bdapis.com/api/v1.2/district/${billingAddressData?.city}`
       );
       const data = await res.json();
+      console.log(data);
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setUpazillas(data?.data[0].upazillas);
         setBillingAddressData({
           ...billingAddressData,
-          province: "",
+
+          province: billingAddress?.province || "",
         });
-      } else {
-        setUpazillas([]);
       }
     }
     getUpazilla();
@@ -92,8 +93,10 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
       const newData = {
         ...billingAddressData,
         userId: user.id,
+        landmark: parseFloat(billingAddressData.landmark),
       };
-
+      // console.log(newData);
+      // return;
       const res = await addAndUpdateBillingData(newData, billingAddress?._id);
       if (res.success) {
         toast.success(res.message, {
@@ -107,11 +110,11 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
     }
   }
   function handleChange(e) {
-    const { name, value } = e.target;
+    const { name, value, checked } = e.target;
 
     setBillingAddressData({
       ...billingAddressData,
-      [name]: name === "landmark" ? parseInt(value) : value,
+      [name]: name === "isUseShipping" ? checked : value.trim(),
     });
   }
 
@@ -247,6 +250,7 @@ export const BillingAddressAddForm = ({ user, billingAddress }) => {
           {...register("isUseShipping")}
           id="isUseShipping"
           className="hidden peer"
+          onChange={handleChange}
           defaultChecked={billingAddressData.isUseShipping}
         />
 
