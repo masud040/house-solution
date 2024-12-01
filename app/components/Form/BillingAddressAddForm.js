@@ -1,12 +1,12 @@
 "use client";
-import { addAndUpdateBillingData } from "@/actions";
+import { addAndUpdateBillingData, addAndUpdateShippingData } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Field from "../shared/Field";
 
-export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
+export const BillingAddressAddForm = ({ user, address, useFor }) => {
   const {
     register,
     handleSubmit,
@@ -18,15 +18,15 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
   const [divisions, setDivisions] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [upazillas, setUpazillas] = useState([]);
-  const [billingAddressData, setBillingAddressData] = useState({
-    fullName: billingAddress?.fullName ?? user.name ?? "",
-    mobile: billingAddress?.mobile ?? "",
-    area: billingAddress?.area ?? "",
-    city: billingAddress?.city ?? "",
-    province: billingAddress?.province ?? "",
-    landmark: billingAddress?.landmark ?? "",
-    address: billingAddress?.address ?? "",
-    isUseShipping: billingAddress?.isUseShipping ?? false,
+  const [addressData, setAddressData] = useState({
+    fullName: address?.fullName ?? user.name ?? "",
+    mobile: address?.mobile ?? "",
+    area: address?.area ?? "",
+    city: address?.city ?? "",
+    province: address?.province ?? "",
+    landmark: address?.landmark ?? "",
+    address: address?.address ?? "",
+    isUseShipping: address?.isUseShipping ?? false,
   });
 
   const router = useRouter();
@@ -44,64 +44,75 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
   useEffect(() => {
     async function getCity() {
       const res = await fetch(
-        `https://bdapis.com/api/v1.2/division/${billingAddressData?.area}`
+        `https://bdapis.com/api/v1.2/division/${addressData?.area}`
       );
       const data = await res.json();
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDistricts(data.data);
-        setBillingAddressData({
-          ...billingAddressData,
+        setAddressData({
+          ...addressData,
           city: "",
           province: "",
         });
       }
     }
     getCity();
-  }, [billingAddressData?.area]);
+  }, [addressData?.area]);
   useEffect(() => {
     async function getUpazilla() {
       const res = await fetch(
-        `https://bdapis.com/api/v1.2/district/${billingAddressData?.city}`
+        `https://bdapis.com/api/v1.2/district/${addressData?.city}`
       );
       const data = await res.json();
       console.log(data);
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setUpazillas(data?.data[0].upazillas);
-        setBillingAddressData({
-          ...billingAddressData,
+        setAddressData({
+          ...addressData,
 
-          province: billingAddress?.province || "",
+          province: address?.province || "",
         });
       }
     }
     getUpazilla();
-  }, [billingAddressData.city, billingAddressData.area]);
+  }, [addressData.city, addressData.area]);
 
   async function onSubmit(data) {
-    if (!billingAddressData.area) {
+    if (!addressData.area) {
       setError("area", { type: "manual", message: "Area is required" });
     }
-    if (!billingAddressData.city) {
+    if (!addressData.city) {
       setError("city", { type: "manual", message: "City is required" });
     }
-    if (!billingAddressData.province) {
+    if (!addressData.province) {
       setError("province", { type: "manual", message: "Province is required" });
     }
     try {
       const newData = {
-        ...billingAddressData,
+        ...addressData,
         userId: user.id,
-        landmark: parseFloat(billingAddressData.landmark),
+        landmark: parseFloat(addressData.landmark),
       };
-      // console.log(newData);
-      // return;
-      const res = await addAndUpdateBillingData(newData, billingAddress?._id);
-      if (res.success) {
-        toast.success(res.message, {
-          autoClose: 1500,
-        });
-        router.push("/account");
-        reset();
+      const { isUseShipping, ...rest } = newData;
+
+      if (useFor === "billing") {
+        const res = await addAndUpdateBillingData(newData, address?._id);
+        if (res.success) {
+          toast.success(res.message, {
+            autoClose: 1500,
+          });
+          router.push("/account");
+          reset();
+        }
+      } else {
+        const res = await addAndUpdateShippingData(rest, address?._id);
+        if (res.success) {
+          toast.success(res.message, {
+            autoClose: 1500,
+          });
+          router.push("/account");
+          reset();
+        }
       }
     } catch (error) {
       console.log(error);
@@ -110,8 +121,8 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
   function handleChange(e) {
     const { name, value, checked } = e.target;
 
-    setBillingAddressData({
-      ...billingAddressData,
+    setAddressData({
+      ...addressData,
       [name]: name === "isUseShipping" ? checked : value.trim(),
     });
   }
@@ -122,7 +133,7 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
         <input
           type="text"
           placeholder="Enter your full name"
-          defaultValue={billingAddressData?.fullName}
+          defaultValue={addressData?.fullName}
           className="py-3 rounded-md input-field"
           {...register("fullName", {
             required: "Name is required",
@@ -143,7 +154,7 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
           type="text"
           placeholder="Enter your mobile number"
           className="py-3 rounded-md input-field"
-          defaultValue={billingAddressData?.mobile}
+          defaultValue={addressData?.mobile}
           {...register("mobile", {
             required: "Mobile number is required!",
             minLength: {
@@ -164,7 +175,7 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
           name="area"
           id="area"
           className="rounded-md input-field"
-          value={billingAddressData?.area}
+          value={addressData?.area}
           onChange={handleChange}
         >
           <option value="">Select Your Area</option>
@@ -180,10 +191,10 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
         <select
           name="city"
           id="city"
-          disabled={!billingAddressData.area}
-          title={!billingAddressData.area && "First select your area"}
+          disabled={!addressData.area}
+          title={!addressData.area && "First select your area"}
           className="rounded-md input-field disabled:cursor-not-allowed"
-          value={billingAddressData?.city}
+          value={addressData?.city}
           onChange={handleChange}
         >
           <option value="">Select Your District</option>
@@ -201,9 +212,9 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
           name="province"
           id="province"
           className="rounded-md input-field disabled:cursor-not-allowed"
-          disabled={!billingAddressData.city}
-          title={!billingAddressData.city && "First select your city"}
-          value={billingAddressData?.province}
+          disabled={!addressData.city}
+          title={!addressData.city && "First select your city"}
+          value={addressData?.province}
           onChange={handleChange}
         >
           <option value="">Select Your Province</option>
@@ -224,7 +235,7 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
           type="text"
           placeholder="Enter landmark eg:(123, XYZ)"
           className="py-3 rounded-md input-field"
-          defaultValue={billingAddressData?.landmark}
+          defaultValue={addressData?.landmark}
           {...register("landmark")}
           onChange={handleChange}
         />
@@ -234,52 +245,54 @@ export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
           cols={40}
           rows={4}
           placeholder="Enter your address"
-          defaultValue={billingAddressData?.address}
+          defaultValue={addressData?.address}
           className="overflow-y-auto rounded-md resize-none input-field"
           {...register("address", { required: "Address is required" })}
           onChange={handleChange}
         />
       </Field>
 
-      <div className="flex items-center space-x-2">
-        {/* Hidden Checkbox */}
-        <input
-          type="checkbox"
-          {...register("isUseShipping")}
-          id="isUseShipping"
-          className="hidden peer"
-          onChange={handleChange}
-          defaultChecked={billingAddressData.isUseShipping}
-        />
+      {useFor !== "shipping" && (
+        <div className="flex items-center space-x-2">
+          {/* Hidden Checkbox */}
+          <input
+            type="checkbox"
+            {...register("isUseShipping")}
+            id="isUseShipping"
+            className="hidden peer"
+            onChange={handleChange}
+            defaultChecked={addressData.isUseShipping}
+          />
 
-        {/* Custom Label */}
-        <label
-          htmlFor="isUseShipping"
-          className="flex items-center justify-center w-5 h-5 border-2 rounded-md cursor-pointer border-primary peer-checked:bg-primary peer-checked:border-primary peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-primary"
-        >
-          {/* Check Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4 text-white peer-checked:block"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+          {/* Custom Label */}
+          <label
+            htmlFor="isUseShipping"
+            className="flex items-center justify-center w-5 h-5 border-2 rounded-md cursor-pointer border-primary peer-checked:bg-primary peer-checked:border-primary peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-primary"
           >
-            <path
-              fillRule="evenodd"
-              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </label>
+            {/* Check Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 text-white peer-checked:block"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </label>
 
-        {/* Label Text */}
-        <span className="text-gray-700">Use shipping address</span>
-      </div>
+          {/* Label Text */}
+          <span className="text-gray-700">Use shipping address</span>
+        </div>
+      )}
 
       <div className="flex-end">
         <input
           type="submit"
-          value={billingAddress?._id ? "Save" : "Submit"}
+          value={address?._id ? "Save" : "Submit"}
           className="px-8 py-2.5 btn-shadow-with-hover-effect text-primary"
         />
       </div>

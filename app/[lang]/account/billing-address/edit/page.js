@@ -19,7 +19,7 @@ export default async function EditBillingAddress() {
           <h2 className="pb-4 text-xl text-center">Edit Your Profile</h2>
           <BillingAddressAddForm
             user={user}
-            billingAddress={billingAddress}
+            address={billingAddress}
             useFor="billing"
           />
         </div>

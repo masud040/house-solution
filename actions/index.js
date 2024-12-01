@@ -9,6 +9,7 @@ import {
   updateWishlist,
 } from "@/db/queries";
 import { BillingAddrsstModel } from "@/models/billing-address-model";
+import { ShippingAddrsstModel } from "@/models/shipping-address-model";
 import { UserModel } from "@/models/users-model";
 import { revalidatePath } from "next/cache";
 
@@ -135,6 +136,38 @@ export async function addAndUpdateBillingData(data, userId) {
     } else {
       // add billing data
       const res = await BillingAddrsstModel.create(data);
+      revalidatePath("/account");
+
+      return {
+        status: 201,
+        success: true,
+        message: "Added successfully!",
+        id: res?._id.toString(),
+      };
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+// add shipping data
+export async function addAndUpdateShippingData(data, userId) {
+  try {
+    // update shipping data
+    if (userId) {
+      const res = await ShippingAddrsstModel.findByIdAndUpdate(userId, data, {
+        new: true,
+      });
+      revalidatePath("/account");
+      return {
+        status: 200,
+        success: true,
+        message: "Updated successfully!",
+        id: res?._id.toString(),
+      };
+    } else {
+      // add billing data
+      const res = await ShippingAddrsstModel.create(data);
+
       revalidatePath("/account");
 
       return {
