@@ -2,7 +2,6 @@
 import { updateProductQuantity } from "@/actions";
 import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { DeleteConfirmation } from "../modal/DeleteConfirmation";
@@ -10,7 +9,6 @@ import { DeleteConfirmation } from "../modal/DeleteConfirmation";
 export default function CatItemCard({
   product,
   selectedProduct,
-  setSelectedProduct,
   handleChange,
 }) {
   const {
@@ -22,14 +20,11 @@ export default function CatItemCard({
     quantity: productQuantity,
     userId,
     discount,
-    selected,
   } = product || {};
 
   const [quantity, setQuantity] = useState(productQuantity);
   const { loading, setLoading } = useCartData();
   const [isOpen, setIsOpen] = useState(false);
-
-  const searchParams = useSearchParams();
 
   async function increaseDecreaseQuantity(type) {
     try {
@@ -91,7 +86,6 @@ export default function CatItemCard({
               />
             </svg>
           </label>
-
           <div className="relative w-24">
             <Image
               src={thumbnail}

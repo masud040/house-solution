@@ -1,6 +1,7 @@
 import CartItems from "@/app/components/cart/CartItems";
 import { OrderSummary } from "@/app/components/cart/OrderSummary";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { getDeleveryCost } from "@/app/utils";
 import { auth } from "@/auth";
 import { getAllCartItemsById } from "@/db/queries";
 import CartProvider from "@/provider/cart_provider";
@@ -11,8 +12,9 @@ export default async function CartPage({ searchParams: { selected } }) {
   if (!session?.user) {
     return redirect("/login");
   }
-  const cartItems = await getAllCartItemsById(session?.user?.email, selected);
 
+  const cartItems = await getAllCartItemsById(session?.user?.email, selected);
+  const shippingCost = await getDeleveryCost(cartItems);
   return (
     <CartProvider>
       <section className="container pb-16">
@@ -21,6 +23,7 @@ export default async function CartPage({ searchParams: { selected } }) {
           <CartItems cartItems={cartItems} />
           <OrderSummary
             cartItems={cartItems?.filter((item) => item?.selected)}
+            shippingCost={shippingCost}
           />
         </div>
       </section>

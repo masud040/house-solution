@@ -374,6 +374,35 @@ async function getShippingAddressByUserId(userId) {
     throw new Error(error);
   }
 }
+
+//get selected cart product
+async function getSelectedCartProductByProductIds(productIds, userId) {
+  try {
+    if (productIds && userId) {
+      let selectedCartItems;
+      selectedCartItems = await Promise.all(
+        productIds.map(async (productId) => {
+          const item = await CartModel.findOne({ productId }).lean();
+          const product = await ProductModel.findById(productId)
+            .select(["name", "thumbnail", "price", "discount"])
+            .lean();
+          const price = Math.floor(
+            product.price - (product.price * product.discount) / 100
+          );
+          product["price"] = price * item.quantity;
+          product["quantity"] = item.quantity;
+          product["cart_id"] = item._id.toString();
+
+          return product;
+        })
+      );
+
+      return removeMongoId(selectedCartItems);
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 export {
   deleteItems,
   getAllCartItemsById,
@@ -385,6 +414,7 @@ export {
   getNewArrivalProducts,
   getProductById,
   getProductsCountByCategory,
+  getSelectedCartProductByProductIds,
   getShippingAddressByUserId,
   getTrendingProducts,
   getUserByEmail,

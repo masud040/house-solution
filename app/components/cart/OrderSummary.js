@@ -1,6 +1,9 @@
-import { getDeleveryCost } from "@/app/utils";
+"use client";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-export const OrderSummary = async ({ cartItems }) => {
+export const OrderSummary = ({ cartItems, shippingCost }) => {
+  const searchParams = useSearchParams();
   const subTotal = Math.floor(
     cartItems?.reduce(
       (total, item) =>
@@ -8,10 +11,10 @@ export const OrderSummary = async ({ cartItems }) => {
       0
     )
   );
-  const shippingCost = await getDeleveryCost(cartItems);
+
   const totalPrice = Math.floor(subTotal + shippingCost);
   return (
-    <aside className="relative top-0 grid-cols-1 col-span-1 p-4 space-y-5 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
+    <aside className="relative top-0 grid-cols-1 col-span-1 px-4 py-6 space-y-5 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
       <h4 className="pb-2 text-lg border-b-light-default_dark-tertiary">
         Order Summary
       </h4>
@@ -38,12 +41,16 @@ export const OrderSummary = async ({ cartItems }) => {
         <p className="text-primary">${totalPrice}</p>
       </div>
 
-      <button
-        type="submit"
-        className="relative w-full text-sm px-6 py-2.5 uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
-      >
-        Proceed to Checkout ({cartItems?.length})
-      </button>
+      {cartItems?.length > 0 && (
+        <div>
+          <Link
+            href={`/en6/checkout?selected=${searchParams.get("selected")}`}
+            className="relative w-full text-sm px-6 py-2.5 uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+          >
+            Proceed to Checkout ({cartItems?.length})
+          </Link>
+        </div>
+      )}
     </aside>
   );
 };

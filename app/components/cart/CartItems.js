@@ -19,7 +19,6 @@ export default function CartItems({ cartItems }) {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const { loading } = useCartData();
-
   function handleChange(e) {
     const name = e.target.name;
     const checked = e.target.checked;
@@ -42,7 +41,6 @@ export default function CartItems({ cartItems }) {
       }
     }
   }
-
   useEffect(() => {
     if (selected.length > 0) {
       params.set("selected", selected.join(","));
