@@ -30,6 +30,8 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
   });
 
   const router = useRouter();
+
+  // run this effect for get all area
   useEffect(() => {
     async function getDivision() {
       const res = await fetch(`https://bdapis.com/api/v1.2/divisions`);
@@ -41,6 +43,7 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
     getDivision();
   }, []);
 
+  // run this effect for get all district based on area
   useEffect(() => {
     async function getCity() {
       const res = await fetch(
@@ -58,13 +61,14 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
     }
     getCity();
   }, [addressData?.area]);
+
+  // run this effect for get all upazilla based on city
   useEffect(() => {
     async function getUpazilla() {
       const res = await fetch(
         `https://bdapis.com/api/v1.2/district/${addressData?.city}`
       );
       const data = await res.json();
-      console.log(data);
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setUpazillas(data?.data[0].upazillas);
         setAddressData({
@@ -77,6 +81,7 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
     getUpazilla();
   }, [addressData.city, addressData.area]);
 
+  // submit handeler
   async function onSubmit(data) {
     if (!addressData.area) {
       setError("area", { type: "manual", message: "Area is required" });
@@ -118,6 +123,7 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
       console.log(error);
     }
   }
+  // onChange handlers
   function handleChange(e) {
     const { name, value, checked } = e.target;
 
