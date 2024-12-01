@@ -6,14 +6,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Field from "../shared/Field";
 
-export const BillingAddressAddForm = ({ user, billingAddress }) => {
+export const BillingAddressAddForm = ({ user, billingAddress, useFor }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset,
-    setValue,
     setError,
   } = useForm();
 

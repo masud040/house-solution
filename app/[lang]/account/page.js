@@ -17,8 +17,8 @@ export default async function AccountPage() {
       <Breadcrumb name1="Account" />
       <div className="grid w-full grid-cols-3 gap-6 pb-16 mx-auto">
         <PersonalProfile user={user} />
-        <ShippingAddress userId={user.id} />
         <BillingAddress userId={user.id} />
+        <ShippingAddress userId={user.id} />
       </div>
     </section>
   );

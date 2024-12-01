@@ -10,16 +10,23 @@ export const ShippingAddress = async ({ userId }) => {
         <h3 className="h6-medium text-secondary-darkist dark:text-background-light">
           Shipping address
         </h3>
-        <Link href="/account/shipping-address/edit" className="text-primary">
-          Edit
+        <Link
+          href={`/account/shipping-address/${
+            shippingAddress?.userId ? "edit" : "add"
+          }`}
+          className="text-primary"
+        >
+          {shippingAddress?.userId ? "Edit" : "Add"}
         </Link>
       </div>
-      <div className="space-y-2">
-        <h4 className="font-medium">John Doe</h4>
-        <p>Medan, North Sumatera</p>
-        <p>20371</p>
-        <p>0811 8877 988</p>
-      </div>
+      {shippingAddress && (
+        <div className="space-y-2">
+          <h4 className="font-medium">{shippingAddress?.fullName}</h4>
+          <p>{shippingAddress?.address}</p>
+          <p>{shippingAddress?.landmark}</p>
+          <p>{shippingAddress?.mobile}</p>
+        </div>
+      )}
     </div>
   );
 };

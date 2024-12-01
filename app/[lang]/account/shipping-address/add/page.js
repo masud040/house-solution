@@ -2,9 +2,8 @@ import { BillingAddressAddForm } from "@/app/components/Form/BillingAddressAddFo
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
 import { getUserByEmail } from "@/db/queries";
-import { redirect } from "next/navigation";
 
-export default async function AddBillingAddress() {
+export default async function AddShippingAddress() {
   const session = await auth();
   if (!session) {
     return redirect("/login");
@@ -12,12 +11,19 @@ export default async function AddBillingAddress() {
   const user = await getUserByEmail(session?.user?.email);
 
   return (
-    <section>
-      <Breadcrumb name1="Account" name2="Profile" />
+    <section className="container">
+      <Breadcrumb
+        nameWithPath={{
+          name: "Account",
+          path: "/account",
+        }}
+        name1="Shipping Address"
+        name2="Edit"
+      />
       <div className="container pt-4 pb-16">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
-          <h2 className="pb-4 text-xl text-center">Add Billing Address</h2>
-          <BillingAddressAddForm user={user} useFor="billing" />
+          <h2 className="pb-4 text-xl text-center">Add Shipping Address</h2>
+          <BillingAddressAddForm user={user} useFor="shipping" />
         </div>
       </div>
     </section>

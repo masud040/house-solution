@@ -19,15 +19,13 @@ export const BillingAddress = async ({ userId }) => {
           {billingAddress?.userId ? "Edit" : "Add"}
         </Link>
       </div>
-      {billingAddress ? (
+      {billingAddress && (
         <div className="space-y-2">
           <h4 className="font-medium">{billingAddress?.fullName}</h4>
           <p>{billingAddress?.address}</p>
           <p>{billingAddress?.landmark}</p>
           <p>{billingAddress?.mobile}</p>
         </div>
-      ) : (
-        <p>There is no billing address</p>
       )}
     </div>
   );
