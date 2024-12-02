@@ -3,12 +3,13 @@ import { PersonalProfile } from "@/app/components/account/PersonalProfile";
 import { ShippingAddress } from "@/app/components/account/ShippingAddress";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
-import { getUserByEmail } from "@/db/queries";
+import { getShippingAddressByUserId, getUserByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";
 
-export default async function AccountPage() {
+export default async function AccountPage({ searchParams }) {
   const session = await auth();
   const user = await getUserByEmail(session.user.email);
+  const shippingAddress = await getShippingAddressByUserId(user.id);
   if (!session) {
     return redirect("/login");
   }
@@ -18,7 +19,10 @@ export default async function AccountPage() {
       <div className="grid w-full grid-cols-3 gap-6 pb-16 mx-auto">
         <PersonalProfile user={user} />
         <BillingAddress userId={user.id} />
-        <ShippingAddress userId={user.id} />
+        <ShippingAddress
+          shippingAddress={shippingAddress}
+          searchParams={searchParams}
+        />
       </div>
     </section>
   );

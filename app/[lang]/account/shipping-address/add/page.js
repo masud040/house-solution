@@ -3,7 +3,7 @@ import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
 import { getUserByEmail } from "@/db/queries";
 
-export default async function AddShippingAddress() {
+export default async function AddShippingAddress({ searchParams }) {
   const session = await auth();
   if (!session) {
     return redirect("/login");
@@ -23,7 +23,11 @@ export default async function AddShippingAddress() {
       <div className="container pt-4 pb-16">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="pb-4 text-xl text-center">Add Shipping Address</h2>
-          <BillingAddressAddForm user={user} useFor="shipping" />
+          <BillingAddressAddForm
+            user={user}
+            useFor="shipping"
+            searchParams={searchParams}
+          />
         </div>
       </div>
     </section>

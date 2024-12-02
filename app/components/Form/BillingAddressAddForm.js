@@ -6,7 +6,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Field from "../shared/Field";
 
-export const BillingAddressAddForm = ({ user, address, useFor }) => {
+export const BillingAddressAddForm = ({
+  user,
+  address,
+  useFor,
+  searchParams,
+}) => {
   const {
     register,
     handleSubmit,
@@ -115,7 +120,11 @@ export const BillingAddressAddForm = ({ user, address, useFor }) => {
           toast.success(res.message, {
             autoClose: 1500,
           });
-          router.push("/account");
+          if (searchParams?.selected && searchParams?.isCheckout) {
+            router.push(`/en/checkout?selected=${searchParams?.selected}`);
+          } else {
+            router.push("/en/account");
+          }
           reset();
         }
       }
