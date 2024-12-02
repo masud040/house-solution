@@ -392,6 +392,7 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
           product["price"] = price * item.quantity;
           product["quantity"] = item.quantity;
           product["cart_id"] = item._id.toString();
+          product["order_id"] = item._id.toString();
 
           return product;
         })

@@ -166,7 +166,7 @@ export const BillingAddressAddForm = ({
       </Field>
       <Field label="Mobile" error={errors?.mobile} htmlFor="mobile">
         <input
-          type="text"
+          type="number"
           placeholder="Enter your mobile number"
           className="py-3 rounded-md input-field"
           defaultValue={addressData?.mobile}
