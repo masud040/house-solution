@@ -18,3 +18,19 @@ export async function getDeleveryCost(cartItems) {
   );
   return totalshippingCost;
 }
+
+export function getApproximateDeliveryDate() {
+  const today = new Date();
+  const start = new Date(today);
+  const end = new Date(today);
+
+  // Add 5 days for the range
+  end.setDate(end.getDate() + 5);
+
+  const startDay = String(start.getDate()).padStart(2, "0"); // Ensure 2-digit day
+  const endDay = String(end.getDate()).padStart(2, "0"); // Ensure 2-digit day
+  const month = start.toLocaleDateString("en-US", { month: "short" }); // Get the month in 'MMM' format
+
+  // Combine into the desired format
+  return `Guaranteed by ${startDay}-${endDay} ${month}`;
+}

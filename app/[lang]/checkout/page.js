@@ -12,7 +12,7 @@ export default async function Checkout({ searchParams }) {
   const session = await auth();
   const user = await getUserByEmail(session.user.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
-  console.log(shippingAddress);
+
   if (!session?.user) {
     return redirect("/login");
   }

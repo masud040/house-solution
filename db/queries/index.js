@@ -386,14 +386,9 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
           const product = await ProductModel.findById(productId)
             .select(["name", "thumbnail", "price", "discount"])
             .lean();
-          const price = Math.floor(
-            product.price - (product.price * product.discount) / 100
-          );
-          product["price"] = price * item.quantity;
           product["quantity"] = item.quantity;
           product["cart_id"] = item._id.toString();
           product["order_id"] = item._id.toString();
-
           return product;
         })
       );
@@ -404,6 +399,10 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
     throw new Error(error);
   }
 }
+async function getSingleShippingCost() {
+  return 5;
+}
+
 export {
   deleteItems,
   getAllCartItemsById,
@@ -417,6 +416,7 @@ export {
   getProductsCountByCategory,
   getSelectedCartProductByProductIds,
   getShippingAddressByUserId,
+  getSingleShippingCost,
   getTrendingProducts,
   getUserByEmail,
   getWishlistCount,
