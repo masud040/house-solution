@@ -8,11 +8,11 @@ import { redirect } from "next/navigation";
 
 export default async function AccountPage({ searchParams }) {
   const session = await auth();
-  const user = await getUserByEmail(session.user.email);
-  const shippingAddress = await getShippingAddressByUserId(user.id);
   if (!session) {
     return redirect("/login");
   }
+  const user = await getUserByEmail(session?.user?.email);
+  const shippingAddress = await getShippingAddressByUserId(user?.id);
   return (
     <section className="container">
       <Breadcrumb name1="Account" />

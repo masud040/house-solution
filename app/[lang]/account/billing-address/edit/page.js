@@ -16,7 +16,7 @@ export default async function EditBillingAddress() {
       <Breadcrumb name1="Account" name2="Profile" />
       <div className="container pt-4 pb-16">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
-          <h2 className="pb-4 text-xl text-center">Edit Your Profile</h2>
+          <h2 className="pb-4 text-xl text-center">Edit Billing Address</h2>
           <BillingAddressAddForm
             user={user}
             address={billingAddress}
