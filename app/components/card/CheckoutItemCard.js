@@ -40,7 +40,7 @@ export default async function CheckoutItemCard({ product }) {
             <h2>{product.name}</h2>
           </div>
           <div className="flex items-start justify-between col-span-1 ">
-            <div className="flex flex-col items-center justify-start w-full gap-2 md:gap-5 md:flex-row">
+            <div className="flex flex-col items-center justify-start w-full gap-2">
               <p className="text-sm text-primary">{discountedPrice}</p>
 
               <p className="text-sm line-through text-secondary-darker dark:text-background-light">
