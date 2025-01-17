@@ -1,4 +1,5 @@
 "use client";
+import { generateRequest } from "@/actions";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -12,6 +13,22 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
     )
   );
   const totalPrice = Math.floor(subTotal + shippingCost);
+  const itemsId = cartItems.map((item) => item.id);
+  async function handlePaymentRequest() {
+    const data = await generateRequest(totalPrice);
+    const res = await fetch("/api/payment/request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+    const response = await res.json();
+
+    if (response.status === 200) {
+      window.location.href = response.url;
+    }
+  }
   return (
     <aside className="relative top-0 grid-cols-1 col-span-1 px-4 py-6 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
       {from === "checkout" && <h4 className="text-lg">Promotion</h4>}
@@ -64,17 +81,32 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
           }`}
         >
           <p>Total</p>
-          <p className="text-primary">${totalPrice}</p>
+          <div>
+            <p className="text-primary text-end">${totalPrice}</p>
+            {from === "checkout" && (
+              <p className="text-xs font-normal text-end">
+                VAT included, where applicable
+              </p>
+            )}
+          </div>
         </div>
-
         {cartItems?.length > 0 && (
           <div>
-            <Link
-              href={`/en6/checkout?selected=${searchParams.get("selected")}`}
-              className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
-            >
-              Proceed to Checkout ({cartItems?.length})
-            </Link>
+            {from !== "checkout" ? (
+              <Link
+                href={`/en/checkout?selected=${searchParams.get("selected")}`}
+                className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+              >
+                Proceed to Checkout ({cartItems?.length})
+              </Link>
+            ) : (
+              <button
+                onClick={handlePaymentRequest}
+                className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+              >
+                Proceed to Pay
+              </button>
+            )}
           </div>
         )}
       </div>

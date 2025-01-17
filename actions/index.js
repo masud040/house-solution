@@ -1,7 +1,9 @@
 "use server";
+import { dataConfig } from "@/app/utils/sssConfig";
 import { auth, signIn } from "@/auth";
 import {
   deleteItems,
+  getBillingAddressByUserId,
   getUserByEmail,
   moveToCart,
   setItemInCart,
@@ -179,5 +181,23 @@ export async function addAndUpdateShippingData(data, userId) {
     }
   } catch (error) {
     throw new Error(error.message);
+  }
+}
+
+export async function generateRequest(totalPrice) {
+  try {
+    const session = await auth();
+    const user = await getUserByEmail(session?.user?.email);
+    const billingAddress = await getBillingAddressByUserId(user.id);
+    const data = dataConfig({
+      totalPrice: totalPrice,
+      name: billingAddress.fullName,
+      email: user.email,
+      city: billingAddress.city,
+      mobile: billingAddress.mobile,
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
   }
 }
