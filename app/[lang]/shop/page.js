@@ -12,7 +12,7 @@ function refineCategory(category) {
   }
 }
 const ShopPage = async ({
-  searchParams: { category, min_price, max_price, search_term },
+  searchParams: { category, min_price, max_price, search_term, page },
 }) => {
   const allCategory = await getProductsCountByCategory();
 
@@ -27,6 +27,7 @@ const ShopPage = async ({
           min_price={parseFloat(min_price)}
           max_price={parseFloat(max_price)}
           search_term={search_term}
+          page={page}
         />
       </div>
     </section>

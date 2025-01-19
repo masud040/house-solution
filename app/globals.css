@@ -168,6 +168,13 @@
     @apply shadow-elevated dark:shadow-elevated-dark;
   }
 
+  .paigination-button {
+    @apply px-1.5 text-sm border rounded-md;
+  }
+  .active-paigination-button {
+    @apply bg-secondary-dark text-tertiary;
+  }
+
   .quantity-icrease-decrease-btn {
     @apply text-xl transition-colors duration-500 cursor-pointer select-none flex-center hover:bg-primary hover:text-background-light disabled:cursor-not-allowed dark:disabled:bg-secondary disabled:bg-secondary-light;
   }
