@@ -104,7 +104,7 @@
     @apply text-lg font-bold md:text-xl lg:text-3xl;
   }
   .h6-md-h5-lg-h4 {
-    @apply text-lg md:text-xl lg:text-2xl;
+    @apply text-xl lg:text-3xl;
   }
   .paragraph-md-h6-medium {
     @apply text-sm font-medium md:text-lg;
@@ -169,7 +169,7 @@
   }
 
   .paigination-button {
-    @apply px-1.5 text-sm border rounded-md;
+    @apply px-1.5 disabled:bg-secondary-light py-0.5 disabled:cursor-not-allowed text-sm border rounded-md;
   }
   .active-paigination-button {
     @apply bg-secondary-dark text-tertiary;

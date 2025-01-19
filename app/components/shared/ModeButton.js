@@ -10,7 +10,7 @@ export default function ModeButton() {
   return (
     <li
       title={theme === "dark" ? "Switch to light" : "Switch to dark"}
-      className="p-1.5 rounded-btn-with-inset-shadow"
+      className="p-1.5 size-8 rounded-btn-with-inset-shadow"
       onClick={handleTheme}
     >
       {theme === "dark" ? (

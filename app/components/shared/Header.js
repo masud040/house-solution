@@ -17,7 +17,7 @@ export default async function Header() {
     <header className="shadow-sm bg-background-light dark:bg-background-dark">
       <div className="container items-center gap-8 py-3 pt-5 flex-between">
         <Link href="/">
-          <h1 className="hidden font-bold text-transparent md:inline h6-md-h5-lg-h4 bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+          <h1 className="hidden font-bold text-transparent md:inline h6-md-h5-lg-h4 bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
             Sokher Corner
           </h1>
         </Link>
@@ -60,10 +60,10 @@ export default async function Header() {
                   session?.user?.image ? (
                     <Image
                       src={session?.user?.image}
-                      height={18}
-                      width={18}
+                      height={28}
+                      width={28}
                       alt="profile"
-                      className="rounded-full size-7 border border-indigo-600 p-0.5 "
+                      className="border border-indigo-600 rounded-full size-8 p-[1px]"
                     />
                   ) : (
                     <GenerateImageByLetter name={session?.user?.name} />

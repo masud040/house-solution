@@ -33,12 +33,16 @@ export default function Pagination({ total, page, pages }) {
   }, []);
 
   return (
-    <div className="gap-3 py-6 flex-center">
+    <div className="gap-3 py-10 flex-center">
       <p className="text-sm">
         Page {page} of {pages}
       </p>
       <div className="gap-2 flex-center">
-        <button className="paigination-button" onClick={handlePrev}>
+        <button
+          disabled={pageNo === 1}
+          className="paigination-button"
+          onClick={handlePrev}
+        >
           <FaAngleLeft className="text-lg" />
         </button>
         {numberOfPages.map((p) => (
@@ -54,7 +58,11 @@ export default function Pagination({ total, page, pages }) {
             {p + 1}
           </button>
         ))}
-        <button className="paigination-button" onClick={handleNext}>
+        <button
+          disabled={pageNo === pages}
+          className="paigination-button"
+          onClick={handleNext}
+        >
           <FaAngleRight className="text-lg" />
         </button>
       </div>
