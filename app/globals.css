@@ -145,7 +145,7 @@
     @apply mb-5 uppercase h4-semibold-lg-h3-semibold;
   }
   .header-link {
-    @apply relative text-center transition-all duration-300 ease-in-out;
+    @apply relative text-center transition-all duration-300 ease-in-out text-secondary-dark dark:text-secondary-light;
   }
 
   /* filter section */
@@ -202,7 +202,7 @@
   /* hover animation */
 
   .rounded-btn-with-inset-shadow {
-    @apply text-2xl transition-all duration-300 ease-in-out rounded-full shadow-custom-inset dark:shadow-custom-inset-dark hover:scale-105;
+    @apply text-xl transition-all duration-300 ease-in-out rounded-full shadow-custom-inset dark:shadow-custom-inset-dark hover:scale-105;
   }
   .input-field {
     @apply w-full font-normal transition-colors duration-500 ease-in-out bg-transparent border border-transparent shadow-custom-inset dark:shadow-custom-inset-dark focus:border-primary focus:outline-none focus:ring-0;

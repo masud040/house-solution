@@ -10,11 +10,31 @@ import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
 
 // get all products with filters
-async function getAllProducts(category, min_price, max_price, search_term) {
+async function getAllProducts(
+  category,
+  min_price,
+  max_price,
+  search_term,
+  page = 1,
+  limit = 12
+) {
   await connectMongo();
-  const totalProducts = await ProductModel.find().lean();
-  let allProducts = totalProducts;
 
+  const isFiltered = category || min_price || max_price || search_term;
+
+  let allProducts;
+  let totalCount;
+
+  if (isFiltered) {
+    // Query from all data (no pagination) if filters or search are applied
+    allProducts = await ProductModel.find().lean();
+    totalCount = allProducts.length; // Total products matching the filter
+  } else {
+    // Paginated query if no filters or search terms
+    const skip = (page - 1) * limit;
+    allProducts = await ProductModel.find().skip(skip).limit(limit).lean();
+    totalCount = await ProductModel.countDocuments();
+  }
   if (category) {
     const categoriesToMatch = category.toLowerCase().split("|");
 
@@ -35,9 +55,13 @@ async function getAllProducts(category, min_price, max_price, search_term) {
     );
   }
 
-  return removeMongoId(allProducts);
+  return {
+    products: removeMongoId(allProducts),
+    total: totalCount,
+    page,
+    pages: Math.ceil(totalCount / limit),
+  };
 }
-
 // find product by id
 async function getProductById(id) {
   await connectMongo();

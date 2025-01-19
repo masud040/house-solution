@@ -29,7 +29,10 @@ export const FilterByCategory = ({ categories }) => {
   }, []);
   useEffect(() => {
     if (query.length > 0) {
-      params.set("category", encodeURI(query.join("|")));
+      params.set(
+        "category",
+        encodeURI(query.filter((item) => item !== "undefined").join("|"))
+      );
     } else {
       params.delete("category");
     }

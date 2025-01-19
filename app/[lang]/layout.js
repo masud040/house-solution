@@ -28,7 +28,7 @@ export default async function RootLayout({ children }) {
             <Header />
             <Navbar />
           </div>
-          <div className="pt-[138px] min-h-[1000px]">{children}</div>
+          <div className="pt-[137px] min-h-[1000px]">{children}</div>
           <ToastContainer />
           <Footer />
           <CopyRight />

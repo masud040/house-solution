@@ -5,11 +5,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const Search = () => {
-  const [search_term, setSearchTerm] = useState("");
   const pathname = usePathname();
+  if (pathname !== "/en/shop") {
+    return null;
+  }
+  const [search_term, setSearchTerm] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
+
   function handleSearch(e) {
     const searchValue = e.target.value;
     if (!parseInt(searchValue)) {
