@@ -30,7 +30,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
     }
   }
   return (
-    <aside className="relative top-0 grid-cols-1 col-span-1 px-4 py-6 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
+    <aside className="relative top-0 grid-cols-1 col-span-1 p-6 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
       {from === "checkout" && <h4 className="text-lg">Promotion</h4>}
       {from === "checkout" && (
         <div className="flex my-4 text-sm">
@@ -45,13 +45,13 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
         </div>
       )}
       <h4
-        className={`text-lg ${
-          from !== "checkout" ? "border-b-light-default_dark-tertiary" : "pb-2"
+        className={`text-lg  pb-2 ${
+          from !== "checkout" && "border-b-light-default_dark-tertiary"
         }`}
       >
         Order Summary
       </h4>
-      <div className="space-y-5">
+      <div className="pt-3 space-y-5">
         <div className="flex items-center justify-between text-sm font-medium">
           <p>
             {from === "checkout" ? "Items Total" : "Subtotal"} (
@@ -84,7 +84,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
           <div>
             <p className="text-primary text-end">${totalPrice}</p>
             {from === "checkout" && (
-              <p className="text-xs font-normal text-end">
+              <p className="pt-2 text-xs font-normal text-end">
                 VAT included, where applicable
               </p>
             )}

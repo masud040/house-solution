@@ -10,10 +10,9 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
-  const [error, setError] = useState("");
+
   const [show, setShow] = useState(false);
   const router = useRouter();
   async function handleOnSubmit(data) {

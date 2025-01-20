@@ -13,6 +13,7 @@ export default async function AccountPage({ searchParams }) {
   }
   const user = await getUserByEmail(session?.user?.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
+
   return (
     <section className="container">
       <Breadcrumb name1="Account" />

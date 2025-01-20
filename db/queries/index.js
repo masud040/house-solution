@@ -385,14 +385,17 @@ async function getBillingAddressByUserId(userId) {
 async function getShippingAddressByUserId(userId) {
   try {
     await connectMongo();
-    const billingAddress = await BillingAddrsstModel.findOne({
-      userId: userId,
-    });
-    if (billingAddress?.isUseShipping) {
-      return billingAddress;
+    const shippingAddress = await ShippingAddrsstModel.findOne({ userId });
+
+    if (shippingAddress) {
+      return shippingAddress;
     } else {
-      const res = await ShippingAddrsstModel.findOne({ userId: userId });
-      return res;
+      const billingAddress = await BillingAddrsstModel.findOne({
+        userId,
+      });
+      if (billingAddress.isUseShipping) {
+        return billingAddress;
+      }
     }
   } catch (error) {
     throw new Error(error);

@@ -18,6 +18,7 @@ export const BillingAddressAddForm = ({
     formState: { errors },
     reset,
     setError,
+    watch,
   } = useForm();
 
   const [divisions, setDivisions] = useState([]);
@@ -43,6 +44,11 @@ export const BillingAddressAddForm = ({
       const data = await res.json();
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDivisions(data.data);
+        setAddressData({
+          ...addressData,
+          city: "",
+          province: "",
+        });
       }
     }
     getDivision();
@@ -78,8 +84,7 @@ export const BillingAddressAddForm = ({
         setUpazillas(data?.data[0].upazillas);
         setAddressData({
           ...addressData,
-
-          province: address?.province || "",
+          province: addressData?.province || "",
         });
       }
     }
@@ -103,10 +108,11 @@ export const BillingAddressAddForm = ({
         userId: user.id,
         landmark: parseFloat(addressData.landmark),
       };
+
       const { isUseShipping, ...rest } = newData;
 
       if (useFor === "billing") {
-        const res = await addAndUpdateBillingData(newData, address?._id);
+        const res = await addAndUpdateBillingData(newData, address?.userId);
         if (res.success) {
           toast.success(res.message, {
             autoClose: 1500,
@@ -115,7 +121,7 @@ export const BillingAddressAddForm = ({
           reset();
         }
       } else {
-        const res = await addAndUpdateShippingData(rest, address?._id);
+        const res = await addAndUpdateShippingData(rest, address?.userId);
         if (res.success) {
           toast.success(res.message, {
             autoClose: 1500,

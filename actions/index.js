@@ -123,30 +123,20 @@ export async function updateUserData(data, id) {
 // add billing data
 export async function addAndUpdateBillingData(data, userId) {
   try {
-    // update billing data
-    if (userId) {
-      const res = await BillingAddrsstModel.findByIdAndUpdate(userId, data, {
-        new: true,
-      });
-      revalidatePath("/account");
-      return {
-        status: 200,
-        success: true,
-        message: "Updated successfully!",
-        id: res?._id.toString(),
-      };
-    } else {
-      // add billing data
-      const res = await BillingAddrsstModel.create(data);
-      revalidatePath("/account");
+    // add or update billing data
 
-      return {
-        status: 201,
-        success: true,
-        message: "Added successfully!",
-        id: res?._id.toString(),
-      };
-    }
+    const res = await BillingAddrsstModel.findOneAndUpdate({ userId }, data, {
+      new: true,
+      upsert: true,
+    });
+
+    revalidatePath("/account");
+    return {
+      status: 200,
+      success: true,
+      message: "Updated successfully!",
+      id: res?._id.toString(),
+    };
   } catch (error) {
     throw new Error(error.message);
   }
@@ -154,31 +144,20 @@ export async function addAndUpdateBillingData(data, userId) {
 // add shipping data
 export async function addAndUpdateShippingData(data, userId) {
   try {
-    // update shipping data
-    if (userId) {
-      const res = await ShippingAddrsstModel.findByIdAndUpdate(userId, data, {
-        new: true,
-      });
-      revalidatePath("/account");
-      return {
-        status: 200,
-        success: true,
-        message: "Updated successfully!",
-        id: res?._id.toString(),
-      };
-    } else {
-      // add billing data
-      const res = await ShippingAddrsstModel.create(data);
+    // add or update shipping data
 
-      revalidatePath("/account");
+    const res = await ShippingAddrsstModel.findOneAndUpdate({ userId }, data, {
+      new: true,
+      upsert: true,
+    });
 
-      return {
-        status: 201,
-        success: true,
-        message: "Added successfully!",
-        id: res?._id.toString(),
-      };
-    }
+    revalidatePath("/account");
+    return {
+      status: 200,
+      success: true,
+      message: "Updated successfully!",
+      id: res?._id.toString(),
+    };
   } catch (error) {
     throw new Error(error.message);
   }

@@ -3,7 +3,7 @@ import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { auth } from "@/auth";
 import { getShippingAddressByUserId, getUserByEmail } from "@/db/queries";
 
-export default async function EditShippingAddress() {
+export default async function EditShippingAddress({ searchParams }) {
   const session = await auth();
   if (!session) {
     return redirect("/login");
@@ -26,6 +26,7 @@ export default async function EditShippingAddress() {
           user={user}
           address={shippingAddress}
           useFor="shipping"
+          searchParams={searchParams}
         />
       </div>
     </section>

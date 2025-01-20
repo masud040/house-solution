@@ -51,7 +51,9 @@ export default async function Checkout({ searchParams }) {
               </div>
             </div>
             <Link
-              href="/en/account/shipping-address/edit"
+              href={`/en/account/shipping-address/edit?selected=${
+                searchParams.selected
+              }&isCheckout=${true}`}
               className="transition-colors duration-300 text-primary-light hover:text-primary"
             >
               Edit
