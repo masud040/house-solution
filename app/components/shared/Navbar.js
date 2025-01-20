@@ -14,7 +14,7 @@ import { ActiveLink } from "./ActiveLink";
 export default async function Navbar() {
   const session = await auth();
   return (
-    <nav className="pb-4 shadow-xl bg-background-light dark:bg-background-dark">
+    <nav className="w-full pb-2 shadow-xl bg-background-light dark:bg-background-dark">
       <div className="container flex-center">
         <div className="relative hidden px-4 py-2 cursor-pointer h-fit bg-primary md:flex-center group">
           <span className="text-background-light">
