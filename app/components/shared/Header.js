@@ -28,7 +28,7 @@ export default async function Header() {
               <div>
                 <FaRegHeart className="size-7" />
               </div>
-              {count && (
+              {count > 0 && (
                 <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-secondary dark:bg-background-light/80 text-background-light dark:text-secondary-dark">
                   {count}
                 </div>

@@ -1,13 +1,22 @@
 "use client";
-import { handleMovingWishlistToCart } from "@/actions";
+import { handleMovingWishlistToCart, performDelete } from "@/actions";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { DeleteConfirmation } from "../modal/DeleteConfirmation";
+import { ConfirmationModal } from "../modal/ConfirmationModal";
 
 const WishlistActionBtn = ({ productId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  function handleDelete() {
-    setIsOpen(true);
+  async function handleDelete() {
+    try {
+      const response = await performDelete(productId, "wishlist");
+      if (response?.status === 200) {
+        toast.success(response.message, { autoClose: 1500 });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsOpen(false);
+    }
   }
   async function handleMove() {
     try {
@@ -30,19 +39,21 @@ const WishlistActionBtn = ({ productId }) => {
           <i className="text-xl fa fa-cart-plus"></i>
         </div>
         <div
-          onClick={handleDelete}
+          onClick={() => setIsOpen(true)}
           title="Remove from cart"
           className="cursor-pointer text-secondary-dark hover:text-primary"
         >
           <i className="ext-xl fa-solid fa-trash"></i>
         </div>
       </div>
-      <DeleteConfirmation
+      <ConfirmationModal
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        productId={productId}
-        from="wishlist"
-      />
+        closeModal={() => setIsOpen(false)}
+        actionBtnLabel={"Remove"}
+        actionFuction={handleDelete}
+        confirmationLabel={"Are you sure want?"}
+        confirmationSubLabel={"Items will be remove from your wishlist"}
+      ></ConfirmationModal>
     </>
   );
 };

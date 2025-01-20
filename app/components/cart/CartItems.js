@@ -1,13 +1,14 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+import { performDelete } from "@/actions";
 import useCartData from "@/hooks/useCartData";
 import LoadingImage from "@/public/svg/loading.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import CatItemCard from "../card/CatItemCard";
-import { DeleteConfirmation } from "../modal/DeleteConfirmation";
+import { ConfirmationModal } from "../modal/ConfirmationModal";
 import { NoDataFound } from "../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {
@@ -61,8 +62,17 @@ export default function CartItems({ cartItems }) {
       }
     }
   }, []);
-  function handleDelete() {
-    setIsOpen(true);
+  async function handleDelete() {
+    try {
+      const response = await performDelete("all", "all");
+      if (response?.status === 200) {
+        toast.success(response.message, { autoClose: 1500 });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsOpen(false);
+    }
   }
   return (
     <>
@@ -101,7 +111,7 @@ export default function CartItems({ cartItems }) {
               </div>
 
               <div
-                onClick={handleDelete}
+                onClick={() => setIsOpen(true)}
                 title="Remove all products"
                 className="gap-2 cursor-pointer flex-start hover:text-primary"
               >
@@ -129,7 +139,16 @@ export default function CartItems({ cartItems }) {
           <Image src={LoadingImage} width={40} height={40} alt="loading..." />
         </div>
       )}
-      <DeleteConfirmation isOpen={isOpen} setIsOpen={setIsOpen} from="all" />
+      <ConfirmationModal
+        isOpen={isOpen}
+        setIsOpen={() => setIsOpen(false)}
+        actionBtnLabel={"Remove"}
+        actionFuction={handleDelete}
+        confirmationLabel={"Are you sure want?"}
+        confirmationSubLabel={"All items will be remove from your cart"}
+      >
+        <div>Hello I am from Modal</div>
+      </ConfirmationModal>
     </>
   );
 }

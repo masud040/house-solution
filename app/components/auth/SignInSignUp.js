@@ -2,7 +2,7 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { BasicConfirmationModal } from "../modal/BasicConfirmationModal";
+import { ConfirmationModal } from "../modal/ConfirmationModal";
 
 export default function SignInSignUp({ email }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -24,15 +24,15 @@ export default function SignInSignUp({ email }) {
         </Link>
       )}
       {isOpenModal && (
-        <BasicConfirmationModal
+        <ConfirmationModal
           isOpen={isOpenModal}
-          setIsOpen={() => setIsOpenModal(false)}
+          closeModal={setIsOpenModal}
           actionBtnLabel={"Confirm"}
           actionFuction={() => signOut()}
           confirmationLabel={"Are you sure want to log out?"}
         >
           <div>Hello I am from Modal</div>
-        </BasicConfirmationModal>
+        </ConfirmationModal>
       )}
     </>
   );

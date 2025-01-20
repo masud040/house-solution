@@ -1,10 +1,11 @@
 "use client";
-import { updateProductQuantity } from "@/actions";
+import { performDelete, updateProductQuantity } from "@/actions";
 import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
 import { useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
-import { DeleteConfirmation } from "../modal/DeleteConfirmation";
+import { toast } from "react-toastify";
+import { ConfirmationModal } from "../modal/ConfirmationModal";
 
 export default function CatItemCard({
   product,
@@ -49,8 +50,17 @@ export default function CatItemCard({
       setLoading(false);
     }
   }
-  function handleDelete() {
-    setIsOpen(true);
+  async function handleDelete() {
+    try {
+      const response = await performDelete(productId, "cart");
+      if (response?.status === 200) {
+        toast.success(response.message, { autoClose: 1500 });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsOpen(false);
+    }
   }
 
   const discountedPrice = price - (price * discount) / 100;
@@ -145,7 +155,7 @@ export default function CatItemCard({
               </button>
             </div>
             <div
-              onClick={handleDelete}
+              onClick={() => setIsOpen(true)}
               title="Remove from cart"
               className="transition-all duration-300 cursor-pointer hover:text-primary"
             >
@@ -154,12 +164,15 @@ export default function CatItemCard({
           </div>
         </div>
       </div>
-      <DeleteConfirmation
+
+      <ConfirmationModal
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        productId={id}
-        from="cart"
-      />
+        closeModal={() => setIsOpenModal(false)}
+        actionBtnLabel={"Remove"}
+        actionFuction={handleDelete}
+        confirmationLabel={"Are you sure want?"}
+        confirmationSubLabel={"Items will be remove from your cart"}
+      ></ConfirmationModal>
     </>
   );
 }
