@@ -1,24 +1,38 @@
+import connectMongo from "@/db/connectMongo";
+import { deleteCartItemsAfterOrderSuccess } from "@/db/queries";
+import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const searchParams = req.nextUrl.searchParams;
+  const trans_id = searchParams.get("trans_id");
+  const customer_id = searchParams.get("cus_id");
+  const order_items_id = searchParams.get("order_items_id");
 
-  // const trans_id = req.nextUrl.searchParams.get("trans_id")
   try {
-    // const findPayment= await MongoDB.findOne({trans_id})
-    // if(findPayment){
-    //   await findOneAndUpdate.payment.updateOne({trans_id,{
-    //     $set:{paid:true},
-    //   }})
-    // }
-    const redirectUrl = new URL(`/en/about-us`, req.url);
+    await connectMongo();
+    const findPayment = await PaymentModel.findOneAndUpdate(
+      { trans_id },
+      {
+        paid: true,
+      },
+      {
+        new: true,
+      }
+    );
 
-    // Append the search parameters to the redirect URL
-    searchParams.forEach((value, key) => {
-      redirectUrl.searchParams.append(key, value);
-    });
-
-    return NextResponse.redirect(new URL(redirectUrl, req.url), 303);
+    if (findPayment?.paid) {
+      const res = await deleteCartItemsAfterOrderSuccess(
+        order_items_id.split(","),
+        customer_id
+      );
+      if (res.success) {
+        return NextResponse.redirect(
+          new URL(`/en/payment/success${req.nextUrl.search}`, req.url),
+          303
+        );
+      }
+    }
   } catch (error) {
     return new NextResponse(JSON.stringify(error));
   }

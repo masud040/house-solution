@@ -19,9 +19,10 @@ export async function POST(req) {
         address: body.data.cus_add1,
         trans_id: body.data.tran_id,
         order_items_id: body.data.order_items_id,
+        cus_id: body.data.cus_id,
       };
       await connectMongo();
-      const res = await PaymentModel.create(paymentData);
+      await PaymentModel.create(paymentData);
       return NextResponse.json({ url: result.GatewayPageURL, status: 200 });
     }
   } catch (error) {

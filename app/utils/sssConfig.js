@@ -20,9 +20,9 @@ export const dataConfig = ({
     currency: "BDT",
     tran_id: transactionId,
     order_items_id: order_items_id, // use unique tran_id for each api call
-    success_url: `http://localhost:3000/api/payment/success?tran_id=${transactionId}&order_items_id=${order_items_id.join(
+    success_url: `http://localhost:3000/api/payment/success?trans_id=${transactionId}&order_items_id=${order_items_id.join(
       ","
-    )}`,
+    )}&cus_id=${userId}`,
     fail_url: "http://localhost:3000/api/payment/fail",
     cancel_url: "http://localhost:3000/api/payment/cancel",
     ipn_url: "http://localhost:3000/payment/ipn",

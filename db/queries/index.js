@@ -413,8 +413,9 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
           const product = await ProductModel.findById(productId)
             .select(["name", "thumbnail", "price", "discount"])
             .lean();
+
           product["quantity"] = item.quantity;
-          product["order_product_id"] = item._id.toString();
+          product["order_product_id"] = product._id.toString();
           return product;
         })
       );
@@ -429,7 +430,39 @@ async function getSingleShippingCost() {
   return 5;
 }
 
+async function deleteCartItemsAfterOrderSuccess(order_items_id, customer_id) {
+  if (
+    !customer_id ||
+    !Array.isArray(order_items_id) ||
+    order_items_id.length === 0
+  ) {
+    throw new Error(
+      "Invalid parameters. 'userId' must be a string, and 'order_items_id' must be a non-empty array."
+    );
+  }
+  try {
+    await connectMongo();
+    const res = await CartModel.deleteMany({
+      userId: customer_id,
+      productId: {
+        $in: order_items_id,
+      },
+    });
+    console.log(res);
+    return {
+      success: true,
+      deletedCount: res.deletedCount,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+}
+
 export {
+  deleteCartItemsAfterOrderSuccess,
   deleteItems,
   getAllCartItemsById,
   getAllCategory,
