@@ -1,4 +1,6 @@
 import { sslConfig } from "@/app/utils/sssConfig";
+import connectMongo from "@/db/connectMongo";
+import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -6,7 +8,7 @@ export async function POST(req) {
 
   try {
     const result = await sslConfig.init(body.data);
-    console.log(body.data);
+
     if (!result.GatewayPageURL || result.status === "FAILED") {
       return NextResponse.json({ message: result.failedreason });
     } else if (result.status === "SUCCESS") {
@@ -18,9 +20,8 @@ export async function POST(req) {
         trans_id: body.data.tran_id,
         order_items_id: body.data.order_items_id,
       };
-      // mongoDB.payment.create(newData)
-      // Add new payment but ( paid: false )
-      // if redirect to success route then change ( paid: true ) in success route
+      await connectMongo();
+      const res = await PaymentModel.create(paymentData);
       return NextResponse.json({ url: result.GatewayPageURL, status: 200 });
     }
   } catch (error) {

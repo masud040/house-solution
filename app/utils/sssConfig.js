@@ -18,7 +18,8 @@ export const dataConfig = ({
   const data = {
     total_amount: totalPrice,
     currency: "BDT",
-    tran_id: transactionId, // use unique tran_id for each api call
+    tran_id: transactionId,
+    order_items_id: order_items_id, // use unique tran_id for each api call
     success_url: `http://localhost:3000/api/payment/success?tran_id=${transactionId}&order_items_id=${order_items_id.join(
       ","
     )}`,
@@ -26,7 +27,7 @@ export const dataConfig = ({
     cancel_url: "http://localhost:3000/api/payment/cancel",
     ipn_url: "http://localhost:3000/payment/ipn",
     shipping_method: "Courier",
-    product_name: "Computer",
+    product_name: "Product",
     product_category: "Electronic",
     product_profile: "general",
     cus_id: userId,
