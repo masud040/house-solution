@@ -13,9 +13,14 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
     )
   );
   const totalPrice = Math.floor(subTotal + shippingCost);
-  const itemsId = cartItems.map((item) => item.id);
+  const order_items_id = cartItems.map((item) => item.order_product_id);
+
   async function handlePaymentRequest() {
-    const data = await generateRequest(totalPrice);
+    const data = await generateRequest({
+      totalPrice: totalPrice,
+      order_items_id: order_items_id,
+    });
+
     const res = await fetch("/api/payment/request", {
       method: "POST",
       headers: {
@@ -29,6 +34,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
       window.location.href = response.url;
     }
   }
+
   return (
     <aside className="relative top-0 grid-cols-1 col-span-1 p-6 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
       {from === "checkout" && <h4 className="text-lg">Promotion</h4>}

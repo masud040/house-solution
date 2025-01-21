@@ -29,6 +29,7 @@ export default async function Checkout({ searchParams }) {
     productIds,
     user.id
   );
+
   const shippingCost = await getDeleveryCost(selectedProducts);
 
   return (

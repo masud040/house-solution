@@ -14,7 +14,10 @@ export default async function CartPage({ searchParams: { selected } }) {
   }
 
   const cartItems = await getAllCartItemsById(session?.user?.email, selected);
-  const shippingCost = await getDeleveryCost(cartItems);
+  const shippingCost = await getDeleveryCost(
+    cartItems?.filter((item) => item?.selected)
+  );
+
   return (
     <CartProvider>
       <section className="container pb-16">

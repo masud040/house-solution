@@ -414,8 +414,7 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
             .select(["name", "thumbnail", "price", "discount"])
             .lean();
           product["quantity"] = item.quantity;
-          product["cart_id"] = item._id.toString();
-          product["order_id"] = item._id.toString();
+          product["order_product_id"] = item._id.toString();
           return product;
         })
       );

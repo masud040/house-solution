@@ -6,12 +6,22 @@ const is_live = false;
 export const sslConfig = new SslCommerzPayment(store_id, store_passwd, is_live);
 
 const transactionId = new ObjectId().toString();
-export const dataConfig = ({ totalPrice, name, email, city, mobile }) => {
+export const dataConfig = ({
+  totalPrice,
+  name,
+  email,
+  city,
+  mobile,
+  userId,
+  order_items_id,
+}) => {
   const data = {
     total_amount: totalPrice,
     currency: "BDT",
     tran_id: transactionId, // use unique tran_id for each api call
-    success_url: `http://localhost:3000/api/payment/success?tran_id=${transactionId}`,
+    success_url: `http://localhost:3000/api/payment/success?tran_id=${transactionId}&order_items_id=${order_items_id.join(
+      ","
+    )}`,
     fail_url: "http://localhost:3000/api/payment/fail",
     cancel_url: "http://localhost:3000/api/payment/cancel",
     ipn_url: "http://localhost:3000/payment/ipn",
@@ -19,6 +29,7 @@ export const dataConfig = ({ totalPrice, name, email, city, mobile }) => {
     product_name: "Computer",
     product_category: "Electronic",
     product_profile: "general",
+    cus_id: userId,
     cus_name: name,
     cus_email: email,
     cus_add1: city,

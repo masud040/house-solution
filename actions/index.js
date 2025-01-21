@@ -163,17 +163,20 @@ export async function addAndUpdateShippingData(data, userId) {
   }
 }
 
-export async function generateRequest(totalPrice) {
+export async function generateRequest({ totalPrice, order_items_id }) {
   try {
     const session = await auth();
     const user = await getUserByEmail(session?.user?.email);
+
     const billingAddress = await getBillingAddressByUserId(user.id);
     const data = dataConfig({
       totalPrice: totalPrice,
-      name: billingAddress.fullName,
+      name: user.name,
       email: user.email,
       city: billingAddress.city,
-      mobile: billingAddress.mobile,
+      mobile: user.mobile,
+      userId: user.id,
+      order_items_id: order_items_id,
     });
     return data;
   } catch (err) {

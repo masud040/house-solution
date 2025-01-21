@@ -18,7 +18,6 @@ export const BillingAddressAddForm = ({
     formState: { errors },
     reset,
     setError,
-    watch,
   } = useForm();
 
   const [divisions, setDivisions] = useState([]);
@@ -149,7 +148,11 @@ export const BillingAddressAddForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="my-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={(e) => e.preventDefault()}
+      className="my-4"
+    >
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
         <input
           type="text"
