@@ -1,3 +1,4 @@
+import { generatePDF } from "@/app/utils/generatePDF";
 import connectMongo from "@/db/connectMongo";
 import { deleteCartItemsAfterOrderSuccess } from "@/db/queries";
 import { PaymentModel } from "@/models/payment-model";
@@ -22,6 +23,14 @@ export async function POST(req) {
     );
 
     if (findPayment?.paid) {
+      // Generate PDF
+      const pdfBuffer = await generatePDF(
+        trans_id,
+        customer_id,
+        order_items_id
+      );
+      console.log(pdfBuffer);
+
       const res = await deleteCartItemsAfterOrderSuccess(
         order_items_id.split(","),
         customer_id
