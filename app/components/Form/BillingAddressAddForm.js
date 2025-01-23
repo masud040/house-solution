@@ -25,7 +25,7 @@ export const BillingAddressAddForm = ({
   const [upazillas, setUpazillas] = useState([]);
   const [addressData, setAddressData] = useState({
     fullName: address?.fullName ?? user.name ?? "",
-    mobile: address?.mobile ?? "",
+    mobile: address?.mobile ?? user.mobile ?? "",
     area: address?.area ?? "",
     city: address?.city ?? "",
     province: address?.province ?? "",
@@ -139,6 +139,7 @@ export const BillingAddressAddForm = ({
   }
   // onChange handlers
   function handleChange(e) {
+    e.preventDefault();
     const { name, value, checked } = e.target;
 
     setAddressData({
@@ -148,11 +149,7 @@ export const BillingAddressAddForm = ({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      onKeyDown={(e) => e.preventDefault()}
-      className="my-4"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
         <input
           type="text"
@@ -178,7 +175,7 @@ export const BillingAddressAddForm = ({
           type="number"
           placeholder="Enter your mobile number"
           className="py-3 rounded-md input-field"
-          defaultValue={addressData?.mobile}
+          value={addressData?.mobile}
           {...register("mobile", {
             required: "Mobile number is required!",
             minLength: {

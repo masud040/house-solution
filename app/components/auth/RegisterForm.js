@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
+import { toast } from "react-toastify";
 import Field from "../shared/Field";
 
 export default function RegisterForm() {
@@ -16,6 +18,9 @@ export default function RegisterForm() {
 
   const [show, setShow] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [globalError, setGlobalError] = useState("");
+  const router = useRouter();
   async function handleOnSubmit(data) {
     if (data?.password !== data?.confirmPassword) {
       setError("confirmPassword", {
@@ -23,6 +28,11 @@ export default function RegisterForm() {
         message: "Password and confirm password does not match!",
       });
     }
+    setGlobalError("");
+    setLoading(true); // Start loading
+    toast.loading("Registering your account....", {
+      toastId: "register",
+    });
 
     try {
       const res = await fetch("/api/auth/register", {
@@ -36,8 +46,32 @@ export default function RegisterForm() {
           password: data?.password,
         }),
       });
+      const response = await res.json();
+      if (response.status === 400) {
+        setGlobalError(response.message);
+        toast.update("register", {
+          render: response.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 1500,
+        });
+
+        reset();
+      } else if (response.status === 201) {
+        toast.update("register", {
+          render: "User registered successfully!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+        });
+
+        router.push("/en/login");
+      }
     } catch (err) {
+      setGlobalError(err.message);
       console.log(err);
+    } finally {
+      setLoading(false); // Stop loading
     }
   }
   return (
@@ -114,33 +148,56 @@ export default function RegisterForm() {
           </div>
         </Field>
       </div>
-      <div className="mt-6">
+      <div className="my-5">
         <Field htmlFor="agreement" error={errors?.agreement}>
           <div className="flex items-center">
             <input
               type="checkbox"
               name="agreement"
               id="agreement"
-              className="rounded-sm cursor-pointer text-primary focus:ring-0"
+              className="hidden peer"
               {...register("agreement", {
                 required: "Please confirm our terms & conditions!",
               })}
             />
-            <label htmlFor="agreement" className="ml-3 cursor-pointer">
+            <label
+              htmlFor="agreement"
+              className="flex items-center justify-center w-5 h-5 border-2 rounded-md cursor-pointer border-primary peer-checked:bg-primary peer-checked:border-primary peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-primary"
+            >
+              {/* Check Icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 text-white peer-checked:block"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
+            <span htmlFor="agreement" className="ml-3 cursor-pointer">
               I have read and agree to the{" "}
               <a href="#" className="text-primary">
                 terms & conditions
               </a>
-            </label>
+            </span>
           </div>
         </Field>
       </div>
-      <div className="mt-4">
+      {globalError && (
+        <p className="mb-5 font-medium text-center text-primary">
+          {globalError}
+        </p>
+      )}
+      <div>
         <button
           type="submit"
-          className="w-full py-3 uppercase btn-shadow-light-defaut-dark-primary"
+          className="w-full py-3 btn-shadow-light-defaut-dark-primary"
         >
-          create account
+          {loading ? "Processing..." : "Create Account"}
         </button>
       </div>
     </form>

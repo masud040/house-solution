@@ -23,10 +23,10 @@ export async function loginWithCredentials(data) {
       password: data?.password,
       redirect: false,
     });
-
+    revalidatePath("/en");
     return response;
   } catch (err) {
-    throw new Error(err?.cause?.err?.message);
+    throw Error(err?.cause?.err?.message);
   }
 }
 
@@ -174,7 +174,7 @@ export async function generateRequest({ totalPrice, order_items_id }) {
       name: user.name,
       email: user.email,
       city: billingAddress.city,
-      mobile: user.mobile,
+      mobile: billingAddress.mobile,
       userId: user.id,
       order_items_id: order_items_id,
     });

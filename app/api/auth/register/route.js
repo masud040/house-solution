@@ -14,9 +14,21 @@ export async function POST(request) {
   };
 
   try {
-    await UserModel.create(newUser);
-    return new NextResponse("User has been created", { status: 201 });
+    const foundUser = await UserModel.findOne({ email: email });
+
+    if (foundUser?.email) {
+      return NextResponse.json({
+        message: "This user already exists. Please login!",
+        status: 400,
+      });
+    } else {
+      await UserModel.create(newUser);
+      return NextResponse.json({
+        message: "User has been created",
+        status: 201,
+      });
+    }
   } catch (err) {
-    return new NextResponse(err.message, { status: 500 });
+    return NextResponse.json(err.message, { status: 500 });
   }
 }

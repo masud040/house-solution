@@ -9,7 +9,7 @@ export default function AddNumberBtn({ userId }) {
     <>
       <button
         onClick={() => setIsShow(true)}
-        className="py-1.5 px-4 transition-all duration-500 ease-in-out rounded-2xl flex-start shadow-light-elevated_dark-elevated-dark hover:bg-primary hover:text-background-light"
+        className="py-1.5 px-4 transition-all duration-700 ease-in-out rounded-2xl flex-start shadow-light-elevated_dark-elevated-dark hover:bg-primary hover:text-white"
       >
         <FiPlus className="text-2xl" /> <p>Add Number</p>
       </button>

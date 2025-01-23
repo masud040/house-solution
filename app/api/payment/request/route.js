@@ -2,7 +2,6 @@ import { sslConfig } from "@/app/utils/sssConfig";
 import connectMongo from "@/db/connectMongo";
 import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
-
 export async function POST(req) {
   const body = await req.json();
 
@@ -20,6 +19,7 @@ export async function POST(req) {
         trans_id: body.data.tran_id,
         order_items_id: body.data.order_items_id,
         cus_id: body.data.cus_id,
+        order_id: body.data.order_id,
       };
       await connectMongo();
       await PaymentModel.create(paymentData);

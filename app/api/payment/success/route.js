@@ -1,6 +1,11 @@
 import { generatePDF } from "@/app/utils/generatePDF";
+import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
+
 import connectMongo from "@/db/connectMongo";
-import { deleteCartItemsAfterOrderSuccess } from "@/db/queries";
+import {
+  deleteCartItemsAfterOrderSuccess,
+  getUserByUserId,
+} from "@/db/queries";
 import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
@@ -9,7 +14,8 @@ export async function POST(req) {
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
   const order_items_id = searchParams.get("order_items_id");
-
+  const order_id = searchParams.get("order_id");
+  const user_name = searchParams.get("cus_name");
   try {
     await connectMongo();
     const findPayment = await PaymentModel.findOneAndUpdate(
@@ -24,12 +30,15 @@ export async function POST(req) {
 
     if (findPayment?.paid) {
       // Generate PDF
-      const pdfBuffer = await generatePDF(
+      const pdfBuffer = await generatePDF({
         trans_id,
-        customer_id,
-        order_items_id
-      );
-      console.log(pdfBuffer);
+        order_id,
+        user_name,
+      });
+
+      const user = await getUserByUserId(customer_id);
+
+      const sendEmail = await sendConfirmationMail(pdfBuffer, user.email);
 
       const res = await deleteCartItemsAfterOrderSuccess(
         order_items_id.split(","),
@@ -37,7 +46,10 @@ export async function POST(req) {
       );
       if (res.success) {
         return NextResponse.redirect(
-          new URL(`/en/payment/success${req.nextUrl.search}`, req.url),
+          new URL(
+            `/en/payment/success?trans_id${trans_id}&order_id${order_id}`,
+            req.url
+          ),
           303
         );
       }

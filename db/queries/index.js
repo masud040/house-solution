@@ -135,6 +135,13 @@ async function getUserByEmail(email) {
     return removeMongoIdFromObj(user);
   }
 }
+async function getUserByUserId(userId) {
+  await connectMongo();
+  if (userId) {
+    const user = await UserModel.findById(userId).lean();
+    return removeMongoIdFromObj(user);
+  }
+}
 
 // add to cart if it already exists update it quantity
 async function setItemInCart(cartData) {
@@ -386,16 +393,19 @@ async function getShippingAddressByUserId(userId) {
   try {
     await connectMongo();
     const shippingAddress = await ShippingAddrsstModel.findOne({ userId });
-
-    if (shippingAddress) {
-      return shippingAddress;
-    } else {
-      const billingAddress = await BillingAddrsstModel.findOne({
-        userId,
-      });
-      if (billingAddress.isUseShipping) {
-        return billingAddress;
+    const billingAddress = await BillingAddrsstModel.findOne({
+      userId,
+    });
+    if (shippingAddress || billingAddress) {
+      if (shippingAddress) {
+        return shippingAddress;
+      } else {
+        if (billingAddress.isUseShipping) {
+          return billingAddress;
+        }
       }
+    } else {
+      return null;
     }
   } catch (error) {
     throw new Error(error);
@@ -421,6 +431,8 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
       );
 
       return removeMongoId(selectedCartItems);
+    } else {
+      return null;
     }
   } catch (error) {
     throw new Error(error);
@@ -448,7 +460,7 @@ async function deleteCartItemsAfterOrderSuccess(order_items_id, customer_id) {
         $in: order_items_id,
       },
     });
-    console.log(res);
+
     return {
       success: true,
       deletedCount: res.deletedCount,
@@ -478,6 +490,7 @@ export {
   getSingleShippingCost,
   getTrendingProducts,
   getUserByEmail,
+  getUserByUserId,
   getWishlistCount,
   moveToCart,
   setItemInCart,

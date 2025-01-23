@@ -42,14 +42,15 @@ export const {
               return user;
             } else {
               message = "Password is not valid";
-              throw new Error(message);
+              throw Error(message);
             }
           } else {
             message = "User not found";
-            throw new Error(message);
+
+            throw Error(message);
           }
         } catch (e) {
-          throw new Error(message);
+          throw Error(e.message);
         }
       },
     }),

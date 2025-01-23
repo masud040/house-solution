@@ -212,7 +212,7 @@
     @apply text-xl transition-all duration-300 ease-in-out rounded-full shadow-custom-inset dark:shadow-custom-inset-dark hover:scale-105;
   }
   .input-field {
-    @apply w-full font-normal transition-colors duration-500 ease-in-out bg-transparent border border-transparent shadow-custom-inset dark:shadow-custom-inset-dark focus:border-primary focus:outline-none focus:ring-0;
+    @apply w-full font-normal transition-colors duration-500 ease-in-out bg-transparent border border-transparent shadow-custom-inset dark:shadow-custom-inset-dark focus:border-indigo-700/70 focus:outline-none focus:ring-0;
   }
 }
 
