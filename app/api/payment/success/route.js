@@ -35,24 +35,27 @@ export async function POST(req) {
         order_id,
         user_name,
         order_items_id,
+        customer_id,
       });
 
       const user = await getUserByUserId(customer_id);
 
-      await sendConfirmationMail(pdfBuffer, user.email);
+      await sendConfirmationMail({ pdfBuffer, toEmail: user.email, order_id });
 
       const res = await deleteCartItemsAfterOrderSuccess(
         order_items_id.split(","),
         customer_id
       );
       if (res.success) {
-        return NextResponse.redirect(
+        const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id${trans_id}&order_id${order_id}`,
             req.url
           ),
           303
         );
+        response.headers.set("Cache-Control", "no-store");
+        return response;
       }
     }
   } catch (error) {

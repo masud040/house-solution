@@ -1,10 +1,11 @@
 "use client";
 import { generateRequest } from "@/actions";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const OrderSummary = ({ cartItems, shippingCost, from }) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const subTotal = Math.floor(
     cartItems?.reduce(
       (total, item) =>
@@ -31,7 +32,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
     const response = await res.json();
 
     if (response.status === 200) {
-      window.location.href = response.url;
+      router.replace(response.url);
     }
   }
 

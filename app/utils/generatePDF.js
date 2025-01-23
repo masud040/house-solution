@@ -1,3 +1,4 @@
+import { getSelectedCartProductByProductIds } from "@/db/queries";
 import puppeteer from "puppeteer";
 
 export async function generatePDF({
@@ -5,9 +6,40 @@ export async function generatePDF({
   order_id,
   user_name,
   order_items_id,
+  customer_id,
 }) {
+  const productIds = order_items_id.split(",");
+  const order_products = await getSelectedCartProductByProductIds(
+    productIds,
+    customer_id
+  );
+
+  const productHTML = order_products
+    .map((product) => {
+      const totalPrice =
+        product.quantity * product.price -
+        (product.price * product.discount) / 100;
+      return `<div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img
+            src="${product.thumbnail}"
+            alt="${product.name}"
+            style="width: 100px; height: 60px; object-fit: cover; border-radius: 5px;"
+          />
+          <div>
+            <p style="margin: 0; font-weight: bold;">${product.name}</p>
+            <p style="margin: 0;">Price: $${Math.floor(totalPrice)}</p>
+            <p style="margin: 0;">Quantity: ${product.quantity}</p>
+            
+          </div>
+        </div>
+      </div>
+    `;
+    })
+    .join("");
+
   const htmlContent = `
- <html lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,18 +78,20 @@ export async function generatePDF({
 
       .button {
         display: inline-block;
-        margin-top: 20px;
+        margin: 10px 0;
         padding: 10px 20px;
         font-size: 14px;
+        font-weight: 600;
         color: #fff;
         background-color: #d81b60;
         text-decoration: none;
         border-radius: 5px;
         text-align: center;
       }
+     
       .footer {
         margin-top: 20px;
-        font-size: 12px;
+        font-size: 14px;
         text-align: center;
         color: #777;
       }
@@ -67,7 +101,7 @@ export async function generatePDF({
     <div class="container">
       <div class="header">
         <h1>Sokher Corner</h1>
-        <h3>Your Order Confirmation</h3>
+        <h3>Your Order Confirmation!</h3>
       </div>
       <p>Hi <strong>${user_name}</strong>,</p>
       <p>Your Order <strong>#${order_id}</strong> has been successfully confirmed, and your transaction id is <strong>3${trans_id}</strong>.</p>
@@ -75,11 +109,17 @@ export async function generatePDF({
       <p>
         Your order is now being processed and will be shipped shortly. You can track your order's progress using the button below:
       </p>
-      <a href="https://example.com/track-order/${order_id}" class="button">Track Your Order</a>
+
+<a href="http://localhost:3000/en/track-order/${order_id}/order-details" class="button">Track Your Order</a>
+      <div  style="  margin: 10px 0;">
+        ${productHTML}
+        </div>
+
       <p class="footer">Thank you for choosing Sokher Corner!</p>
     </div>
   </body>
   </html>
+
 `;
   // Launch Puppeteer and generate the PDF
   const browser = await puppeteer.launch();

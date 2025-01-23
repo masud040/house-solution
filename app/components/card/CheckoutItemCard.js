@@ -12,9 +12,6 @@ export default async function CheckoutItemCard({ product }) {
 
   return (
     <div className="p-5 rounded-md shadow-light-elevated_dark-elevated-dark">
-      <p className="mb-3 paragraph-lg-base text-primary">
-        Order# {product.order_id}
-      </p>
       <div className="space-y-8">
         <div className="gap-2 px-4 py-2 border rounded-lg border-primary bg-primary-extra-light/10 flex-column w-fit">
           <div>

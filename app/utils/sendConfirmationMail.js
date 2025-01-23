@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-export async function sendConfirmationMail(pdfBuffer, toEmail) {
+export async function sendConfirmationMail({ pdfBuffer, toEmail, order_id }) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -14,7 +14,7 @@ export async function sendConfirmationMail(pdfBuffer, toEmail) {
       to: toEmail,
 
       subject: "Order Confirmation",
-      text: "Your order is confirmed. Please find your order confirmation attached as a PDF.",
+      text: `Your order #${order_id} has been confirmed. Please find your order confirmation attached as a PDF.`,
       attachments: [
         {
           filename: "order_confirmation.pdf", // Name of the file
