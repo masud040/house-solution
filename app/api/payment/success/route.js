@@ -34,11 +34,12 @@ export async function POST(req) {
         trans_id,
         order_id,
         user_name,
+        order_items_id,
       });
 
       const user = await getUserByUserId(customer_id);
 
-      const sendEmail = await sendConfirmationMail(pdfBuffer, user.email);
+      await sendConfirmationMail(pdfBuffer, user.email);
 
       const res = await deleteCartItemsAfterOrderSuccess(
         order_items_id.split(","),

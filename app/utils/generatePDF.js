@@ -1,129 +1,106 @@
-import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import puppeteer from "puppeteer";
 
-export async function generatePDF({ trans_id, order_id, user_name }) {
-  const pdfDoc = await PDFDocument.create();
-  const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
-  const timesBoldFont = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
-  const page = pdfDoc.addPage([400, 400]);
+export async function generatePDF({
+  trans_id,
+  order_id,
+  user_name,
+  order_items_id,
+}) {
+  const htmlContent = `
+ <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        padding: 20px;
 
-  const pageWidth = page.getWidth();
-  const pageHeight = page.getHeight();
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        
+      }
+      .header {
+        text-align: center;
+        font-size: 16px;
+        
+        
+      }
+      .header h1 {
+        font-weight: 700;
+        color: transparent;
+        font-size: 32px;
+        background-image: linear-gradient(to right, #cc013f, #6b21a8);
+        background-clip: text;
+        background-clip: text;
+      }
+      .header h3{
+      margin: 0;
+      }
 
-  const companyName = "Sokher Corner";
-  const companyNameWidth = timesRomanFont.widthOfTextAtSize(companyName, 16);
-  page.drawText(companyName, {
-    x: (pageWidth - companyNameWidth) / 2,
-    y: pageHeight - 40,
-    size: 16,
-    font: timesRomanFont,
-    color: rgb(0, 0, 0.8),
+      .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #d81b60;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .footer {
+        margin-top: 20px;
+        font-size: 12px;
+        text-align: center;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Sokher Corner</h1>
+        <h3>Your Order Confirmation</h3>
+      </div>
+      <p>Hi <strong>${user_name}</strong>,</p>
+      <p>Your Order <strong>#${order_id}</strong> has been successfully confirmed, and your transaction id is <strong>3${trans_id}</strong>.</p>
+     
+      <p>
+        Your order is now being processed and will be shipped shortly. You can track your order's progress using the button below:
+      </p>
+      <a href="https://example.com/track-order/${order_id}" class="button">Track Your Order</a>
+      <p class="footer">Thank you for choosing Sokher Corner!</p>
+    </div>
+  </body>
+  </html>
+`;
+  // Launch Puppeteer and generate the PDF
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // Set the HTML content
+  await page.setContent(htmlContent, { waitUntil: "load" });
+
+  // Generate the PDF
+  const pdfBuffer = await page.pdf({
+    format: "A4",
+    printBackground: true,
+    margin: {
+      top: "20px",
+      bottom: "20px",
+      left: "20px",
+      right: "20px",
+    },
   });
 
-  // Title
-  const title = "Your order has been confirmed!";
-  const titleWidth = timesRomanFont.widthOfTextAtSize(title, 10);
-  page.drawText(title, {
-    x: (pageWidth - titleWidth) / 2,
-    y: pageHeight - 70,
-    size: 9,
-    font: timesRomanFont,
-    color: rgb(0, 0, 0),
-  });
+  await browser.close();
 
-  // Content Message
-  const message = `Hi ${user_name},\n\nYour Order #${order_id} has been successfully confirmed, and your Transaction ID is #${trans_id}.\n\nYour order is now being processed and will be shipped shortly. You can track the progress of your order on our website.\n\nThank you for choosing ${companyName}!`;
-
-  const fontSize = 8;
-  const lineHeight = 10;
-  const marginX = 40; // Left and right margins
-  const textWidth = pageWidth - marginX * 2;
-  const startY = pageHeight - 90;
-
-  let yPosition = startY;
-
-  // Split the message into paragraphs
-  const paragraphs = message.split("\n\n");
-
-  paragraphs.forEach((paragraph) => {
-    const lines = wrapText(paragraph, timesRomanFont, fontSize, textWidth);
-
-    lines.forEach((line) => {
-      if (yPosition < 40) return; // Avoid writing too close to the bottom
-
-      // Draw regular text part
-      page.drawText(line, {
-        x: marginX,
-        y: yPosition,
-        size: fontSize,
-        font: timesRomanFont,
-        color: rgb(0, 0, 0),
-      });
-
-      yPosition -= lineHeight;
-    });
-
-    yPosition -= lineHeight; // Extra spacing between paragraphs
-  });
-  // Add Tracking Button
-  const buttonText = "Track Your Order";
-  const buttonFontSize = 8;
-  const buttonTextWidth = timesRomanFont.widthOfTextAtSize(
-    buttonText,
-    buttonFontSize
-  );
-  const buttonPadding = 27;
-  const buttonWidth = buttonTextWidth + buttonPadding;
-  const buttonHeight = 20;
-  const buttonX = (pageWidth - buttonWidth) / 2;
-  const buttonY = yPosition - buttonHeight - 10;
-  // Draw the button background (with a rounded corner for a more modern look)
-  page.drawRectangle({
-    x: buttonX,
-    y: buttonY,
-    width: buttonWidth,
-    height: buttonHeight,
-    color: rgb(1, 0.004, 0.31), // Button background color
-    radius: 5,
-  });
-
-  const buttonTextX = buttonX + (buttonWidth - buttonTextWidth) / 2;
-  const buttonTextY = buttonY + (buttonHeight - buttonFontSize) / 2 + 2; // Vertically center the text
-
-  page.drawText(buttonText, {
-    x: buttonTextX,
-    y: buttonTextY,
-    size: buttonFontSize,
-    font: timesBoldFont,
-    color: rgb(1, 1, 1), // Button text color (white)
-  });
-
-  // Save PDF
-  const pdfBytes = await pdfDoc.save();
-  const pdfBuffer = Buffer.from(pdfBytes);
   return pdfBuffer;
-}
-
-// Utility Function: Wrap text into lines that fit within the specified width
-function wrapText(text, font, fontSize, maxWidth) {
-  const words = text.split(" ");
-  const lines = [];
-  let currentLine = "";
-
-  words.forEach((word) => {
-    const testLine = currentLine + word + " ";
-    const testWidth = font.widthOfTextAtSize(testLine, fontSize);
-
-    if (testWidth > maxWidth) {
-      lines.push(currentLine.trim());
-      currentLine = word + " ";
-    } else {
-      currentLine = testLine;
-    }
-  });
-
-  if (currentLine.trim()) {
-    lines.push(currentLine.trim());
-  }
-
-  return lines;
 }
