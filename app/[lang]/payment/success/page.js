@@ -3,7 +3,9 @@ import OrderSuccessConfirmation from "@/app/components/paymentrelated/OrderSucce
 export default function Success({ searchParams }) {
   return (
     <section className="container pt-10 pb-16">
-      <OrderSuccessConfirmation searchParams={searchParams} />
+      <div className="flex-center">
+        <OrderSuccessConfirmation searchParams={searchParams} />
+      </div>
     </section>
   );
 }
