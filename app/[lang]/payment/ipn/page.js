@@ -1,3 +1,5 @@
 export default function IpnPage() {
-  return <div>Hello I am ipn page</div>;
+  return (
+    <section className="container pt-10 pb-16">Hello I am ipn page</section>
+  );
 }

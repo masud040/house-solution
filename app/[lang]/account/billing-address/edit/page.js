@@ -12,9 +12,9 @@ export default async function EditBillingAddress() {
   const user = await getUserByEmail(session?.user?.email);
   const billingAddress = await getBillingAddressByUserId(user.id);
   return (
-    <section>
+    <section className="container pt-10 pb-16">
       <Breadcrumb name1="Account" name2="Profile" />
-      <div className="container pt-4 pb-16">
+      <div className="container pt-4">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="pb-4 text-xl text-center">Edit Billing Address</h2>
           <BillingAddressAddForm

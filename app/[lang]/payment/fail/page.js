@@ -1,3 +1,5 @@
 export default function FailPage() {
-  return <div>Hello I am failpage</div>;
+  return (
+    <section className="container pt-10 pb-16">Hello I am failpage</section>
+  );
 }

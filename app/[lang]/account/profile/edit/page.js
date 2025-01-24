@@ -7,7 +7,7 @@ export default async function EditPersonalProfile() {
   const session = await auth();
   const user = await getUserByEmail(session.user.email);
   return (
-    <section>
+    <section className="container pt-10 pb-16">
       <Breadcrumb
         nameWithPath={{
           name: "Account",

@@ -1,3 +1,5 @@
 export default function ContactUs() {
-  return <div>I am from contact us</div>;
+  return (
+    <section className="container pt-10 pb-16">I am from contact us</section>
+  );
 }

@@ -1,3 +1,5 @@
 export default function CancelPage() {
-  return <div>hello I am cancel page</div>;
+  return (
+    <section className="container pt-10 pb-16">hello I am cancel page</section>
+  );
 }

@@ -11,7 +11,7 @@ export default async function EditShippingAddress({ searchParams }) {
   const user = await getUserByEmail(session?.user?.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
   return (
-    <section className="container">
+    <section className="container pt-10 pb-16">
       <Breadcrumb
         nameWithPath={{
           name: "Account",
@@ -20,7 +20,7 @@ export default async function EditShippingAddress({ searchParams }) {
         name1="Shipping Address"
         name2="Edit"
       />
-      <div className="container pt-4 pb-16">
+      <div className="pt-4">
         <h2 className="pb-4 text-xl text-center">Edit Shipping Address</h2>
         <BillingAddressAddForm
           user={user}
