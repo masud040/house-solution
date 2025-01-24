@@ -1,9 +1,8 @@
 import { generatePDF } from "@/app/utils/generatePDF";
 import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
-
 import connectMongo from "@/db/connectMongo";
 import {
-  deleteCartItemsAfterOrderSuccess,
+  deleteFromCartAndAddOrderSuccess,
   getUserByUserId,
 } from "@/db/queries";
 import { PaymentModel } from "@/models/payment-model";
@@ -42,10 +41,12 @@ export async function POST(req) {
 
       await sendConfirmationMail({ pdfBuffer, toEmail: user.email, order_id });
 
-      const res = await deleteCartItemsAfterOrderSuccess(
-        order_items_id.split(","),
-        customer_id
-      );
+      const res = await deleteFromCartAndAddOrderSuccess({
+        order_items_id: order_items_id.split(","),
+        customer_id,
+        order_id,
+      });
+
       if (res.success) {
         const response = NextResponse.redirect(
           new URL(

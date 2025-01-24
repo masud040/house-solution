@@ -65,7 +65,7 @@ export default function RegisterForm() {
           autoClose: 1500,
         });
 
-        router.push("/en/login");
+        router.replace("/login");
       }
     } catch (err) {
       setGlobalError(err.message);

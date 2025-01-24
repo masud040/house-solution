@@ -5,6 +5,7 @@ import { CategoryModel } from "@/models/categories-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { ShippingAddrsstModel } from "@/models/shipping-address-model";
+import { SuccessModel } from "@/models/success-order";
 import { UserModel } from "@/models/users-model";
 import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
@@ -442,7 +443,11 @@ async function getSingleShippingCost() {
   return 5;
 }
 
-async function deleteCartItemsAfterOrderSuccess(order_items_id, customer_id) {
+async function deleteFromCartAndAddOrderSuccess({
+  order_items_id,
+  customer_id,
+  order_id,
+}) {
   if (
     !customer_id ||
     !Array.isArray(order_items_id) ||
@@ -454,17 +459,37 @@ async function deleteCartItemsAfterOrderSuccess(order_items_id, customer_id) {
   }
   try {
     await connectMongo();
-    const res = await CartModel.deleteMany({
+    const products = await CartModel.find({
       userId: customer_id,
       productId: {
         $in: order_items_id,
       },
+    }).lean();
+    const formatProducts = products.map((product) => {
+      return {
+        productId: product.productId,
+        quantity: product.quantity,
+      };
     });
-
-    return {
-      success: true,
-      deletedCount: res.deletedCount,
+    const newData = {
+      userId: customer_id,
+      orderId: order_id,
+      products: formatProducts,
     };
+
+    const addedRes = await SuccessModel.create(newData);
+    if (addedRes._id) {
+      const deleteRes = await CartModel.deleteMany({
+        userId: customer_id,
+        productId: {
+          $in: order_items_id,
+        },
+      });
+      return {
+        success: true,
+        deletedCount: deleteRes.deletedCount,
+      };
+    }
   } catch (error) {
     return {
       success: false,
@@ -474,7 +499,7 @@ async function deleteCartItemsAfterOrderSuccess(order_items_id, customer_id) {
 }
 
 export {
-  deleteCartItemsAfterOrderSuccess,
+  deleteFromCartAndAddOrderSuccess,
   deleteItems,
   getAllCartItemsById,
   getAllCategory,

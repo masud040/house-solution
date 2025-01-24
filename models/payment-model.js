@@ -25,6 +25,10 @@ const paymentSchema = new Schema({
     type: [String],
     required: true,
   },
+  cus_id: {
+    type: String,
+    required: true,
+  },
   order_id: {
     type: String,
     required: true,

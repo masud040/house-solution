@@ -33,7 +33,7 @@ export default function LoginForm() {
           type: "success",
           autoClose: 1500,
         });
-        router.push("/");
+        router.replace("/");
       }
     } catch (error) {
       toast.update("login", {
