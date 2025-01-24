@@ -14,9 +14,8 @@ const successSchema = new Schema({
     required: true,
     default: "Processing",
   },
-  date: {
+  createdAt: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
   products: {
