@@ -1,8 +1,10 @@
+import Link from "next/link";
+
 function OrderSuccessConfirmation({
   searchParams: { trans_id, order_id, cus_name },
 }) {
   return (
-    <div className="max-w-3xl p-10 border rounded-lg shadow-lg h-fit">
+    <div className="max-w-3xl p-10 border rounded-lg shadow-lg">
       <div className="space-y-6 text-center">
         <h1 className="font-bold text-transparent h6-md-h5-lg-h4 bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
           Sokher Corner
@@ -23,15 +25,19 @@ function OrderSuccessConfirmation({
           track your order's progress using the button below:
         </p>
 
-        <a
-          href="http://localhost:3000/en/track-order/${order_id}/order-details"
-          class="button"
-        >
-          Track Your Order
-        </a>
+        <div className="py-6">
+          <Link
+            href="http://localhost:3000/en/track-order/${order_id}/order-details"
+            className="py-3 text-white basic-btn bg-primary border-primary"
+          >
+            Track Your Order
+          </Link>
+        </div>
       </div>
 
-      <p class="footer">Thank you for choosing Sokher Corner!</p>
+      <p class="text-center text-sm pt-4">
+        Thank you for choosing Sokher Corner!
+      </p>
     </div>
   );
 }

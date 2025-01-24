@@ -162,7 +162,7 @@
     @apply px-8 font-medium uppercase transition duration-500 ease-in-out border rounded-md text-background-light bg-primary border-primary hover:bg-transparent hover:text-primary;
   }
   .basic-btn {
-    @apply px-8 font-medium uppercase transition duration-500 ease-in-out border rounded;
+    @apply px-8 font-medium uppercase transition duration-500 ease-in-out border rounded-md;
   }
   .shadow-light-elevated_dark-elevated-dark {
     @apply shadow-elevated dark:shadow-elevated-dark;
