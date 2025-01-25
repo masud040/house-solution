@@ -1,28 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 export default function OrderProcessTabsContainer() {
   const [selectedTab, setSelectedTab] = useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const params = new URLSearchParams(searchParams);
+  const addSearchParams = (value) => {
+    params.set("active_tab", value);
+    router.push(`?${params.toString()}`);
+  };
+  useEffect(() => {
+    params.set("active_tab", "all");
+    router.push(`?${params.toString()}`);
+  }, []);
+
   function handleSelectTab(tab) {
+    setSelectedTab(tab);
     switch (tab) {
       case 0:
-        // setSelectedTab("all");
+        addSearchParams("all");
         break;
       case 1:
-        // setSelectedTab("to-pay");
+        addSearchParams("to-pay");
         break;
       case 2:
-        // setSelectedTab("to-ship");
+        addSearchParams("to-ship");
         break;
       case 3:
-        // setSelectedTab("to-receive");
+        addSearchParams("to-receive");
         break;
       case 4:
-        // setSelectedTab("to-review");
+        addSearchParams("to-review");
         break;
       default:
-        // setSelectedTab("all");
+        addSearchParams("all");
         break;
     }
   }

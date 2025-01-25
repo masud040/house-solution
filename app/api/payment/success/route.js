@@ -2,7 +2,8 @@ import { generatePDF } from "@/app/utils/generatePDF";
 import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
 import connectMongo from "@/db/connectMongo";
 import { getUserByUserId } from "@/db/queries";
-import { OrdersModel } from "@/models/orders";
+import { OrdersModel } from "@/models/orders-model";
+
 import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
@@ -27,11 +28,13 @@ export async function POST(req) {
     if (findPayment?.paid) {
       const res = await OrdersModel.findOneAndUpdate(
         { userId: customer_id, orderId: order_id },
-        { status: "Shipping" },
+        { status: "to-ship" },
         { new: true }
       );
 
-      if (res.status == "Shipping") {
+      if (res.status == "to-ship") {
+        const user = await getUserByUserId(customer_id);
+
         // Generate PDF
         const pdfBuffer = await generatePDF({
           trans_id,
@@ -40,8 +43,6 @@ export async function POST(req) {
           user_id: customer_id,
         });
 
-        const user = await getUserByUserId(customer_id);
-
         await sendConfirmationMail({
           pdfBuffer,
           toEmail: user.email,
@@ -49,7 +50,7 @@ export async function POST(req) {
         });
         const response = NextResponse.redirect(
           new URL(
-            `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}`,
+            `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}&user_id=${customer_id}`,
             req.url
           ),
           303

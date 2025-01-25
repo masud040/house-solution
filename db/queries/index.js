@@ -2,7 +2,8 @@ import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
 import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
-import { OrdersModel } from "@/models/orders";
+
+import { OrdersModel } from "@/models/orders-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { ShippingAddrsstModel } from "@/models/shipping-address-model";
@@ -512,11 +513,15 @@ async function addProductInOrders(data) {
 
 // get ordered items
 async function getOrderItems({ status, userId }) {
+  console.log(status, userId);
   try {
-    await connectMongo();
-    if (status === "All") {
-      const res = await OrdersModel.find({ userId }).lean();
-      return res;
+    if (userId && status) {
+      await connectMongo();
+      if (status.toLowerCase() === "all") {
+        const res = await OrdersModel.find({ userId }).lean();
+
+        return res;
+      }
     }
   } catch (error) {
     throw new Error(error);
@@ -531,7 +536,7 @@ async function getSuccessOrderedProducts({ userId, orderId }) {
       const res = await OrdersModel.findOne({
         userId,
         orderId,
-        status: "Shipping",
+        status: "to-ship",
       }).lean();
       if (res?.products.length > 0) {
         const allProducts = await Promise.all(

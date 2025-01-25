@@ -12,7 +12,7 @@ const ordersSchema = new Schema({
   status: {
     type: String,
     required: true,
-    default: "Processing",
+    default: "to-pay",
   },
   createdAt: {
     type: Date,

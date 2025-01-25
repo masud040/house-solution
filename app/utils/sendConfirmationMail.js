@@ -14,7 +14,7 @@ export async function sendConfirmationMail({ pdfBuffer, toEmail, order_id }) {
       to: toEmail,
 
       subject: "Order Confirmation",
-      text: `<p>Your order <strong>#${order_id}</strong> has been confirmed. Please find your order confirmation attached as a PDF.</p>`,
+      text: `<p>Your order has been confirmed. Please find your order confirmation attached as a PDF.</p>`,
       attachments: [
         {
           filename: "order_confirmation.pdf", // Name of the file
