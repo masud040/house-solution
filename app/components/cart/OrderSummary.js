@@ -37,7 +37,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
   }
 
   return (
-    <aside className="relative top-0 grid-cols-1 col-span-1 p-6 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
+    <aside className="relative top-0 grid-cols-1 col-span-1 p-8 text-base rounded-md md:sticky md:top-36 md:col-span-2 shadow-light-elevated_dark-elevated-dark">
       {from === "checkout" && <h4 className="text-lg">Promotion</h4>}
       {from === "checkout" && (
         <div className="flex my-4 text-sm">

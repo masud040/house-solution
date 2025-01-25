@@ -50,7 +50,7 @@ export async function POST(req) {
       if (res.success) {
         const response = NextResponse.redirect(
           new URL(
-            `/en/payment/success?trans_id${trans_id}&order_id${order_id}&cus_name=${user_name}`,
+            `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}`,
             req.url
           ),
           303

@@ -17,7 +17,7 @@ function OrderSuccessConfirmation({
         </p>
         <p>
           Your Order <strong>#{order_id}</strong> has been successfully
-          confirmed, and your transaction id is <strong>#{trans_id}</strong>.
+          confirmed, and your transaction id is <strong>#{trans_id}</strong>
         </p>
 
         <p>

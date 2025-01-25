@@ -38,7 +38,7 @@ export default async function Checkout({ searchParams }) {
       <div className="grid items-start grid-cols-1 gap-4 md:grid-cols-5">
         {/* shipping address */}
         <div className="col-span-1 md:col-span-3">
-          <div className="flex items-start justify-between px-4 py-3 rounded-md shadow-light-elevated_dark-elevated-dark">
+          <div className="flex items-start justify-between p-6 rounded-md shadow-light-elevated_dark-elevated-dark">
             <div className="space-y-2">
               <div className="gap-5 flex-start">
                 <p>{shippingAddress?.fullName}</p>
