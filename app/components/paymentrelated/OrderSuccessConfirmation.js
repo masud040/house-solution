@@ -11,13 +11,13 @@ function OrderSuccessConfirmation({
         </h1>
         <h3 className="text-lg font-semibold">Your Order Confirmation!</h3>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 text-lg">
         <p className="text-lg">
           Hi <strong>{cus_name}</strong>,
         </p>
         <p>
           Your Order <strong>#{order_id}</strong> has been successfully
-          confirmed, and your transaction id is <strong>3{trans_id}</strong>.
+          confirmed, and your transaction id is <strong>#{trans_id}</strong>.
         </p>
 
         <p>
@@ -27,7 +27,7 @@ function OrderSuccessConfirmation({
 
         <div className="py-6">
           <Link
-            href="http://localhost:3000/en/track-order/${order_id}/order-details"
+            href={`http://localhost:3000/en/track-order/${order_id}/order-details`}
             className="py-3 text-white basic-btn bg-primary border-primary"
           >
             Track Your Order
