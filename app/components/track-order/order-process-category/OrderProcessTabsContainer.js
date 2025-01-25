@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import AllOrders from "./AllOrders";
 export default function OrderProcessTabsContainer({ ordered_items }) {
   console.log(ordered_items);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -58,7 +59,7 @@ export default function OrderProcessTabsContainer({ ordered_items }) {
         </TabList>
 
         <TabPanel>
-          <h2>Any content 1</h2>
+          <AllOrders allOrders={ordered_items} />
         </TabPanel>
         <TabPanel>
           <h2>Any content 2</h2>
