@@ -4,10 +4,7 @@ import "react-tabs/style/react-tabs.css";
 export default function OrderProcessTabsContainer() {
   return (
     <div>
-      <Tabs
-        selectedTabClassName="order-process-active-tab"
-        className="relative"
-      >
+      <Tabs selectedTabClassName="order-process-active-tab">
         <TabList className="mb-10 flex-start">
           <Tab className="order-process-tab">All</Tab>
           <Tab className="order-process-tab">To Pay</Tab>

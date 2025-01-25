@@ -3,7 +3,7 @@ import OrderProcessTabsContainer from "@/app/components/track-order/order-proces
 export default async function OrderDetails({ params: { user_id } }) {
   return (
     <section className="container pt-10 pb-16">
-      <h1 className="h5-md-h4-medium">My Orders</h1>
+      <h1 className="mb-3 h5-md-h4-medium">My Orders</h1>
       <OrderProcessTabsContainer />
     </section>
   );
