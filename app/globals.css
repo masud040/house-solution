@@ -217,7 +217,7 @@
 
   /* Order process container */
   .order-process-tab {
-    @apply w-full py-2 text-sm text-center capitalize transition-all duration-500 border-b-8 outline-none max-w-32 md:text-base hover:text-primary-light hover:border-primary-light border-secondary-lighter;
+    @apply w-full py-2 text-sm text-center capitalize transition-all duration-500 border-b-8 outline-none max-w-32 md:text-base hover:text-primary-light hover:border-primary-light border-secondary-lightest;
   }
 
   .order-process-active-tab {

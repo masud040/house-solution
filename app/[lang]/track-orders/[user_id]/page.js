@@ -9,11 +9,11 @@ export default async function OrderDetails({
     status: active_tab,
     userId: user_id,
   });
-
+  console.log(allOrderedItems);
   return (
     <section className="container pt-10 pb-16">
       <h1 className="mb-3 h5-md-h4-medium">My Orders</h1>
-      <OrderProcessTabsContainer />
+      <OrderProcessTabsContainer ordered_items={allOrderedItems} />
     </section>
   );
 }

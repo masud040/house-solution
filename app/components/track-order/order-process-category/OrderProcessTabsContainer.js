@@ -3,7 +3,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-export default function OrderProcessTabsContainer() {
+export default function OrderProcessTabsContainer({ ordered_items }) {
+  console.log(ordered_items);
   const [selectedTab, setSelectedTab] = useState(0);
   const searchParams = useSearchParams();
   const router = useRouter();

@@ -513,18 +513,17 @@ async function addProductInOrders(data) {
 
 // get ordered items
 async function getOrderItems({ status, userId }) {
-  console.log(status, userId);
-  try {
-    if (userId && status) {
+  if (userId && status) {
+    try {
       await connectMongo();
-      if (status.toLowerCase() === "all") {
-        const res = await OrdersModel.find({ userId }).lean();
-
-        return res;
+      const query = { userId };
+      if (status.toLowerCase() !== "all") {
+        query.status = status;
       }
+      return await OrdersModel.find(query).lean();
+    } catch (error) {
+      throw new Error(error);
     }
-  } catch (error) {
-    throw new Error(error);
   }
 }
 
