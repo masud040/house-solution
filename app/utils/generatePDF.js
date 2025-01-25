@@ -1,18 +1,11 @@
-import { getSelectedCartProductByProductIds } from "@/db/queries";
+import { getSuccessOrderedProducts } from "@/db/queries";
 import puppeteer from "puppeteer";
 
-export async function generatePDF({
-  trans_id,
-  order_id,
-  user_name,
-  order_items_id,
-  customer_id,
-}) {
-  const productIds = order_items_id.split(",");
-  const order_products = await getSelectedCartProductByProductIds(
-    productIds,
-    customer_id
-  );
+export async function generatePDF({ trans_id, order_id, user_name, user_id }) {
+  const order_products = await getSuccessOrderedProducts({
+    userId: user_id,
+    orderId: order_id,
+  });
 
   const productHTML = order_products
     .map((product) => {
@@ -110,7 +103,7 @@ export async function generatePDF({
         Your order is now being processed and will be shipped shortly. You can track your order's progress using the button below:
       </p>
 
-<a href="http://localhost:3000/en/track-order/${order_id}/order-details" class="button">Track Your Order</a>
+<a href="http://localhost:3000/en/track-orders/${user_id}" class="button">Track Your Order</a>
       <div  style="  margin: 10px 0;">
         ${productHTML}
         </div>

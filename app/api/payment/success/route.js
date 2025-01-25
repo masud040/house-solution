@@ -10,7 +10,6 @@ export async function POST(req) {
   const searchParams = req.nextUrl.searchParams;
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
-  const order_items_id = searchParams.get("order_items_id");
   const order_id = searchParams.get("order_id");
   const user_name = searchParams.get("cus_name");
   try {
@@ -26,19 +25,6 @@ export async function POST(req) {
     );
 
     if (findPayment?.paid) {
-      // Generate PDF
-      const pdfBuffer = await generatePDF({
-        trans_id,
-        order_id,
-        user_name,
-        order_items_id,
-        customer_id,
-      });
-
-      const user = await getUserByUserId(customer_id);
-
-      await sendConfirmationMail({ pdfBuffer, toEmail: user.email, order_id });
-
       const res = await OrdersModel.findOneAndUpdate(
         { userId: customer_id, orderId: order_id },
         { status: "Shipping" },
@@ -46,6 +32,21 @@ export async function POST(req) {
       );
 
       if (res.status == "Shipping") {
+        // Generate PDF
+        const pdfBuffer = await generatePDF({
+          trans_id,
+          order_id,
+          user_name,
+          user_id: customer_id,
+        });
+
+        const user = await getUserByUserId(customer_id);
+
+        await sendConfirmationMail({
+          pdfBuffer,
+          toEmail: user.email,
+          order_id,
+        });
         const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}`,

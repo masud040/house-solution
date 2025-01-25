@@ -523,6 +523,37 @@ async function getOrderItems({ status, userId }) {
   }
 }
 
+// get success ordered products
+async function getSuccessOrderedProducts({ userId, orderId }) {
+  try {
+    if (userId && orderId) {
+      await connectMongo();
+      const res = await OrdersModel.findOne({
+        userId,
+        orderId,
+        status: "Shipping",
+      }).lean();
+      if (res?.products.length > 0) {
+        const allProducts = await Promise.all(
+          res.products.map(async (item) => {
+            const product = await ProductModel.findById(item.productId)
+              .select(["name", "thumbnail", "price", "discount"])
+              .lean();
+            product.quantity = item.quantity;
+            return product;
+          })
+        );
+        console.log(allProducts);
+        return allProducts;
+      }
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export {
   deleteFromCartAndAddOrderSuccess,
   deleteItems,
@@ -539,6 +570,7 @@ export {
   getSelectedCartProductByProductIds,
   getShippingAddressByUserId,
   getSingleShippingCost,
+  getSuccessOrderedProducts,
   getTrendingProducts,
   getUserByEmail,
   getUserByUserId,
