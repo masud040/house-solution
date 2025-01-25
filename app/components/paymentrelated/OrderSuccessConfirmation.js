@@ -27,7 +27,7 @@ function OrderSuccessConfirmation({
 
         <div className="py-6">
           <Link
-            href={`http://localhost:3000/en/track-order/${order_id}/order-details`}
+            href={`http://localhost:3000/en/track-orders/${order_id}`}
             className="py-3 text-white basic-btn bg-primary border-primary"
           >
             Track Your Order

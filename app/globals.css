@@ -214,6 +214,15 @@
   .input-field {
     @apply w-full font-normal transition-colors duration-500 ease-in-out bg-transparent border border-transparent shadow-custom-inset dark:shadow-custom-inset-dark focus:border-indigo-700/70 focus:outline-none focus:ring-0;
   }
+
+  /* Order process container */
+  .order-process-tab {
+    @apply w-32 py-2 font-medium text-center capitalize transition-all duration-500 border-b-8 border-transparent outline-none bottom-3;
+  }
+
+  .order-process-active-tab {
+    @apply transition-all duration-500 border-b-8 border-primary;
+  }
 }
 
 .btn-shadow-with-hover-effect {
