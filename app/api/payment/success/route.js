@@ -1,10 +1,8 @@
 import { generatePDF } from "@/app/utils/generatePDF";
 import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
 import connectMongo from "@/db/connectMongo";
-import {
-  deleteFromCartAndAddOrderSuccess,
-  getUserByUserId,
-} from "@/db/queries";
+import { getUserByUserId } from "@/db/queries";
+import { OrdersModel } from "@/models/orders";
 import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
@@ -41,13 +39,13 @@ export async function POST(req) {
 
       await sendConfirmationMail({ pdfBuffer, toEmail: user.email, order_id });
 
-      const res = await deleteFromCartAndAddOrderSuccess({
-        order_items_id: order_items_id.split(","),
-        customer_id,
-        order_id,
-      });
+      const res = await OrdersModel.findOneAndUpdate(
+        { userId: customer_id, orderId: order_id },
+        { status: "Shipping" },
+        { new: true }
+      );
 
-      if (res.success) {
+      if (res.status == "Shipping") {
         const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}`,

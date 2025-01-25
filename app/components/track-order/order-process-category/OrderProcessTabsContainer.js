@@ -26,14 +26,14 @@ export default function OrderProcessTabsContainer() {
         break;
     }
   }
-  console.log(selectedTab);
+
   return (
     <div>
       <Tabs
         onSelect={(tab) => handleSelectTab(tab)}
         selectedTabClassName="order-process-active-tab"
       >
-        <TabList className="mb-10 flex-start">
+        <TabList className="w-full mb-10 flex-start">
           <Tab className="order-process-tab">All</Tab>
           <Tab className="order-process-tab">To Pay</Tab>
           <Tab className="order-process-tab">To Ship</Tab>

@@ -2,10 +2,10 @@ import { removeMongoId, removeMongoIdFromObj } from "@/app/utils";
 import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
+import { OrdersModel } from "@/models/orders";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
 import { ShippingAddrsstModel } from "@/models/shipping-address-model";
-import { SuccessModel } from "@/models/success-order";
 import { UserModel } from "@/models/users-model";
 import mongoose from "mongoose";
 import connectMongo from "../connectMongo";
@@ -443,6 +443,7 @@ async function getSingleShippingCost() {
   return 5;
 }
 
+// after order delete data from cart
 async function deleteFromCartAndAddOrderSuccess({
   order_items_id,
   customer_id,
@@ -477,7 +478,7 @@ async function deleteFromCartAndAddOrderSuccess({
       products: formatProducts,
     };
 
-    const addedRes = await SuccessModel.create(newData);
+    const addedRes = await addProductInOrders(newData);
     if (addedRes._id) {
       const deleteRes = await CartModel.deleteMany({
         userId: customer_id,
@@ -495,6 +496,17 @@ async function deleteFromCartAndAddOrderSuccess({
       success: false,
       error: error.message,
     };
+  }
+}
+
+// add product in orders collection
+async function addProductInOrders(data) {
+  try {
+    await connectMongo();
+    const response = await OrdersModel.create(data);
+    return response;
+  } catch (error) {
+    throw new Error(error);
   }
 }
 

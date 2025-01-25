@@ -1,6 +1,6 @@
 const { Schema, default: mongoose } = require("mongoose");
 
-const successSchema = new Schema({
+const ordersSchema = new Schema({
   userId: {
     type: String,
     required: true,
@@ -25,6 +25,5 @@ const successSchema = new Schema({
   },
 });
 
-export const SuccessModel =
-  mongoose.models.success_orders ??
-  mongoose.model("success_orders", successSchema);
+export const OrdersModel =
+  mongoose.models.orders ?? mongoose.model("orders", ordersSchema);

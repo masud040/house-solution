@@ -2,10 +2,13 @@
 import { generateRequest } from "@/actions";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export const OrderSummary = ({ cartItems, shippingCost, from }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [globalError, setGlobalError] = useState(null);
   const subTotal = Math.floor(
     cartItems?.reduce(
       (total, item) =>
@@ -17,22 +20,30 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
   const order_items_id = cartItems.map((item) => item.order_product_id);
 
   async function handlePaymentRequest() {
-    const data = await generateRequest({
-      totalPrice: totalPrice,
-      order_items_id: order_items_id,
-    });
+    setLoading(true);
+    try {
+      const data = await generateRequest({
+        totalPrice: totalPrice,
+        order_items_id: order_items_id,
+      });
 
-    const res = await fetch("/api/payment/request", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
-    const response = await res.json();
+      const res = await fetch("/api/payment/request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+      const response = await res.json();
 
-    if (response.status === 200) {
-      router.replace(response.url);
+      if (response.status === 200) {
+        router.replace(response.url);
+      }
+    } catch (error) {
+      setGlobalError(error.message);
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -99,21 +110,26 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
         </div>
         {cartItems?.length > 0 && (
           <div>
-            {from !== "checkout" ? (
-              <Link
-                href={`/en/checkout?selected=${searchParams.get("selected")}`}
-                className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
-              >
-                Proceed to Checkout ({cartItems?.length})
-              </Link>
-            ) : (
-              <button
-                onClick={handlePaymentRequest}
-                className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
-              >
-                Proceed to Pay
-              </button>
-            )}
+            <>
+              {globalError && (
+                <p className="text-sm text-red-600">{globalError}</p>
+              )}
+              {from !== "checkout" ? (
+                <Link
+                  href={`/en/checkout?selected=${searchParams.get("selected")}`}
+                  className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+                >
+                  Proceed to Checkout ({cartItems?.length})
+                </Link>
+              ) : (
+                <button
+                  onClick={handlePaymentRequest}
+                  className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
+                >
+                  {loading ? "Processing..." : "Proceed to Pay"}
+                </button>
+              )}
+            </>
           </div>
         )}
       </div>

@@ -35,7 +35,7 @@ function OrderSuccessConfirmation({
         </div>
       </div>
 
-      <p class="text-center text-sm pt-4">
+      <p className="pt-4 text-sm text-center">
         Thank you for choosing Sokher Corner!
       </p>
     </div>

@@ -217,11 +217,11 @@
 
   /* Order process container */
   .order-process-tab {
-    @apply w-32 py-2 font-medium text-center capitalize transition-all duration-500 border-b-8 outline-none border-secondary-lighter;
+    @apply w-full py-2 text-sm text-center capitalize transition-all duration-500 border-b-8 outline-none max-w-32 md:text-base hover:text-primary-light hover:border-primary-light border-secondary-lighter;
   }
 
   .order-process-active-tab {
-    @apply font-semibold transition-all duration-700 border-b-8 border-primary-light text-primary-light;
+    @apply text-sm font-normal transition-all duration-500 border-b-8 md:text-base md:font-semibold border-primary-light text-primary-light;
   }
 }
 
