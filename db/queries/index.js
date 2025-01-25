@@ -510,6 +510,19 @@ async function addProductInOrders(data) {
   }
 }
 
+// get ordered items
+async function getOrderItems({ status, userId }) {
+  try {
+    await connectMongo();
+    if (status === "All") {
+      const res = await OrdersModel.find({ userId }).lean();
+      return res;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export {
   deleteFromCartAndAddOrderSuccess,
   deleteItems,
@@ -520,6 +533,7 @@ export {
   getBillingAddressByUserId,
   getCartData,
   getNewArrivalProducts,
+  getOrderItems,
   getProductById,
   getProductsCountByCategory,
   getSelectedCartProductByProductIds,
