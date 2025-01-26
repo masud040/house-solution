@@ -38,6 +38,7 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
 
       if (response.status === 200) {
         router.replace(response.url);
+        setLoading(false);
       }
     } catch (error) {
       setGlobalError(error.message);

@@ -477,7 +477,9 @@ async function deleteFromCartAndAddOrderSuccess({
       userId: customer_id,
       orderId: order_id,
       products: formatProducts,
+      createdAt: Date.now(),
     };
+    console.log(newData);
 
     const addedRes = await addProductInOrders(newData);
     if (addedRes._id) {
@@ -505,6 +507,7 @@ async function addProductInOrders(data) {
   try {
     await connectMongo();
     const response = await OrdersModel.create(data);
+
     return response;
   } catch (error) {
     throw new Error(error);
@@ -512,15 +515,33 @@ async function addProductInOrders(data) {
 }
 
 // get ordered items
-async function getOrderItems({ status, userId }) {
+
+async function getOrderItems({ userId, status }) {
   if (userId && status) {
     try {
       await connectMongo();
       const query = { userId };
-      if (status.toLowerCase() !== "all") {
+      if (status !== "all") {
         query.status = status;
       }
-      return await OrdersModel.find(query).lean();
+      const orders = await OrdersModel.find(query).lean();
+      await Promise.all(
+        orders.map(async (orderItem) => {
+          orderItem.products = await Promise.all(
+            orderItem.products.map(async (item) => {
+              const product = await ProductModel.findById(item.productId)
+                .select(["name", "thumbnail", "price", "discount"])
+                .lean();
+              product.quantity = item.quantity;
+              return product;
+            })
+          );
+        })
+      );
+      orders.sort(
+        (item1, item2) => item2.createdAt.getTime() - item1.createdAt.getTime()
+      );
+      return removeMongoId(orders);
     } catch (error) {
       throw new Error(error);
     }
@@ -547,7 +568,7 @@ async function getSuccessOrderedProducts({ userId, orderId }) {
             return product;
           })
         );
-        console.log(allProducts);
+
         return allProducts;
       }
     } else {

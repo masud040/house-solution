@@ -1,3 +1,3 @@
-export default function AllOrders({ allOrders }) {
+export default function AllOrders() {
   return <div>eee</div>;
 }
