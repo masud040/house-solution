@@ -3,6 +3,7 @@ import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 
+import checkPendingOrders from "@/app/utils/checkPendingOrders";
 import { OrdersModel } from "@/models/orders-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
@@ -70,7 +71,7 @@ async function getProductById({ productId, options = [] }) {
   const product = await ProductModel.findById(productId)
     .select(options.length > 0 ? options : undefined)
     .lean();
-  return removeMongoIdFromObj(product);
+  return product;
 }
 
 // get all categories
@@ -584,6 +585,10 @@ async function getSuccessOrderedProducts({ userId, orderId }) {
     throw new Error(error);
   }
 }
+
+setInterval(() => {
+  checkPendingOrders();
+}, 5 * 60 * 1000);
 
 export {
   deleteFromCartAndAddOrderSuccess,
