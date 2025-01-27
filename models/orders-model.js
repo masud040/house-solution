@@ -9,14 +9,20 @@ const ordersSchema = new Schema({
     type: String,
     required: true,
   },
-  status: {
+  ongoing_status: {
     type: String,
     required: true,
     default: "to-pay",
   },
+  status: {
+    type: String,
+    required: true,
+    default: "pending",
+  },
   createdAt: {
     type: Date,
     required: true,
+    default: Date.now(),
   },
   products: {
     type: [Object],

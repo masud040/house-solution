@@ -28,11 +28,11 @@ export async function POST(req) {
     if (findPayment?.paid) {
       const res = await OrdersModel.findOneAndUpdate(
         { userId: customer_id, orderId: order_id },
-        { status: "to-ship" },
+        { ongoing_status: "to-ship" },
         { new: true }
       );
 
-      if (res.status == "to-ship") {
+      if (res.ongoing_status == "to-ship") {
         const user = await getUserByUserId(customer_id);
 
         // Generate PDF

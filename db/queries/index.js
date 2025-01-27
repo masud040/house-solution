@@ -65,9 +65,11 @@ async function getAllProducts(
   };
 }
 // find product by id
-async function getProductById(id) {
+async function getProductById({ productId, options = [] }) {
   await connectMongo();
-  const product = await ProductModel.findById(id).lean();
+  const product = await ProductModel.findById(productId)
+    .select(options.length > 0 ? options : undefined)
+    .lean();
   return removeMongoIdFromObj(product);
 }
 
@@ -157,17 +159,17 @@ async function setItemInCart(cartData) {
       if (!found) {
         await CartModel.create(cartData);
         return {
-          status: 200,
+          ongoing_status: 200,
           message: "Item added successfully",
         };
       } else {
         return {
-          status: 200,
+          ongoing_status: 200,
           message: "This item has already been added",
         };
       }
     } else {
-      return { status: 400, message: "Invalid cart data" };
+      return { ongoing_status: 400, message: "Invalid cart data" };
     }
   } catch (error) {
     throw new Error(error.message);
@@ -190,7 +192,7 @@ async function updateWishlist(productId, userId) {
     }
     product.save();
     return {
-      status: 200,
+      ongoing_status: 200,
       message: "Update wishlist",
     };
   } catch (error) {
@@ -222,9 +224,10 @@ async function getAllCartItemsById(userEmail, selected) {
       const cartData = await getCartData(userEmail);
       allCartItems = await Promise.all(
         cartData.map(async (item) => {
-          const product = await ProductModel.findById(item.productId)
-            .select(["name", "thumbnail", "stock", "price", "discount"])
-            .lean();
+          const product = await getProductById({
+            productId: item.productId,
+            options: ["name", "thumbnail", "stock", "price", "discount"],
+          });
           product["quantity"] = item.quantity;
           product["userId"] = item.userId;
           return product;
@@ -291,7 +294,7 @@ async function updateQuantity(productId, userId, type) {
     }
     product.save();
     return {
-      status: 200,
+      ongoing_status: 200,
       message: "Quantity updated successfully.",
     };
   } catch (error) {
@@ -316,7 +319,7 @@ async function deleteItems(productId, userId, from) {
     }
   } catch (error) {
     console.log(error);
-    throw new Error({ status: 500, message: "Failed to delete item." });
+    throw new Error({ ongoing_status: 500, message: "Failed to delete item." });
   }
 }
 
@@ -326,12 +329,12 @@ async function deleteAllCartItems(userId) {
       userId: userId,
     });
     return {
-      status: 200,
+      ongoing_status: 200,
       message: "All cart items deleted successfully.",
     };
   } catch (error) {
     console.log(error);
-    throw new Error({ status: 500, message: "Failed to delete item." });
+    throw new Error({ ongoing_status: 500, message: "Failed to delete item." });
   }
 }
 
@@ -342,7 +345,7 @@ async function deleteCartItem(productId, userId) {
       userId: userId,
     });
     return {
-      status: 200,
+      ongoing_status: 200,
       message: "Item deleted successfully from cart.",
     };
   } catch (error) {
@@ -367,12 +370,12 @@ async function moveToCart(productId, userId) {
         quantity: 1,
       });
       return {
-        status: 200,
+        ongoing_status: 200,
         message: "Moved to cart successfully.",
       };
     } else {
       return {
-        status: 200,
+        ongoing_status: 200,
         message: "This Item is already added to cart.",
       };
     }
@@ -422,9 +425,10 @@ async function getSelectedCartProductByProductIds(productIds, userId) {
       selectedCartItems = await Promise.all(
         productIds.map(async (productId) => {
           const item = await CartModel.findOne({ productId }).lean();
-          const product = await ProductModel.findById(productId)
-            .select(["name", "thumbnail", "price", "discount"])
-            .lean();
+          const product = await getProductById({
+            productId,
+            options: ["name", "thumbnail", "price", "discount"],
+          });
 
           product["quantity"] = item?.quantity;
           product["order_product_id"] = product?._id.toString();
@@ -477,9 +481,7 @@ async function deleteFromCartAndAddOrderSuccess({
       userId: customer_id,
       orderId: order_id,
       products: formatProducts,
-      createdAt: Date.now(),
     };
-    console.log(newData);
 
     const addedRes = await addProductInOrders(newData);
     if (addedRes._id) {
@@ -516,22 +518,24 @@ async function addProductInOrders(data) {
 
 // get ordered items
 
-async function getOrderItems({ userId, status }) {
-  if (userId && status) {
+async function getOrderItems({ userId, ongoing_status }) {
+  if (userId && ongoing_status) {
     try {
       await connectMongo();
       const query = { userId };
-      if (status !== "all") {
-        query.status = status;
+      if (ongoing_status !== "all") {
+        query.ongoing_status = ongoing_status;
       }
       const orders = await OrdersModel.find(query).lean();
       await Promise.all(
         orders.map(async (orderItem) => {
           orderItem.products = await Promise.all(
             orderItem.products.map(async (item) => {
-              const product = await ProductModel.findById(item.productId)
-                .select(["name", "thumbnail", "price", "discount"])
-                .lean();
+              const product = await getProductById({
+                productId: item.productId,
+                options: ["name", "thumbnail", "price", "discount"],
+              });
+
               product.quantity = item.quantity;
               return product;
             })
@@ -556,14 +560,16 @@ async function getSuccessOrderedProducts({ userId, orderId }) {
       const res = await OrdersModel.findOne({
         userId,
         orderId,
-        status: "to-ship",
+        ongoing_status: "to-ship",
       }).lean();
       if (res?.products.length > 0) {
         const allProducts = await Promise.all(
           res.products.map(async (item) => {
-            const product = await ProductModel.findById(item.productId)
-              .select(["name", "thumbnail", "price", "discount"])
-              .lean();
+            const product = await getProductById({
+              productId: item.productId,
+              options: ["name", "thumbnail", "price", "discount"],
+            });
+
             product.quantity = item.quantity;
             return product;
           })

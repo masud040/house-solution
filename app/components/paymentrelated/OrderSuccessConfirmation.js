@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 function OrderSuccessConfirmation({
-  searchParams: { trans_id, order_id, cus_name },
+  searchParams: { trans_id, order_id, cus_name, user_id },
 }) {
   return (
     <div className="max-w-3xl p-10 border rounded-lg shadow-lg">
@@ -27,7 +27,7 @@ function OrderSuccessConfirmation({
 
         <div className="py-6">
           <Link
-            href={`http://localhost:3000/en/track-orders/${order_id}`}
+            href={`http://localhost:3000/en/track-orders/${user_id}`}
             className="py-3 text-white basic-btn bg-primary border-primary"
           >
             Track Your Order

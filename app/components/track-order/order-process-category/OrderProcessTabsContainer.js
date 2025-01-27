@@ -4,7 +4,13 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AllOrders from "./AllOrders";
 
-export default function OrderProcessTabsContainer({ allOrderedItems }) {
+export default function OrderProcessTabsContainer({
+  allOrderedItems,
+  payOrderItems,
+  shipedOrderItems,
+  receivedOrderItems,
+  reviewItems,
+}) {
   const [selectedTab, setSelectedTab] = useState(0);
   console.log(allOrderedItems);
 
@@ -17,19 +23,19 @@ export default function OrderProcessTabsContainer({ allOrderedItems }) {
       >
         <TabList className="w-full mb-10 flex-start">
           <Tab className="order-process-tab">
-            All <span>(0)</span>
+            All <span>({allOrderedItems?.length ?? 0})</span>
           </Tab>
           <Tab className="order-process-tab">
-            To Pay <span>(0)</span>
+            To Pay <span>({payOrderItems?.length ?? 0})</span>
           </Tab>
           <Tab className="order-process-tab">
-            To Ship <span>(0)</span>
+            To Ship <span>({shipedOrderItems?.length ?? 0})</span>
           </Tab>
           <Tab className="order-process-tab">
-            To Receive <span>(0)</span>
+            To Receive <span>({receivedOrderItems?.length ?? 0})</span>
           </Tab>
           <Tab className="order-process-tab">
-            To Review <span>(0)</span>
+            To Review <span>({reviewItems?.length ?? 0})</span>
           </Tab>
         </TabList>
 

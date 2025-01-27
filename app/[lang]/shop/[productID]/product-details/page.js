@@ -4,8 +4,8 @@ import { ProductOverview } from "@/app/components/product-details/ProductOvervie
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { getProductById } from "@/db/queries";
 
-export default async function ProductDetailsPage({ params: { productID } }) {
-  const product = await getProductById(productID);
+export default async function ProductDetailsPage({ params: { productId } }) {
+  const product = await getProductById({ productId });
 
   return (
     <section className="container pt-10 pb-16">
