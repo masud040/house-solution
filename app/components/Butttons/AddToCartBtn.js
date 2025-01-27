@@ -16,6 +16,7 @@ export default function AddToCartBtn({ productId, userId }) {
         router.push(`/en/login?product_id=${productId}&quantity=${1}`);
       } else {
         const response = await addToCart(productId, userId, 1);
+
         if (response?.status === 200) {
           toast.success(response.message, { autoClose: 1500 });
         }

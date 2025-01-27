@@ -5,7 +5,7 @@ export default async function checkPendingOrders() {
   try {
     await connectMongo();
 
-    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+    const tenMinutesAgo = new Date(Date.now() - 20 * 60 * 1000);
 
     const result = await OrdersModel.updateMany(
       {

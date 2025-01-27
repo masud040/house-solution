@@ -157,20 +157,21 @@ async function setItemInCart(cartData) {
         productId: cartData.productId,
         userId: cartData.userId,
       });
+
       if (!found) {
         await CartModel.create(cartData);
         return {
-          ongoing_status: 200,
+          status: 200,
           message: "Item added successfully",
         };
       } else {
         return {
-          ongoing_status: 200,
+          status: 200,
           message: "This item has already been added",
         };
       }
     } else {
-      return { ongoing_status: 400, message: "Invalid cart data" };
+      return { status: 400, message: "Invalid cart data" };
     }
   } catch (error) {
     throw new Error(error.message);
@@ -193,7 +194,7 @@ async function updateWishlist(productId, userId) {
     }
     product.save();
     return {
-      ongoing_status: 200,
+      status: 200,
       message: "Update wishlist",
     };
   } catch (error) {
@@ -295,7 +296,7 @@ async function updateQuantity(productId, userId, type) {
     }
     product.save();
     return {
-      ongoing_status: 200,
+      status: 200,
       message: "Quantity updated successfully.",
     };
   } catch (error) {
@@ -320,33 +321,35 @@ async function deleteItems(productId, userId, from) {
     }
   } catch (error) {
     console.log(error);
-    throw new Error({ ongoing_status: 500, message: "Failed to delete item." });
+    throw new Error({ status: 500, message: "Failed to delete item." });
   }
 }
 
+// delete all items from cart
 async function deleteAllCartItems(userId) {
   try {
-    const response = await CartModel.deleteMany({
+    await CartModel.deleteMany({
       userId: userId,
     });
     return {
-      ongoing_status: 200,
+      status: 200,
       message: "All cart items deleted successfully.",
     };
   } catch (error) {
     console.log(error);
-    throw new Error({ ongoing_status: 500, message: "Failed to delete item." });
+    throw new Error({ status: 500, message: "Failed to delete item." });
   }
 }
 
+// delete single item from cart
 async function deleteCartItem(productId, userId) {
   try {
-    const respose = await CartModel.deleteOne({
+    await CartModel.deleteOne({
       productId: productId,
       userId: userId,
     });
     return {
-      ongoing_status: 200,
+      status: 200,
       message: "Item deleted successfully from cart.",
     };
   } catch (error) {
@@ -354,6 +357,7 @@ async function deleteCartItem(productId, userId) {
   }
 }
 
+// move item from wishlist to cart
 async function moveToCart(productId, userId) {
   try {
     const product = await ProductModel.findById(productId);
@@ -371,12 +375,12 @@ async function moveToCart(productId, userId) {
         quantity: 1,
       });
       return {
-        ongoing_status: 200,
+        status: 200,
         message: "Moved to cart successfully.",
       };
     } else {
       return {
-        ongoing_status: 200,
+        status: 200,
         message: "This Item is already added to cart.",
       };
     }
@@ -385,7 +389,7 @@ async function moveToCart(productId, userId) {
   }
 }
 
-//
+//for get billing and shipping address
 async function getBillingAddressByUserId(userId) {
   try {
     await connectMongo();
@@ -588,7 +592,7 @@ async function getSuccessOrderedProducts({ userId, orderId }) {
 
 setInterval(() => {
   checkPendingOrders();
-}, 5 * 60 * 1000);
+}, 10 * 60 * 1000);
 
 export {
   deleteFromCartAndAddOrderSuccess,

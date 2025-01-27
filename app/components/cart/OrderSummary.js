@@ -1,6 +1,5 @@
 "use client";
 import { generateRequest } from "@/actions";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -116,12 +115,16 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
                 <p className="text-sm text-red-600">{globalError}</p>
               )}
               {from !== "checkout" ? (
-                <Link
-                  href={`/en/checkout?selected=${searchParams.get("selected")}`}
+                <button
+                  onClick={() => {
+                    router.replace(
+                      `/en/checkout?selected=${searchParams.get("selected")}`
+                    );
+                  }}
                   className="block w-full px-6 py-3 text-sm text-center uppercase rounded-md text-primary shadow-light-elevated_dark-elevated-dark"
                 >
                   Proceed to Checkout ({cartItems?.length})
-                </Link>
+                </button>
               ) : (
                 <button
                   onClick={handlePaymentRequest}

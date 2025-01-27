@@ -38,7 +38,9 @@ export async function addToCart(productId, userId, quantity) {
       quantity,
       userId,
     };
+
     const response = await setItemInCart(cartData);
+
     revalidatePath("/");
     return response;
   } catch (error) {
