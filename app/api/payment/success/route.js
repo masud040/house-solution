@@ -32,8 +32,8 @@ export async function POST(req) {
         {
           userId: customer_id,
           orderId: { $in: orderIdArray },
-          ongoing_status: "processing",
-          status: "pending",
+          ongoing_status: "to-pay",
+          status: "processing",
         },
         {
           $set: { ongoing_status: "seller-to-pack", status: "seller to pack" },

@@ -13,14 +13,14 @@ export default async function cancelOldPendingOrders() {
 
     const result = await OrdersModel.updateMany(
       {
-        status: "pending",
+        status: "processing",
         createdAt: { $lt: twintyMinutesAgo },
         userId: user.id,
-        ongoing_status: { $nin: ["to-ship", "to-review"] },
+        ongoing_status: "to-pay",
       },
       { status: "canceled" }
     );
-    console.log(`Canceled ${result.modifiedCount} pending orders.`);
+
     return result;
   } catch (error) {
     console.error("Error in checkPendingOrders:", error);
