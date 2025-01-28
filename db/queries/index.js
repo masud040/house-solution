@@ -459,7 +459,6 @@ async function deleteFromCartAndAddOrderSuccess({
   customer_id,
   order_ids,
 }) {
-  console.log(order_ids);
   if (
     !customer_id ||
     !Array.isArray(order_items_id) ||
@@ -486,14 +485,17 @@ async function deleteFromCartAndAddOrderSuccess({
           orderId: order_ids[index],
         };
         const addRes = await addProductInOrders(newOrder);
-        if (addRes._id) {
-          await CartModel.deleteOne({
-            userId: product.userId,
-            productId: product.productId,
-          });
-        }
+        return addRes;
       })
     );
+
+    const deleteRes = await CartModel.deleteMany({
+      userId: customer_id,
+      productId: {
+        $in: order_items_id,
+      },
+    });
+    return deleteRes;
   } catch (error) {
     return {
       success: false,

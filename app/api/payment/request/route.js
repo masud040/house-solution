@@ -25,7 +25,6 @@ export async function POST(req) {
 
       await connectMongo();
       await PaymentModel.create(paymentData);
-
       await deleteFromCartAndAddOrderSuccess({
         order_items_id: data.order_items_id,
         customer_id: data.cus_id,

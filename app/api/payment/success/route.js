@@ -1,7 +1,4 @@
-import { generatePDF } from "@/app/utils/generatePDF";
-import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
 import connectMongo from "@/db/connectMongo";
-import { getUserByUserId } from "@/db/queries";
 import { OrdersModel } from "@/models/orders-model";
 
 import { PaymentModel } from "@/models/payment-model";
@@ -11,14 +8,14 @@ export async function POST(req) {
   const searchParams = req.nextUrl.searchParams;
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
-  const order_id = searchParams.get("order_id");
+  const order_ids = searchParams.get("order_ids");
   const user_name = searchParams.get("cus_name");
   try {
     await connectMongo();
     const findPayment = await PaymentModel.findOneAndUpdate(
       { trans_id },
       {
-        paid: true,
+        $set: { paid: true },
       },
       {
         new: true,
@@ -26,38 +23,40 @@ export async function POST(req) {
     );
 
     if (findPayment?.paid) {
-      const res = await OrdersModel.findOneAndUpdate(
-        { userId: customer_id, orderId: order_id },
-        { ongoing_status: "to-ship", status: "shipped" },
+      // Update orders status to "shipped" and mark as ongoing_status as "to-ship"
+      console.log("Order_ids", order_ids);
+      const res = await OrdersModel.updateMany(
+        { userId: customer_id, orderId: { $in: order_ids.split(",") } },
+        { $set: { ongoing_status: "to-ship", status: "shipped" } }, // Update fields
         { new: true }
       );
+      console.log(res);
+      // if (res.ongoing_status == "to-ship") {
+      //   const user = await getUserByUserId(customer_id);
 
-      if (res.ongoing_status == "to-ship") {
-        const user = await getUserByUserId(customer_id);
+      //   // Generate PDF
+      //   const pdfBuffer = await generatePDF({
+      //     trans_id,
+      //     order_ids,
+      //     user_name,
+      //     user_id: customer_id,
+      //   });
 
-        // Generate PDF
-        const pdfBuffer = await generatePDF({
-          trans_id,
-          order_id,
-          user_name,
-          user_id: customer_id,
-        });
-
-        await sendConfirmationMail({
-          pdfBuffer,
-          toEmail: user.email,
-          order_id,
-        });
-        const response = NextResponse.redirect(
-          new URL(
-            `/en/payment/success?trans_id=${trans_id}&order_id=${order_id}&cus_name=${user_name}&user_id=${customer_id}`,
-            req.url
-          ),
-          303
-        );
-        response.headers.set("Cache-Control", "no-store");
-        return response;
-      }
+      //   await sendConfirmationMail({
+      //     pdfBuffer,
+      //     toEmail: user.email,
+      //     order_ids,
+      //   });
+      //   const response = NextResponse.redirect(
+      //     new URL(
+      //       `/en/payment/success?trans_id=${trans_id}&order_ids=${order_ids}&cus_name=${user_name}&user_id=${customer_id}`,
+      //       req.url
+      //     ),
+      //     303
+      //   );
+      //   response.headers.set("Cache-Control", "no-store");
+      //   return response;
+      // }
     }
   } catch (error) {
     return new NextResponse(JSON.stringify(error));
