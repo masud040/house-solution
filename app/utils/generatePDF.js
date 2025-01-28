@@ -10,8 +10,10 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const productHTML = order_products
     .map((order) => {
       const totalPrice =
-        order.quantity * order.product_price -
-        (order.product_price * order.prodcut_discount) / 100;
+        (order.product_price -
+          order.product_price * (order.product_discount / 100)) *
+        order.quantity;
+
       return `<div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <img

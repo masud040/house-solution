@@ -1,3 +1,4 @@
+import OrderProcessTabsContainer from "@/app/components/track-order/order-process-category/OrderProcessTabsContainer";
 import { auth } from "@/auth";
 import { getOrderItems } from "@/db/queries";
 import { redirect } from "next/navigation";
@@ -11,9 +12,9 @@ export default async function OrderDetails({ params: { user_id } }) {
     userId: user_id,
     ongoing_status: "all",
   });
-  console.log(allOrderedItems);
+
   const payOrderItems = allOrderedItems.filter(
-    (item) => item.ongoing_status === "to-pay" && item.status === "pending"
+    (item) => item.ongoing_status === "processing" && item.status === "pending"
   );
 
   const shipedOrderItems = allOrderedItems.filter(
@@ -23,22 +24,22 @@ export default async function OrderDetails({ params: { user_id } }) {
       item.status === "Seller to Pack"
   );
   const receivedOrderItems = allOrderedItems.filter(
-    (item) => item.ongoing_status === "to-receive" && item.status === "success"
+    (item) => item.ongoing_status === "to-received" && item.status === "success"
   );
-  // const reviewItems = allOrderedItems.filter(
-  //   (item) => item.ongoing_status === "to-review" && item.status === "success"
-  // );
+  const reviewItems = allOrderedItems.filter(
+    (item) => item.ongoing_status === "to-reviewed" && item.status === "success"
+  );
 
   return (
     <section className="container pt-10 pb-16">
       <h1 className="mb-3 h5-md-h4-medium">My Orders</h1>
-      {/* <OrderProcessTabsContainer
+      <OrderProcessTabsContainer
         allOrderedItems={allOrderedItems}
         payOrderItems={payOrderItems}
         shipedOrderItems={shipedOrderItems}
         receivedOrderItems={receivedOrderItems}
         reviewItems={reviewItems}
-      /> */}
+      />
     </section>
   );
 }

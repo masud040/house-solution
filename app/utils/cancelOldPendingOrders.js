@@ -1,7 +1,7 @@
 const { default: connectMongo } = require("@/db/connectMongo");
 const { OrdersModel } = require("@/models/orders-model");
 
-export default async function checkPendingOrders() {
+export default async function cancelOldPendingOrders() {
   try {
     await connectMongo();
 
@@ -15,6 +15,8 @@ export default async function checkPendingOrders() {
       },
       { status: "canceled" }
     );
+    console.log(`Canceled ${result.modifiedCount} pending orders.`);
+    return result;
   } catch (error) {
     console.error("Error in checkPendingOrders:", error);
   }

@@ -3,7 +3,7 @@ import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 
-import checkPendingOrders from "@/app/utils/checkPendingOrders";
+import cancelOldPendingOrders from "@/app/utils/cancelOldPendingOrders";
 import { OrdersModel } from "@/models/orders-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
@@ -527,11 +527,25 @@ async function getOrderItems({ userId, ongoing_status }) {
         query.ongoing_status = ongoing_status;
       }
       const orders = await OrdersModel.find(query).lean();
-      orders.sort(
+      const order_items = await Promise.all(
+        await orders.map(async (order) => {
+          const { name, price, discount, thumbnail } = await getProductById({
+            productId: order.productId,
+            options: ["name", "thumbnail", "price", "discount"],
+          });
+          order.product_name = name;
+          order.product_price = price;
+          order.product_discount = discount;
+          order.product_thumbnail = thumbnail;
+
+          return order;
+        })
+      );
+      order_items.sort(
         (item1, item2) => item2.createdAt.getTime() - item1.createdAt.getTime()
       );
 
-      return removeMongoId(orders);
+      return removeMongoId(order_items);
     } catch (error) {
       throw new Error(error);
     }
@@ -548,11 +562,11 @@ async function getSuccessOrderedProducts({ userId, order_ids }) {
         orderId: {
           $in: order_ids,
         },
-        ongoing_status: "to-ship",
+        ongoing_status: "seller-to-pack",
       }).lean();
 
       if (orders.length > 0) {
-        const allProducts = await Promise.all(
+        const order_items = await Promise.all(
           orders.map(async (order) => {
             const { name, price, discount, thumbnail } = await getProductById({
               productId: order.productId,
@@ -566,7 +580,7 @@ async function getSuccessOrderedProducts({ userId, order_ids }) {
             return order;
           })
         );
-        return removeMongoId(allProducts);
+        return removeMongoId(order_items);
       }
     } else {
       return null;
@@ -577,7 +591,7 @@ async function getSuccessOrderedProducts({ userId, order_ids }) {
 }
 
 setInterval(() => {
-  checkPendingOrders();
+  cancelOldPendingOrders();
 }, 10 * 60 * 1000);
 
 export {

@@ -12,7 +12,7 @@ const ordersSchema = new Schema({
   ongoing_status: {
     type: String,
     required: true,
-    default: "to-pay",
+    default: "processing",
   },
   status: {
     type: String,

@@ -26,9 +26,15 @@ export async function POST(req) {
     );
 
     if (findPayment?.paid) {
+      const orderIdArray = order_ids.split(",");
       // Update orders status to "shipped" and mark as ongoing_status as "to-ship"
       const res = await OrdersModel.updateMany(
-        { userId: customer_id, orderId: { $in: order_ids.split(",") } },
+        {
+          userId: customer_id,
+          orderId: { $in: orderIdArray },
+          ongoing_status: "processing",
+          status: "pending",
+        },
         {
           $set: { ongoing_status: "seller-to-pack", status: "Seller to Pack" },
         }, // Update fields
