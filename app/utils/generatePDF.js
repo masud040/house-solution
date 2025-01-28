@@ -1,28 +1,28 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
 import puppeteer from "puppeteer";
 
-export async function generatePDF({ trans_id, order_id, user_name, user_id }) {
+export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
     userId: user_id,
-    orderId: order_id,
+    order_ids: order_ids.split(","),
   });
 
   const productHTML = order_products
-    .map((product) => {
+    .map((order) => {
       const totalPrice =
-        product.quantity * product.price -
-        (product.price * product.discount) / 100;
+        order.quantity * order.product_price -
+        (order.product_price * order.prodcut_discount) / 100;
       return `<div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <img
-            src="${product.thumbnail}"
-            alt="${product.name}"
+            src="${order.product_thumbnail}"
+            alt="${order.product_name}"
             style="width: 100px; height: 60px; object-fit: cover; border-radius: 5px;"
           />
           <div>
-            <p style="margin: 0; font-weight: bold;">${product.name}</p>
+            <p style="margin: 0; font-weight: bold;">${order.product_name}</p>
             <p style="margin: 0;">Price: $${Math.floor(totalPrice)}</p>
-            <p style="margin: 0;">Quantity: ${product.quantity}</p>
+            <p style="margin: 0;">Quantity: ${order.quantity}</p>
             
           </div>
         </div>
@@ -97,7 +97,7 @@ export async function generatePDF({ trans_id, order_id, user_name, user_id }) {
         <h3>Your Order Confirmation!</h3>
       </div>
       <p>Hi <strong>${user_name}</strong>,</p>
-      <p>Your Order <strong>#${order_id}</strong> has been successfully confirmed, and your transaction id is <strong>3${trans_id}</strong>.</p>
+      <p>Your Order <strong>#${order_ids}</strong> has been successfully confirmed, and your transaction id is <strong>3${trans_id}</strong>.</p>
      
       <p>
         Your order is now being processed and will be shipped shortly. You can track your order's progress using the button below:

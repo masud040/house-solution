@@ -527,30 +527,11 @@ async function getOrderItems({ userId, ongoing_status }) {
         query.ongoing_status = ongoing_status;
       }
       const orders = await OrdersModel.find(query).lean();
-      await Promise.all(
-        orders.map(async (orderItem) => {
-          orderItem.products = await Promise.all(
-            orderItem.products.map(async (item) => {
-              const product = await getProductById({
-                productId: item.productId,
-                options: ["name", "thumbnail", "price", "discount"],
-              });
-
-              product.quantity = item.quantity;
-              product.orderId = orderItem.orderId;
-              product.status = orderItem.status;
-              product.ongoing_status = orderItem.ongoing_status;
-              product.createdAt = orderItem.createdAt;
-              return product;
-            })
-          );
-        })
-      );
       orders.sort(
         (item1, item2) => item2.createdAt.getTime() - item1.createdAt.getTime()
       );
-      const products = orders.flatMap((order) => order.products);
-      return removeMongoId(products);
+
+      return removeMongoId(orders);
     } catch (error) {
       throw new Error(error);
     }
@@ -558,29 +539,34 @@ async function getOrderItems({ userId, ongoing_status }) {
 }
 
 // get success ordered products
-async function getSuccessOrderedProducts({ userId, orderId }) {
+async function getSuccessOrderedProducts({ userId, order_ids }) {
   try {
-    if (userId && orderId) {
+    if (userId && order_ids.length > 0) {
       await connectMongo();
-      const res = await OrdersModel.findOne({
+      const orders = await OrdersModel.find({
         userId,
-        orderId,
+        orderId: {
+          $in: order_ids,
+        },
         ongoing_status: "to-ship",
       }).lean();
-      if (res?.products.length > 0) {
+
+      if (orders.length > 0) {
         const allProducts = await Promise.all(
-          res.products.map(async (item) => {
-            const product = await getProductById({
-              productId: item.productId,
+          orders.map(async (order) => {
+            const { name, price, discount, thumbnail } = await getProductById({
+              productId: order.productId,
               options: ["name", "thumbnail", "price", "discount"],
             });
+            order.product_name = name;
+            order.product_price = price;
+            order.product_discount = discount;
+            order.product_thumbnail = thumbnail;
 
-            product.quantity = item.quantity;
-            return product;
+            return order;
           })
         );
-
-        return allProducts;
+        return removeMongoId(allProducts);
       }
     } else {
       return null;

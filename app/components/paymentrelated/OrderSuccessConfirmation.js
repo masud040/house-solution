@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 function OrderSuccessConfirmation({
-  searchParams: { trans_id, order_id, cus_name, user_id },
+  searchParams: { trans_id, order_ids, cus_name, user_id },
 }) {
   return (
     <div className="max-w-3xl p-10 border rounded-lg shadow-lg">
@@ -16,7 +16,7 @@ function OrderSuccessConfirmation({
           Hi <strong>{cus_name}</strong>,
         </p>
         <p>
-          Your Order <strong>#{order_id}</strong> has been successfully
+          Your Order <strong>#{order_ids}</strong> has been successfully
           confirmed, and your transaction id is <strong>#{trans_id}</strong>
         </p>
 

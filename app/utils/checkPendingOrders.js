@@ -5,12 +5,12 @@ export default async function checkPendingOrders() {
   try {
     await connectMongo();
 
-    const tenMinutesAgo = new Date(Date.now() - 20 * 60 * 1000);
+    const twintyMinutesAgo = new Date(Date.now() - 20 * 60 * 1000);
 
     const result = await OrdersModel.updateMany(
       {
         status: "pending",
-        createdAt: { $lt: tenMinutesAgo },
+        createdAt: { $lt: twintyMinutesAgo },
         ongoing_status: { $nin: ["to-ship", "to-review"] },
       },
       { status: "canceled" }
