@@ -28,7 +28,7 @@ export async function POST(req) {
     if (findPayment?.paid) {
       const res = await OrdersModel.findOneAndUpdate(
         { userId: customer_id, orderId: order_id },
-        { ongoing_status: "to-ship" },
+        { ongoing_status: "to-ship", status: "shipped" },
         { new: true }
       );
 
