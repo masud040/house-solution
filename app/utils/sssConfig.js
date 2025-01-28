@@ -6,7 +6,7 @@ const is_live = false;
 export const sslConfig = new SslCommerzPayment(store_id, store_passwd, is_live);
 
 const transactionId = new ObjectId().toString();
-const orderId = new ObjectId().toString();
+
 export const dataConfig = ({
   totalPrice,
   name,
@@ -15,16 +15,17 @@ export const dataConfig = ({
   mobile,
   userId,
   order_items_id,
+  order_ids,
 }) => {
   const data = {
     total_amount: totalPrice,
     currency: "BDT",
-    tran_id: transactionId,
-    order_id: orderId,
-    order_items_id: order_items_id, // use unique tran_id for each api call
+    tran_id: transactionId, // use unique tran_id for each api call
+    order_items_id,
+    order_ids,
     success_url: `http://localhost:3000/api/payment/success?trans_id=${transactionId}&order_items_id=${order_items_id.join(
       ","
-    )}&cus_id=${userId}&order_id=${orderId}&cus_name=${name}`,
+    )}&cus_id=${userId}$order_ids=${order_ids.join(",")}&cus_name=${name}`,
     fail_url: "http://localhost:3000/api/payment/fail",
     cancel_url: "http://localhost:3000/api/payment/cancel",
     ipn_url: "http://localhost:3000/payment/ipn",

@@ -457,8 +457,9 @@ async function getSingleShippingCost() {
 async function deleteFromCartAndAddOrderSuccess({
   order_items_id,
   customer_id,
-  order_id,
+  order_ids,
 }) {
+  console.log(order_ids);
   if (
     !customer_id ||
     !Array.isArray(order_items_id) ||
@@ -476,31 +477,23 @@ async function deleteFromCartAndAddOrderSuccess({
         $in: order_items_id,
       },
     }).lean();
-    const formatProducts = products.map((product) => {
-      return {
-        productId: product.productId,
-        quantity: product.quantity,
-      };
-    });
-    const newData = {
-      userId: customer_id,
-      orderId: order_id,
-      products: formatProducts,
-    };
-
-    const addedRes = await addProductInOrders(newData);
-    if (addedRes._id) {
-      const deleteRes = await CartModel.deleteMany({
-        userId: customer_id,
-        productId: {
-          $in: order_items_id,
-        },
-      });
-      return {
-        success: true,
-        deletedCount: deleteRes.deletedCount,
-      };
-    }
+    await Promise.all(
+      products.map(async (product, index) => {
+        const newOrder = {
+          productId: product.productId,
+          quantity: product.quantity,
+          userId: product.userId,
+          orderId: order_ids[index],
+        };
+        const addRes = await addProductInOrders(newOrder);
+        if (addRes._id) {
+          await CartModel.deleteOne({
+            userId: product.userId,
+            productId: product.productId,
+          });
+        }
+      })
+    );
   } catch (error) {
     return {
       success: false,
@@ -542,6 +535,10 @@ async function getOrderItems({ userId, ongoing_status }) {
               });
 
               product.quantity = item.quantity;
+              product.orderId = orderItem.orderId;
+              product.status = orderItem.status;
+              product.ongoing_status = orderItem.ongoing_status;
+              product.createdAt = orderItem.createdAt;
               return product;
             })
           );
@@ -550,7 +547,8 @@ async function getOrderItems({ userId, ongoing_status }) {
       orders.sort(
         (item1, item2) => item2.createdAt.getTime() - item1.createdAt.getTime()
       );
-      return removeMongoId(orders);
+      const products = orders.flatMap((order) => order.products);
+      return removeMongoId(products);
     } catch (error) {
       throw new Error(error);
     }

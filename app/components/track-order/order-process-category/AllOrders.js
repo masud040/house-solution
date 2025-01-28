@@ -4,7 +4,7 @@ import OrderedProductCard from "./OrderedProductCard";
 export default function AllOrders({ allItems }) {
   return (
     <div>
-      <div className="items-center gap-4 px-8 py-3 mb-8 shadow-md flex-start">
+      <div className="items-center gap-4 px-8 py-5 mb-8 shadow-md flex-start">
         <label htmlFor="order_filter" className="font-medium">
           Filter by:{" "}
         </label>

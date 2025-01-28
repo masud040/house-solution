@@ -29,8 +29,8 @@ const paymentSchema = new Schema({
     type: String,
     required: true,
   },
-  order_id: {
-    type: String,
+  order_ids: {
+    type: [String],
     required: true,
   },
   createdAt: {

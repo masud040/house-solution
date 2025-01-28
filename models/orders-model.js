@@ -24,10 +24,13 @@ const ordersSchema = new Schema({
     required: true,
     default: Date.now(),
   },
-  products: {
-    type: [Object],
+  productId: {
+    type: String,
     required: true,
-    default: [],
+  },
+  quantity: {
+    type: Number,
+    required: true,
   },
 });
 

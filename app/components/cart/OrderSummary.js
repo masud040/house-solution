@@ -1,5 +1,5 @@
 "use client";
-import { generateRequest } from "@/actions";
+import { generateOrderIds, generateRequest } from "@/actions";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -20,10 +20,13 @@ export const OrderSummary = ({ cartItems, shippingCost, from }) => {
 
   async function handlePaymentRequest() {
     setLoading(true);
+    const order_ids = await generateOrderIds(order_items_id);
+
     try {
       const data = await generateRequest({
         totalPrice: totalPrice,
         order_items_id: order_items_id,
+        order_ids: order_ids,
       });
 
       const res = await fetch("/api/payment/request", {

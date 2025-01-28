@@ -13,6 +13,7 @@ import {
 import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { ShippingAddrsstModel } from "@/models/shipping-address-model";
 import { UserModel } from "@/models/users-model";
+import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
 // login wih credentials
@@ -165,7 +166,11 @@ export async function addAndUpdateShippingData(data, userId) {
   }
 }
 
-export async function generateRequest({ totalPrice, order_items_id }) {
+export async function generateRequest({
+  totalPrice,
+  order_items_id,
+  order_ids,
+}) {
   try {
     const session = await auth();
     const user = await getUserByEmail(session?.user?.email);
@@ -179,9 +184,17 @@ export async function generateRequest({ totalPrice, order_items_id }) {
       mobile: billingAddress.mobile,
       userId: user.id,
       order_items_id: order_items_id,
+      order_ids,
     });
     return data;
   } catch (err) {
     console.log(err);
   }
+}
+
+export async function generateOrderIds(order_items_id) {
+  const orderIds = order_items_id.map((id) => {
+    return new ObjectId().toString();
+  });
+  return orderIds;
 }

@@ -20,7 +20,7 @@ export async function POST(req) {
         trans_id: data.tran_id,
         order_items_id: data.order_items_id,
         cus_id: data.cus_id,
-        order_id: data.order_id,
+        order_ids: data.order_ids,
       };
 
       await connectMongo();
@@ -29,7 +29,7 @@ export async function POST(req) {
       await deleteFromCartAndAddOrderSuccess({
         order_items_id: data.order_items_id,
         customer_id: data.cus_id,
-        order_id: data.order_id,
+        order_ids: data.order_ids,
       });
 
       return NextResponse.json({ url: result.GatewayPageURL, status: 200 });
