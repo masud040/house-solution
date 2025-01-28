@@ -526,7 +526,9 @@ async function getOrderItems({ userId, ongoing_status }) {
       if (ongoing_status !== "all") {
         query.ongoing_status = ongoing_status;
       }
-      const orders = await OrdersModel.find(query).lean();
+      const orders = await OrdersModel.find(query)
+        .sort({ createdAt: -1 })
+        .lean();
       const order_items = await Promise.all(
         await orders.map(async (order) => {
           const { name, price, discount, thumbnail } = await getProductById({
@@ -540,9 +542,6 @@ async function getOrderItems({ userId, ongoing_status }) {
 
           return order;
         })
-      );
-      order_items.sort(
-        (item1, item2) => item2.createdAt.getTime() - item1.createdAt.getTime()
       );
 
       return removeMongoId(order_items);

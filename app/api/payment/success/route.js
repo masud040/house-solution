@@ -36,7 +36,7 @@ export async function POST(req) {
           status: "pending",
         },
         {
-          $set: { ongoing_status: "seller-to-pack", status: "Seller to Pack" },
+          $set: { ongoing_status: "seller-to-pack", status: "seller to pack" },
         }, // Update fields
         { new: true }
       );

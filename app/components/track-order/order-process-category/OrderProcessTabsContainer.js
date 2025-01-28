@@ -3,6 +3,10 @@ import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AllOrders from "./AllOrders";
+import ToPayOrders from "./ToPayOrders";
+import ToReceiveOrder from "./ToReceiveOrders";
+import ToReviewOrders from "./ToReviewOrders";
+import ToShipOrder from "./ToShipOrders";
 
 export default function OrderProcessTabsContainer({
   allOrderedItems,
@@ -41,15 +45,17 @@ export default function OrderProcessTabsContainer({
         <TabPanel>
           <AllOrders allItems={allOrderedItems} />
         </TabPanel>
-        <TabPanel>{/* <ToPayOrders payingItems={payOrderItems} /> */}</TabPanel>
         <TabPanel>
-          {/* <ToShipOrder shipedItems={shipedOrderItems} /> */}
+          <ToPayOrders payingItems={payOrderItems} />
         </TabPanel>
         <TabPanel>
-          {/* <ToReceiveOrder receivedItems={receivedOrderItems} /> */}
+          <ToShipOrder shipedItems={shipedOrderItems} />
         </TabPanel>
         <TabPanel>
-          {/* <ToReviewOrders reviewedItems={reviewItems} /> */}
+          <ToReceiveOrder receivedItems={receivedOrderItems} />
+        </TabPanel>
+        <TabPanel>
+          <ToReviewOrders reviewedItems={reviewItems} />
         </TabPanel>
       </Tabs>
     </div>

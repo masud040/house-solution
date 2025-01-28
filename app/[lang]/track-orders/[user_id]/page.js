@@ -19,10 +19,10 @@ export default async function OrderDetails({ params: { user_id } }) {
 
   const shipedOrderItems = allOrderedItems.filter(
     (item) =>
-      item.ongoing_status === "to-ship" ||
-      (item.ongoing_status === "seller-to-pack" && item.status === "shipped") ||
-      item.status === "Seller to Pack"
+      item.ongoing_status === "seller-to-pack" &&
+      (item.status === "shipped" || item.status === "seller to pack")
   );
+
   const receivedOrderItems = allOrderedItems.filter(
     (item) => item.ongoing_status === "to-received" && item.status === "success"
   );
@@ -33,6 +33,7 @@ export default async function OrderDetails({ params: { user_id } }) {
   return (
     <section className="container pt-10 pb-16">
       <h1 className="mb-3 h5-md-h4-medium">My Orders</h1>
+
       <OrderProcessTabsContainer
         allOrderedItems={allOrderedItems}
         payOrderItems={payOrderItems}

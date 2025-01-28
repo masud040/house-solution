@@ -22,7 +22,7 @@ const ordersSchema = new Schema({
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now(),
+    default: () => Date.now(),
   },
   productId: {
     type: String,
