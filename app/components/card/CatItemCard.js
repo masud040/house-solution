@@ -52,7 +52,7 @@ export default function CatItemCard({
   }
   async function handleDelete() {
     try {
-      const response = await performDelete(productId, "cart");
+      const response = await performDelete(id, "cart");
       if (response?.status === 200) {
         toast.success(response.message, { autoClose: 1500 });
       }

@@ -10,7 +10,7 @@ export default async function OrderDetails({ params: { user_id } }) {
     (item) => item.ongoing_status === "to-pay" && item.status === "pending"
   );
   const shipedOrderItems = allOrderedItems.filter(
-    (item) => item.ongoing_status === "to-ship" && item.status === "pending"
+    (item) => item.ongoing_status === "to-ship" && item.status === "shipped"
   );
   const receivedOrderItems = allOrderedItems.filter(
     (item) => item.ongoing_status === "to-receive" && item.status === "success"
