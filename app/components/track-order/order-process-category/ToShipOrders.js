@@ -4,8 +4,6 @@ import OrderedProductCard from "./OrderedProductCard";
 export default function ToShipOrder({ shipedItems }) {
   return (
     <div>
-      <h2 className="mb-6 h5-md-h4-medium">Shipped Orders</h2>
-
       {shipedItems.length > 0 ? (
         shipedItems.map((order) => (
           <div key={order.id} className="space-y-8">

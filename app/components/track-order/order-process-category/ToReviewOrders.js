@@ -3,8 +3,6 @@ import { NoDataFound } from "../../shared/NoDataFound";
 export default function ToReviewOrders({ reviewedItems }) {
   return (
     <div>
-      <h2 className="mb-6 h5-md-h4-medium">Reviewed Orders</h2>
-
       {reviewedItems.length > 0 ? (
         reviewedItems.map((order) => (
           <div key={order.id} className="space-y-8">

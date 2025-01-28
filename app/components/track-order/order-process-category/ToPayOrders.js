@@ -3,8 +3,6 @@ import { NoDataFound } from "../../shared/NoDataFound";
 export default function ToPayOrders({ payingItems }) {
   return (
     <div>
-      <h2 className="mb-6 h5-md-h4-medium">Failed Pay</h2>
-
       {payingItems.length > 0 ? (
         payingItems.map((order) => (
           <div key={order.id} className="space-y-8">

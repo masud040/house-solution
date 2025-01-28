@@ -3,8 +3,6 @@ import { NoDataFound } from "../../shared/NoDataFound";
 export default function ToReceiveOrder({ receivedItems }) {
   return (
     <div>
-      <h2 className="mb-6 h5-md-h4-medium">Received Orders</h2>
-
       {receivedItems.length > 0 ? (
         receivedItems.map((order) => (
           <div key={order.id} className="space-y-8">

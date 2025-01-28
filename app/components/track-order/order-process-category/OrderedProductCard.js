@@ -4,7 +4,7 @@ export default function OrderedProductCard({ productData }) {
   console.log(productData);
   return (
     <div>
-      <div className="flex items-center justify-between px-8">
+      <div className="flex items-center justify-between px-8 pb-8 border-b-4">
         <div className="flex items-center flex-1 gap-10">
           <Image
             src={productData.thumbnail}
