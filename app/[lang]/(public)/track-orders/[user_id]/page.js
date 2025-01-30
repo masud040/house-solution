@@ -1,11 +1,13 @@
 import OrderProcessTabsContainer from "@/app/components/track-order/order-process-category/OrderProcessTabsContainer";
 import { auth } from "@/auth";
-import { getOrderItems } from "@/db/queries";
+import { getOrderItems, getUserByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";
 
 export default async function OrderDetails({ params: { user_id } }) {
   const session = await auth();
-  if (!session?.user?.email) {
+  const user = await getUserByEmail(session?.user?.email);
+
+  if (user?.id !== user_id) {
     return redirect("/");
   }
   const allOrderedItems = await getOrderItems({

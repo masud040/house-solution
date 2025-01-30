@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { toast } from "react-toastify";
 
-export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
+export const ProdcutAction = ({ product: { _id, wishlist }, userId }) => {
   const [quantity, setQuantity] = useState(1);
 
   const router = useRouter();
@@ -21,9 +21,9 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
     try {
       if (!userId) {
         toast.warning("Please Login.", { autoClose: 1500 });
-        router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
+        router.push(`/en/login?product_id=${_id}&quantity=${quantity}`);
       } else {
-        const response = await addToCart(id, userId, quantity);
+        const response = await addToCart(_id, userId, quantity);
         if (response?.status === 200) {
           toast.success(response.message, { autoClose: 1500 });
         }
@@ -36,9 +36,9 @@ export const ProdcutAction = ({ product: { id, cart, wishlist }, userId }) => {
   async function handleAddToWishlist() {
     try {
       if (!userId) {
-        router.push(`/en/login?product_id=${id}&quantity=${quantity}`);
+        router.push(`/en/login?product_id=${_id}&quantity=${quantity}`);
       } else {
-        await performAddWishlist(id, userId);
+        await performAddWishlist(_id, userId);
         toast.success("Update wishlist", { autoClose: 1500 });
       }
     } catch (error) {

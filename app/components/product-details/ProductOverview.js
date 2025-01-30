@@ -3,24 +3,12 @@ import { getUserByEmail } from "@/db/queries";
 import { ProdcutAction } from "./ProdcutAction";
 
 export const ProductOverview = async ({ product }) => {
-  const {
-    name,
-    brand,
-    category,
-    SKU,
-    price,
-    discount,
-    details,
-    stock,
-    cart,
-    wishlist,
-    id,
-  } = product || {};
+  const { name, brand, category, SKU, price, discount, details, stock } =
+    product || {};
   const session = await auth();
   const user = await getUserByEmail(session?.user?.email);
   const discountPrice = price - (price * discount) / 100;
   const plainProduct = JSON.parse(JSON.stringify(product));
-
   return (
     <div>
       <h2 className="mb-2 uppercase h4-medium-lg-h3-medium">{name}</h2>

@@ -1,14 +1,16 @@
-import connectMongo from "@/db/connectMongo";
-import ThemeProvider from "@/provider/ThemeProvider";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
-import CopyRight from "../components/shared/CopyRight";
-import Footer from "../components/shared/Footer";
-import Header from "../components/shared/Header";
-import Navbar from "../components/shared/Navbar";
-import "../globals.css";
+
+import CopyRight from "@/app/components/shared/CopyRight";
+import Footer from "@/app/components/shared/Footer";
+import Header from "@/app/components/shared/Header";
+import Navbar from "@/app/components/shared/Navbar";
+import connectMongo from "@/db/connectMongo";
+import ThemeProvider from "@/provider/ThemeProvider";
+import { ToastContainer } from "react-toastify";
+import "../../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
