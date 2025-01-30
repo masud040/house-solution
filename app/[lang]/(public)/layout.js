@@ -26,16 +26,14 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen">
-            <div className="fixed z-30 w-full">
-              <Header />
-              <Navbar />
-            </div>
-            <div className="pt-[143px]">{children}</div>
-            <ToastContainer />
-            <Footer />
-            <CopyRight />
+          <div className="fixed z-30 w-full">
+            <Header />
+            <Navbar />
           </div>
+          <div className="pt-[143px] min-h-screen">{children}</div>
+          <ToastContainer />
+          <Footer />
+          <CopyRight />
         </ThemeProvider>
       </body>
     </html>

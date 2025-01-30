@@ -7,8 +7,8 @@ import LoadingImage from "@/public/svg/loading.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import CatItemCard from "../../card/CatItemCard";
-import { ConfirmationModal } from "../../modal/ConfirmationModal";
+import CatItemCard from "../../shared/card/CatItemCard";
+import { ConfirmationModal } from "../../shared/modal/ConfirmationModal";
 import { NoDataFound } from "../../shared/NoDataFound";
 
 export default function CartItems({ cartItems }) {

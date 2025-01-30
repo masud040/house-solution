@@ -3,12 +3,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-export default function Pagination({ total, page, pages }) {
+export default function Pagination({ page, pages }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams);
-  const [pageNo, setPageNo] = useState(pages);
+  const [pageNo, setPageNo] = useState(page);
   const numberOfPages = [...Array(pages).keys()];
   const handlePrev = () => {
     if (pageNo > 1) {
@@ -20,6 +20,7 @@ export default function Pagination({ total, page, pages }) {
       setPageNo(pageNo + 1);
     }
   };
+
   useEffect(() => {
     if (pageNo) {
       params.set("page", pageNo);
@@ -52,7 +53,7 @@ export default function Pagination({ total, page, pages }) {
               setPageNo(p + 1);
             }}
             className={`paigination-button ${
-              pageNo === p + 1 && "active-paigination-button"
+              (pageNo || page) === p + 1 && "active-paigination-button"
             }`}
           >
             {p + 1}
