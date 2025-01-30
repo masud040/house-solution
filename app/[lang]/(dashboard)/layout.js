@@ -3,10 +3,6 @@ import { Inter } from "next/font/google";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import CopyRight from "@/app/components/shared/CopyRight";
-import Footer from "@/app/components/shared/Footer";
-import Header from "@/app/components/shared/Header";
-import Navbar from "@/app/components/shared/Navbar";
 import connectMongo from "@/db/connectMongo";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
@@ -26,14 +22,15 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="fixed z-30 w-full">
-            <Header />
-            <Navbar />
+          <div className="min-h-screen">
+            <div className="flex">
+              <div>Masude Rana</div>
+              <div className="flex-1 w-full mx-6 mt-4 mb-10 lg:mx-10">
+                {children}
+              </div>
+            </div>
           </div>
-          <div className="pt-[142px] min-h-[1000px]">{children}</div>
           <ToastContainer />
-          <Footer />
-          <CopyRight />
         </ThemeProvider>
       </body>
     </html>
