@@ -1,7 +1,7 @@
-import { BillingAddress } from "@/app/components/account/BillingAddress";
-import { PersonalProfile } from "@/app/components/account/PersonalProfile";
-import { ShippingAddress } from "@/app/components/account/ShippingAddress";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { BillingAddress } from "@/app/components/user/account/BillingAddress";
+import { PersonalProfile } from "@/app/components/user/account/PersonalProfile";
+import { ShippingAddress } from "@/app/components/user/account/ShippingAddress";
 import { auth } from "@/auth";
 import { getShippingAddressByUserId, getUserByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";

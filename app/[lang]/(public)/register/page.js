@@ -1,5 +1,5 @@
-import RegisterForm from "@/app/components/auth/RegisterForm";
-import SocialLogin from "@/app/components/auth/SocialLogin";
+import RegisterForm from "@/app/components/user/auth/RegisterForm";
+import SocialLogin from "@/app/components/user/auth/SocialLogin";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 

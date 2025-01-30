@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Magnifier from "react-magnifier";
-import { NoDataFound } from "../shared/NoDataFound";
+import { NoDataFound } from "../../shared/NoDataFound";
 
 export const ProductImages = ({ name, thumbnail, gallery }) => {
   const [selectedImage, setSelectedImage] = useState(thumbnail);

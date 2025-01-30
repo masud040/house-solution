@@ -1,4 +1,4 @@
-import { NoDataFound } from "../../shared/NoDataFound";
+import { NoDataFound } from "../../../shared/NoDataFound";
 import OrderedProductCard from "./OrderedProductCard";
 
 export default function ToReviewOrders({ reviewedItems }) {

@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Field from "../shared/Field";
+import Field from "../Field";
 
 export const AddNumberModal = ({ isOpen, setIsOpen, userId }) => {
   const {

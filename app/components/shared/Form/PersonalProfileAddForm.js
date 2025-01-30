@@ -3,7 +3,7 @@ import { updateUserData } from "@/actions";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Field from "../shared/Field";
+import Field from "../Field";
 
 export const PersonalProfileAddForm = ({ userId }) => {
   const {

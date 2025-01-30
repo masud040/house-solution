@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { getTrendingProducts, getUserByEmail } from "@/db/queries";
-import ProductCard from "../card/ProductCard";
-import { NoDataFound } from "../shared/NoDataFound";
-import SectionTitle from "../shared/SectionTitle";
+import ProductCard from "../../shared/card/ProductCard";
+import { NoDataFound } from "../../shared/NoDataFound";
+import SectionTitle from "../../shared/SectionTitle";
 
 const TrendingProduct = async () => {
   const trendingProducts = await getTrendingProducts();

@@ -1,6 +1,6 @@
 import { getAllCategory } from "@/db/queries";
-import CategoryCard from "../card/CategoryCard";
-import SectionTitle from "../shared/SectionTitle";
+import CategoryCard from "../../shared/card/CategoryCard";
+import SectionTitle from "../../shared/SectionTitle";
 
 export default async function Categories() {
   const allCategory = await getAllCategory();

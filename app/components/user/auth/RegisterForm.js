@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { toast } from "react-toastify";
-import Field from "../shared/Field";
+import Field from "../../shared/Field";
 
 export default function RegisterForm() {
   const {

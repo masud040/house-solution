@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AddNumberBtn from "../Butttons/AddNumberBtn";
+import AddNumberBtn from "../../shared/Butttons/AddNumberBtn";
 
 export const PersonalProfile = async ({ user }) => {
   return (

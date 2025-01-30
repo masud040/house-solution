@@ -2,7 +2,7 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { ConfirmationModal } from "../modal/ConfirmationModal";
+import { ConfirmationModal } from "../../shared/modal/ConfirmationModal";
 
 export default function SignInSignUp({ email }) {
   const [isOpenModal, setIsOpenModal] = useState(false);

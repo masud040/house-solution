@@ -1,4 +1,4 @@
-import OrderSuccessConfirmation from "@/app/components/paymentrelated/OrderSuccessConfirmation";
+import OrderSuccessConfirmation from "@/app/components/user/paymentrelated/OrderSuccessConfirmation";
 
 export default function Success({ searchParams }) {
   return (

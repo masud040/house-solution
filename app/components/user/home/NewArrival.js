@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { getNewArrivalProducts, getUserByEmail } from "@/db/queries";
-import ProductCard from "../card/ProductCard";
-import { NoDataFound } from "../shared/NoDataFound";
-import SectionTitle from "../shared/SectionTitle";
+import ProductCard from "../../shared/card/ProductCard";
+import { NoDataFound } from "../../shared/NoDataFound";
+import SectionTitle from "../../shared/SectionTitle";
 
 export default async function NewArrival() {
   const newProducts = await getNewArrivalProducts();

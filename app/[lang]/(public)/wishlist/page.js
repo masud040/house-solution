@@ -1,5 +1,5 @@
-import { WishlistCard } from "@/app/components/card/WishlistCard";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { WishlistCard } from "@/app/components/shared/card/WishlistCard";
 import { NoDataFound } from "@/app/components/shared/NoDataFound";
 import { auth } from "@/auth";
 import { getAllWishlistByEmail } from "@/db/queries";

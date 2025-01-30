@@ -1,4 +1,4 @@
-import OrderProcessTabsContainer from "@/app/components/track-order/order-process-category/OrderProcessTabsContainer";
+import OrderProcessTabsContainer from "@/app/components/user/track-order/order-process-category/OrderProcessTabsContainer";
 import { auth } from "@/auth";
 import { getOrderItems, getUserByEmail } from "@/db/queries";
 import { redirect } from "next/navigation";

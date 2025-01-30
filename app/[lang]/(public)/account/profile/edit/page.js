@@ -1,5 +1,5 @@
-import { PersonalProfileAddForm } from "@/app/components/Form/PersonalProfileAddForm";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { PersonalProfileAddForm } from "@/app/components/shared/Form/PersonalProfileAddForm";
 import { auth } from "@/auth";
 import { getUserByEmail } from "@/db/queries";
 

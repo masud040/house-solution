@@ -1,6 +1,6 @@
-import CartItems from "@/app/components/cart/CartItems";
-import { OrderSummary } from "@/app/components/cart/OrderSummary";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import CartItems from "@/app/components/user/cart/CartItems";
+import { OrderSummary } from "@/app/components/user/cart/OrderSummary";
 import { getDeleveryCost } from "@/app/utils";
 import { auth } from "@/auth";
 import { getAllCartItemsById } from "@/db/queries";

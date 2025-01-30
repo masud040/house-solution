@@ -1,7 +1,7 @@
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
-import DrawerComponent from "@/app/components/shop/DrawerComponent";
-import { ProductList } from "@/app/components/shop/ProductList";
-import Sidebar from "@/app/components/shop/sidebar/Sidebar";
+import DrawerComponent from "@/app/components/user/shop/DrawerComponent";
+import { ProductList } from "@/app/components/user/shop/ProductList";
+import Sidebar from "@/app/components/user/shop/sidebar/Sidebar";
 import { getProductsCountByCategory } from "@/db/queries";
 function refineCategory(category) {
   const decodeCategory = decodeURI(category);

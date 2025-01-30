@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa6";
 import { GrCart } from "react-icons/gr";
 import { RiAccountCircleLine } from "react-icons/ri";
-import GenerateImageByLetter from "../auth/GenrateImageByLetter";
+import GenerateImageByLetter from "../user/auth/GenrateImageByLetter";
 import ModeButton from "./ModeButton";
 import { Search } from "./Search";
 export default async function Header() {

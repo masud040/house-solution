@@ -8,7 +8,7 @@ import Outdoor from "@/public/assets/images/icons/outdoor-cafe.svg";
 import Sofa from "@/public/assets/images/icons/sofa.svg";
 import Terrage from "@/public/assets/images/icons/terrace.svg";
 import Link from "next/link";
-import SignInSignUp from "../auth/SignInSignUp";
+import SignInSignUp from "../user/auth/SignInSignUp";
 import { ActiveLink } from "./ActiveLink";
 
 export default async function Navbar() {

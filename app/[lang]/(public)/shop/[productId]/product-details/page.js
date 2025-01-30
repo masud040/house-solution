@@ -1,7 +1,7 @@
-import { ProdcutDescription } from "@/app/components/product-details/ProdcutDescription";
-import { ProductImages } from "@/app/components/product-details/ProductImages";
-import { ProductOverview } from "@/app/components/product-details/ProductOverview";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import { ProdcutDescription } from "@/app/components/user/product-details/ProdcutDescription";
+import { ProductImages } from "@/app/components/user/product-details/ProductImages";
+import { ProductOverview } from "@/app/components/user/product-details/ProductOverview";
 import { getProductById } from "@/db/queries";
 
 export default async function ProductDetailsPage({ params: { productId } }) {

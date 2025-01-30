@@ -1,12 +1,12 @@
-import { NoDataFound } from "../../shared/NoDataFound";
+import { NoDataFound } from "../../../shared/NoDataFound";
 import OrderedProductCard from "./OrderedProductCard";
 
-export default function ToPayOrders({ payingItems }) {
+export default function ToShipOrder({ shipedItems }) {
   return (
     <div>
-      {payingItems.length > 0 ? (
+      {shipedItems.length > 0 ? (
         <div className="space-y-8">
-          {payingItems.map((order) => (
+          {shipedItems.map((order) => (
             <OrderedProductCard key={order.id} order={order} />
           ))}{" "}
         </div>

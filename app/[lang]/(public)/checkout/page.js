@@ -1,6 +1,6 @@
-import CheckoutItemCard from "@/app/components/card/CheckoutItemCard";
-import { OrderSummary } from "@/app/components/cart/OrderSummary";
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
+import CheckoutItemCard from "@/app/components/shared/card/CheckoutItemCard";
+import { OrderSummary } from "@/app/components/user/cart/OrderSummary";
 import { getDeleveryCost } from "@/app/utils";
 import { auth } from "@/auth";
 import {
