@@ -49,7 +49,7 @@ export default function CartItems({ cartItems }) {
       params.delete("selected");
     }
     router.replace(`${pathName}?${params.toString()}`);
-  }, [selected]);
+  }, [selected, params, pathName]);
 
   useEffect(() => {
     const selectedProduct = searchParams.get("selected")?.split(",");
@@ -61,7 +61,7 @@ export default function CartItems({ cartItems }) {
         setSelectAll(true);
       }
     }
-  }, []);
+  }, [cartItems?.length, searchParams]);
   async function handleDelete() {
     try {
       const response = await performDelete("all", "all");

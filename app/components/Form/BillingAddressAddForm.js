@@ -33,6 +33,8 @@ export const BillingAddressAddForm = ({
     address: address?.address ?? "",
     isUseShipping: address?.isUseShipping ?? false,
   });
+  const [loading, setLoading] = useState(false);
+  const [globalError, setGlobalError] = useState("");
 
   const router = useRouter();
 
@@ -43,11 +45,6 @@ export const BillingAddressAddForm = ({
       const data = await res.json();
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDivisions(data.data);
-        setAddressData({
-          ...addressData,
-          city: "",
-          province: "",
-        });
       }
     }
     getDivision();
@@ -102,6 +99,7 @@ export const BillingAddressAddForm = ({
       setError("province", { type: "manual", message: "Province is required" });
     }
     try {
+      setLoading(true); // Start loading
       const newData = {
         ...addressData,
         userId: user.id,
@@ -135,6 +133,9 @@ export const BillingAddressAddForm = ({
       }
     } catch (error) {
       console.log(error);
+      setGlobalError(error.message);
+    } finally {
+      setLoading(false); // Stop loading
     }
   }
   // onChange handlers
@@ -309,11 +310,18 @@ export const BillingAddressAddForm = ({
           <span className="text-gray-700">Use shipping address</span>
         </div>
       )}
+      {!globalError && (
+        <div className="my-3 font-medium text-primary">{globalError}</div>
+      )}
 
       <div className="flex-end">
         <input
           type="submit"
-          value={address?._id ? "Save" : "Submit"}
+          value={
+            address?._id
+              ? `${loading ? "Saving..." : "Save"}`
+              : `${loading ? "Submitting..." : "Submit"}`
+          }
           className="px-8 py-2.5 btn-shadow-with-hover-effect text-primary"
         />
       </div>

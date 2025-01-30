@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 
 export const Search = () => {
   const pathname = usePathname();
-  if (pathname !== "/en/shop") {
-    return null;
-  }
   const [search_term, setSearchTerm] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
+  if (pathname !== "/en/shop") {
+    return null;
+  }
   function handleSearch(e) {
     const searchValue = e.target.value;
     if (!parseInt(searchValue)) {
@@ -38,7 +38,7 @@ export const Search = () => {
     if (serachTerm) {
       setSearchTerm(serachTerm);
     }
-  }, []);
+  }, [searchParams]);
   return (
     <div className="flex-1 max-w-lg">
       <input

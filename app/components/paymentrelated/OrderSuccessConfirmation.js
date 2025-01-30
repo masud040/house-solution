@@ -22,7 +22,7 @@ function OrderSuccessConfirmation({
 
         <p>
           Your order is now being processed and will be shipped shortly. You can
-          track your order's progress using the button below:
+          track your order&apos;s progress using the button below:
         </p>
 
         <div className="py-6">
