@@ -3,7 +3,7 @@ import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
 let defaultLocale = "en";
 let locales = ["en", "bn"];
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["https://house-solution.vercel.app"];
 
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",

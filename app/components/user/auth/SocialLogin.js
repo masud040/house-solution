@@ -4,7 +4,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 export default function SocialLogin({ pageFrom }) {
   function handleLogin(name) {
-    signIn(name, { callbackUrl: `http://localhost:3000` });
+    signIn(name, { callbackUrl: `https://house-solution.vercel.app` });
   }
   return (
     <>
