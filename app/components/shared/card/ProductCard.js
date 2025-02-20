@@ -5,7 +5,7 @@ import AddToCartBtn from "../Butttons/AddToCartBtn";
 export default async function ProductCard({ product, userId }) {
   const { id, name, price, discount, thumbnail } = product || {};
 
-  const discountPrice = price - (price * discount) / 100;
+  const discountPrice = Math.floor(price - (price * discount) / 100);
 
   return (
     <div className="flex-col p-3 rounded-lg md:p-5 flex-between shadow-light-elevated_dark-elevated-dark group size-full">
@@ -24,9 +24,11 @@ export default async function ProductCard({ product, userId }) {
           </Link>
           <div className="mb-1 space-x-2 flex-baseline">
             <p className="paragraph-md-h5-semibold text-primary">
-              ${discountPrice?.toFixed(2)}
+              ${discountPrice}
             </p>
-            <p className="line-through extra-small-md-paragraph">${price}</p>
+            <p className="line-through extra-small-md-paragraph">
+              ${Math.floor(price)}
+            </p>
           </div>
           <div className="flex-start">
             <div className="gap-1 text-sm flex-start text-primary-light">

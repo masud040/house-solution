@@ -1,5 +1,6 @@
 "use client";
 
+import useMode from "@/app/hooks/useMode";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,6 +22,8 @@ export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState("");
   const router = useRouter();
+  const { theme } = useMode();
+
   async function handleOnSubmit(data) {
     if (data?.password !== data?.confirmPassword) {
       setError("confirmPassword", {
@@ -75,12 +78,7 @@ export default function RegisterForm() {
     }
   }
   return (
-    <form
-      action="#"
-      method="post"
-      autocomplete="off"
-      onSubmit={handleSubmit(handleOnSubmit)}
-    >
+    <form onSubmit={handleSubmit(handleOnSubmit)}>
       <div className="space-y-2">
         <Field label="Full Name" htmlFor="name" error={errors?.name}>
           <input
@@ -118,7 +116,7 @@ export default function RegisterForm() {
             />
             <span
               onClick={() => setShow((i) => !i)}
-              className="absolute text-2xl translate-y-1/2 right-2"
+              className="absolute text-2xl translate-y-1/2 text-secondary right-2"
             >
               {show ? <BiSolidShow /> : <BiSolidHide />}
             </span>
@@ -141,7 +139,7 @@ export default function RegisterForm() {
             />
             <span
               onClick={() => setShowConfirm((i) => !i)}
-              className="absolute text-2xl translate-y-1/2 right-2"
+              className="absolute text-2xl translate-y-1/2 text-secondary right-2"
             >
               {showConfirm ? <BiSolidShow /> : <BiSolidHide />}
             </span>
@@ -169,7 +167,7 @@ export default function RegisterForm() {
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4 text-white peer-checked:block"
                 viewBox="0 0 20 20"
-                fill="currentColor"
+                fill={theme === "dark" ? "#212428" : "currentColor"}
               >
                 <path
                   fillRule="evenodd"

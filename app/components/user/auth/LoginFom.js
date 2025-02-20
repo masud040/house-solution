@@ -1,6 +1,7 @@
 "use client";
 
 import { loginWithCredentials } from "@/actions";
+import useMode from "@/app/hooks/useMode";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,6 +18,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [globalError, setGlobalError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { theme } = useMode();
   async function handleOnSubmit(data) {
     try {
       setLoading(true);
@@ -68,7 +70,7 @@ export default function LoginForm() {
           />
           <span
             onClick={() => setShow((i) => !i)}
-            className="absolute text-2xl translate-y-1/2 right-2"
+            className="absolute text-2xl translate-y-1/2 text-secondary right-2"
           >
             {show ? <BiSolidShow /> : <BiSolidHide />}
           </span>
@@ -93,7 +95,7 @@ export default function LoginForm() {
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4 text-white peer-checked:block"
               viewBox="0 0 20 20"
-              fill="currentColor"
+              fill={theme === "dark" ? "#212428" : "currentColor"}
             >
               <path
                 fillRule="evenodd"
@@ -102,10 +104,7 @@ export default function LoginForm() {
               />
             </svg>
           </label>
-          <span
-            htmlFor="remember"
-            className="ml-3 cursor-pointer text-secondary-dark"
-          >
+          <span htmlFor="remember" className="ml-3 cursor-pointer">
             Remember me
           </span>
         </div>

@@ -9,10 +9,10 @@ export default function SocialLogin({ pageFrom }) {
   return (
     <>
       <div className="relative mt-6 flex-center">
-        <div className="relative z-10 px-3 uppercase bg-background-light">
+        <div className="relative z-10 px-3 uppercase bg-background-light dark:bg-background-dark">
           Or login with
         </div>
-        <div className="absolute left-0 w-full border-b-2 border-gray-200 top-3"></div>
+        <div className="absolute left-0 w-full border-b-2 border-light-default_dark-tertiary top-3"></div>
       </div>
       <div className="flex gap-4 mt-4">
         <button className="w-1/2 gap-2 py-3 font-medium text-center bg-blue-700 rounded text-background-light flex-center shadow-light-elevated_dark-elevated-dark">
@@ -21,7 +21,7 @@ export default function SocialLogin({ pageFrom }) {
         </button>
         <button
           onClick={() => handleLogin("google")}
-          className="w-1/2 gap-2 py-3 font-medium text-center rounded flex-center shadow-light-elevated_dark-elevated-dark"
+          className="w-1/2 gap-2 py-3 font-medium text-center rounded bg-background-light flex-center text-secondary shadow-light-elevated_dark-elevated-dark"
         >
           <FcGoogle className="text-2xl" />
           Google

@@ -63,7 +63,7 @@ export default function CatItemCard({
     }
   }
 
-  const discountedPrice = price - (price * discount) / 100;
+  const discountedPrice = Math.floor(price - (price * discount) / 100);
   return (
     <>
       <div className="gap-3 px-4 py-5 overflow-hidden rounded-md md:gap-4 flex-center shadow-light-elevated_dark-elevated-dark">
@@ -123,12 +123,10 @@ export default function CatItemCard({
 
           <div className="flex-row w-full gap-2 md:gap-4 flex-end">
             <div className="flex flex-row items-start justify-start w-full gap-2 md:flex-col ">
-              <p className="text-sm text-primary">
-                {discountedPrice?.toFixed(2)}
-              </p>
+              <p className="text-sm text-primary">{discountedPrice}</p>
 
               <p className="text-sm line-through text-secondary-darker dark:text-background-light">
-                {price}
+                {Math.floor(price)}
               </p>
               <p className="hidden text-sm text-secondary-darker md:block dark:text-background-light">
                 {discount}%
