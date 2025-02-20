@@ -1,5 +1,5 @@
 "use server";
-import { dataConfig } from "@/app/utils/sssConfig";
+import { dataConfig } from "@/app/utils/sslConfig";
 import { auth, signIn } from "@/auth";
 import {
   deleteItems,

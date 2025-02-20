@@ -19,7 +19,7 @@ export const dataConfig = ({
 }) => {
   const data = {
     total_amount: totalPrice,
-    currency: "BDT",
+    currency: "USD",
     tran_id: transactionId, // use unique tran_id for each api call
     order_items_id,
     order_ids,

@@ -1,4 +1,4 @@
-import { sslConfig } from "@/app/utils/sssConfig";
+import { sslConfig } from "@/app/utils/sslConfig";
 import connectMongo from "@/db/connectMongo";
 import { deleteFromCartAndAddOrderSuccess } from "@/db/queries";
 import { PaymentModel } from "@/models/payment-model";
