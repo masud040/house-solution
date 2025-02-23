@@ -18,8 +18,8 @@ export const dataConfig = ({
   order_ids,
 }) => {
   const data = {
-    total_amount: totalPrice,
-    currency: "USD",
+    total_amount: totalPrice * 110,
+    currency: "BDT",
     tran_id: transactionId, // use unique tran_id for each api call
     order_items_id,
     order_ids,
@@ -52,6 +52,6 @@ export const dataConfig = ({
     ship_postcode: 1000,
     ship_country: "Bangladesh",
   };
-  console.log("Generated SSLCommerz Data:", data);
+
   return data;
 };
