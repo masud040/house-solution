@@ -25,7 +25,6 @@ export async function POST(req) {
         new: true,
       }
     );
-    console.log("Payment", findPayment);
 
     if (findPayment?.paid) {
       const orderIdArray = order_ids.split(",");
@@ -42,6 +41,7 @@ export async function POST(req) {
         }, // Update fields
         { new: true }
       );
+      console.log("orders", res);
 
       if (res.modifiedCount > 0) {
         const user = await getUserByUserId(customer_id);
