@@ -52,7 +52,7 @@ export async function POST(req) {
           user_id: customer_id,
         });
 
-        const emailSend = await sendConfirmationMail({
+        await sendConfirmationMail({
           pdfBuffer,
           toEmail: user.email,
         });
