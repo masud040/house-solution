@@ -24,7 +24,7 @@ export async function POST(req) {
         new: true,
       }
     );
-
+    console.log("Payment", findPayment);
     if (findPayment?.paid) {
       const orderIdArray = order_ids.split(",");
       // Update orders status to "shipped" and mark as ongoing_status as "to-ship"
