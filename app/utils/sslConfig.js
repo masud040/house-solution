@@ -28,7 +28,7 @@ export const dataConfig = ({
     )}&cus_id=${userId}&order_ids=${order_ids.join(",")}&cus_name=${name}`,
     fail_url: "https://sokher-corner.vercel.app/api/payment/fail",
     cancel_url: "https://sokher-corner.vercel.app/api/payment/cancel",
-    ipn_url: "https://sokher-corner.vercel.app/payment/ipn",
+
     shipping_method: "Courier",
     product_name: "Product",
     product_category: "Electronic",
