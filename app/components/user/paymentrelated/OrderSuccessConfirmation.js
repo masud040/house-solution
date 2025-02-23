@@ -27,7 +27,7 @@ function OrderSuccessConfirmation({
 
         <div className="py-6">
           <Link
-            href={`https://house-solution.vercel.app/en/track-orders/${user_id}`}
+            href={`https://sokher-corner.vercel.app/en/track-orders/${user_id}`}
             className="py-3 text-white basic-btn bg-primary border-primary"
           >
             Track Your Order
