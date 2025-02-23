@@ -6,7 +6,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
     userId: user_id,
     order_ids: order_ids.split(","),
   });
-
+  console.log("Pdf buffer", order_products);
   const productHTML = order_products
     .map((order) => {
       const totalPrice =
@@ -134,7 +134,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
       right: "20px",
     },
   });
-  console.log("Pdf buffer", pdfBuffer);
+
   await browser.close();
 
   return pdfBuffer;
