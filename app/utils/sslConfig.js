@@ -52,5 +52,6 @@ export const dataConfig = ({
     ship_postcode: 1000,
     ship_country: "Bangladesh",
   };
+  console.log("Generated SSLCommerz Data:", data);
   return data;
 };
