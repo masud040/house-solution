@@ -1,6 +1,6 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
-import puppeteer from "puppeteer";
 
+import puppeteer from "puppeteer";
 export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
     userId: user_id,
@@ -116,7 +116,10 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
 
 `;
   // Launch Puppeteer and generate the PDF
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
 
   // Set the HTML content
