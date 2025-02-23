@@ -134,7 +134,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
       right: "20px",
     },
   });
-
+  console.log("Pdf buffer", pdfBuffer);
   await browser.close();
 
   return pdfBuffer;

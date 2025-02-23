@@ -44,7 +44,7 @@ export async function POST(req) {
 
       if (res.modifiedCount > 0) {
         const user = await getUserByUserId(customer_id);
-        console.log("User", user);
+
         // Generate PDF
         const pdfBuffer = await generatePDF({
           trans_id,
@@ -53,11 +53,11 @@ export async function POST(req) {
           user_id: customer_id,
         });
 
-        await sendConfirmationMail({
+        const emailres = await sendConfirmationMail({
           pdfBuffer,
           toEmail: user.email,
         });
-
+        console.log("Email send res", emailres);
         const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id=${trans_id}&order_ids=${order_ids}&cus_name=${user_name}&user_id=${customer_id}`,
@@ -65,6 +65,7 @@ export async function POST(req) {
           ),
           303
         );
+        console.log("redirce res", response);
         response.headers.set("Cache-Control", "no-store");
         return response;
       }
