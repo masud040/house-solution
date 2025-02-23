@@ -1,6 +1,6 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
-
-import puppeteer from "puppeteer";
+const puppeteer = require("puppeteer-core");
+const chromium = require("chrome-aws-lambda");
 export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
     userId: user_id,
@@ -12,7 +12,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
         (order.product_price -
           order.product_price * (order.product_discount / 100)) *
         order.quantity;
-      console.log("Price", totalPrice);
+
       return `<div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <img
@@ -117,8 +117,9 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
 `;
   // Launch Puppeteer and generate the PDF
   const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+    args: chromium.args,
   });
   const page = await browser.newPage();
 
