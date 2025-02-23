@@ -8,6 +8,7 @@ import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
+  console.log("request", req);
   const searchParams = req.nextUrl.searchParams;
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
@@ -56,7 +57,7 @@ export async function POST(req) {
           pdfBuffer,
           toEmail: user.email,
         });
-        console.log("PDF Buffer", pdfBuffer);
+
         const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id=${trans_id}&order_ids=${order_ids}&cus_name=${user_name}&user_id=${customer_id}`,
