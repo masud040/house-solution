@@ -8,8 +8,8 @@ import { PaymentModel } from "@/models/payment-model";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  console.log("request", req);
   const searchParams = req.nextUrl.searchParams;
+  console.log("params", searchParams);
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
   const order_ids = searchParams.get("order_ids");
