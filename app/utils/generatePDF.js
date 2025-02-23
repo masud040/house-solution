@@ -6,14 +6,13 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
     userId: user_id,
     order_ids: order_ids.split(","),
   });
-  console.log("Pdf buffer", order_products);
   const productHTML = order_products
     .map((order) => {
       const totalPrice =
         (order.product_price -
           order.product_price * (order.product_discount / 100)) *
         order.quantity;
-
+      console.log("Price", totalPrice);
       return `<div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
         <div style="display: flex; align-items: center; gap: 10px;">
           <img
@@ -134,6 +133,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
       right: "20px",
     },
   });
+  console.log("PDF Buffer", pdfBuffer);
 
   await browser.close();
 
