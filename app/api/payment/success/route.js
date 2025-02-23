@@ -9,7 +9,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const searchParams = req.nextUrl.searchParams;
-  console.log("params", searchParams);
+
   const trans_id = searchParams.get("trans_id");
   const customer_id = searchParams.get("cus_id");
   const order_ids = searchParams.get("order_ids");
@@ -25,6 +25,7 @@ export async function POST(req) {
         new: true,
       }
     );
+    console.log("Payment", findPayment);
 
     if (findPayment?.paid) {
       const orderIdArray = order_ids.split(",");

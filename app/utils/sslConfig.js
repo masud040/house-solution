@@ -23,9 +23,9 @@ export const dataConfig = ({
     tran_id: transactionId, // use unique tran_id for each api call
     order_items_id,
     order_ids,
-    success_url: `https://sokher-corner.vercel.app/api/payment/success?trans_id=${transactionId}&order_items_id=${order_items_id.join(
+    success_url: `https://sokher-corner.vercel.app/api/payment/success?trans_id=${transactionId}&cus_id=${userId}&order_ids=${order_ids.join(
       ","
-    )}&cus_id=${userId}&order_ids=${order_ids.join(",")}&cus_name=${name}`,
+    )}&cus_name=${name}`,
     fail_url: "https://sokher-corner.vercel.app/api/payment/fail",
     cancel_url: "https://sokher-corner.vercel.app/api/payment/cancel",
     ipn_url: "https://sokher-corner.vercel.app/api/payment/ipn",
