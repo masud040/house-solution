@@ -23,12 +23,12 @@ export const dataConfig = ({
     tran_id: transactionId, // use unique tran_id for each api call
     order_items_id,
     order_ids,
-    success_url: `http://localhost:3000/api/payment/success?trans_id=${transactionId}&cus_id=${userId}&order_ids=${order_ids.join(
+    success_url: `https://sokher-corner.vercel.app/api/payment/success?trans_id=${transactionId}&cus_id=${userId}&order_ids=${order_ids.join(
       ","
     )}&cus_name=${name}`,
-    fail_url: "http://localhost:3000/api/payment/fail",
-    cancel_url: "http://localhost:3000/api/payment/cancel",
-    ipn_url: "http://localhost:3000/api/payment/ipn",
+    fail_url: "https://sokher-corner.vercel.app/api/payment/fail",
+    cancel_url: "https://sokher-corner.vercel.app/api/payment/cancel",
+    ipn_url: "https://sokher-corner.vercel.app/api/payment/ipn",
     shipping_method: "Courier",
     product_name: "Product",
     product_category: "Electronic",
