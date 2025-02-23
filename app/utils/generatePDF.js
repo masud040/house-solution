@@ -1,6 +1,5 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
-const puppeteer = require("puppeteer-core");
-const chromium = require("chrome-aws-lambda");
+import puppeteer from "puppeteer";
 export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
     userId: user_id,
@@ -117,9 +116,8 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
 `;
   // Launch Puppeteer and generate the PDF
   const browser = await puppeteer.launch({
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
-    args: chromium.args,
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
 
