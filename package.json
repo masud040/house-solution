@@ -6,25 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "npx playwright install --with-deps"
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.2.0",
     "@formatjs/intl-localematcher": "^0.5.4",
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@headlessui/react": "^2.2.0",
+    "@react-pdf/renderer": "^4.2.2",
     "@tailwindcss/forms": "^0.5.7",
     "bcryptjs": "^2.4.3",
     "flowbite": "^2.3.0",
     "form-data": "^4.0.1",
+    "html-pdf": "^3.0.1",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.1",
     "negotiator": "^0.6.3",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.19",
     "nodemailer": "^6.9.16",
-    "playwright": "^1.50.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
@@ -32,6 +32,7 @@
     "react-magnifier": "^3.0.4",
     "react-tabs": "^6.1.0",
     "react-toastify": "^10.0.5",
+    "sharp": "^0.33.5",
     "sslcommerz": "^1.7.0"
   },
   "devDependencies": {
