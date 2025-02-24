@@ -117,7 +117,9 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
 
   try {
     // Launch Puppeteer with Serverless Chromium
-    const browser = await chromium.launch();
+    const browser = await chromium.launch({
+      headless: true,
+    });
     const page = await browser.newPage();
     await page.setContent(htmlContent, { waitUntil: "load" });
     const pdfBuffer = await page.pdf({
