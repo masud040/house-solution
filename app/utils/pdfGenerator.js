@@ -98,6 +98,7 @@ export const pdfGenerator = async ({
           <Image
             src={base64Image} // Now a base64 image
             style={styles.productImage}
+            alt={order.product_name}
           />
           <View style={styles.productDetails}>
             <Text style={styles.productText}>
