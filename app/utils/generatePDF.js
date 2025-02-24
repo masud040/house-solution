@@ -1,5 +1,5 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
-import puppeteer from "puppeteer";
+import { chromium } from "playwright";
 export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
     userId: user_id,
@@ -114,30 +114,26 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   </html>
 
 `;
-  // Launch Puppeteer and generate the PDF
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-  const page = await browser.newPage();
 
-  // Set the HTML content
-  await page.setContent(htmlContent, { waitUntil: "load" });
-
-  // Generate the PDF
-  const pdfBuffer = await page.pdf({
-    format: "A4",
-    printBackground: true,
-    margin: {
-      top: "20px",
-      bottom: "20px",
-      left: "20px",
-      right: "20px",
-    },
-  });
-  console.log("PDF Buffer", pdfBuffer);
-
-  await browser.close();
-
-  return pdfBuffer;
+  try {
+    // Launch Puppeteer with Serverless Chromium
+    const browser = await chromium.launch();
+    const page = await browser.newPage();
+    await page.setContent(htmlContent, { waitUntil: "load" });
+    const pdfBuffer = await page.pdf({
+      format: "A4",
+      printBackground: true,
+      margin: {
+        top: "20px",
+        bottom: "20px",
+        left: "20px",
+        right: "20px",
+      },
+    });
+    await browser.close();
+    return pdfBuffer;
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    throw error;
+  }
 }

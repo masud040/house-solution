@@ -22,7 +22,7 @@ export async function POST(req) {
         cus_id: data.cus_id,
         order_ids: data.order_ids,
       };
-      console.log("Payment Data:", paymentData);
+
       await connectMongo();
       await PaymentModel.create(paymentData);
       await deleteFromCartAndAddOrderSuccess({

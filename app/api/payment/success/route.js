@@ -53,11 +53,11 @@ export async function POST(req) {
           user_id: customer_id,
         });
 
-        const emailres = await sendConfirmationMail({
+        await sendConfirmationMail({
           pdfBuffer,
           toEmail: user.email,
         });
-        console.log("Email send res", emailres);
+
         const response = NextResponse.redirect(
           new URL(
             `/en/payment/success?trans_id=${trans_id}&order_ids=${order_ids}&cus_name=${user_name}&user_id=${customer_id}`,

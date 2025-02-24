@@ -3,7 +3,6 @@ import { BillingAddrsstModel } from "@/models/billing-address-model";
 import { CartModel } from "@/models/carts-model";
 import { CategoryModel } from "@/models/categories-model";
 
-import cancelOldPendingOrders from "@/app/utils/cancelOldPendingOrders";
 import { OrdersModel } from "@/models/orders-model";
 import { ProductModel } from "@/models/products-model";
 import { reviewRatingModel } from "@/models/reviews-ratings-model";
@@ -588,10 +587,6 @@ async function getSuccessOrderedProducts({ userId, order_ids }) {
     throw new Error(error);
   }
 }
-
-setInterval(() => {
-  cancelOldPendingOrders();
-}, 10 * 60 * 1000);
 
 export {
   deleteFromCartAndAddOrderSuccess,
