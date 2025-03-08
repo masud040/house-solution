@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import "react-toastify/dist/ReactToastify.css";
 
+import Greetings from "@/app/components/shared/dashboard/Greetings";
 import connectMongo from "@/db/connectMongo";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
@@ -24,7 +25,7 @@ export default async function RootLayout({ children }) {
         <ThemeProvider>
           <div className="min-h-screen">
             <div className="flex">
-              <div>Masude Rana</div>
+              <Greetings />
               <div className="flex-1 w-full mx-6 mt-4 mb-10 lg:mx-10">
                 {children}
               </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function Logo() {
   const pathname = usePathname();
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(null);
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
