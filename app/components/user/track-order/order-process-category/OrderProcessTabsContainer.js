@@ -24,7 +24,7 @@ export default function OrderProcessTabsContainer({
         selectedTabClassName="order-process-active-tab"
         selectedIndex={selectedTab}
       >
-        <TabList className="w-full mb-10 flex-start">
+        <TabList className="w-full mb-6 flex-start">
           <Tab className="order-process-tab">
             All <span>({allOrderedItems?.length ?? 0})</span>
           </Tab>

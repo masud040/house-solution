@@ -43,7 +43,7 @@
   }
 
   .nav-link {
-    @apply text-[12px] md:text-base transition-colors ease-in-out duration-500;
+    @apply text-[13px] md:text-base transition-colors ease-in-out duration-500;
   }
 }
 @layer utilities {
@@ -129,7 +129,7 @@
 
   /* footer */
   .footer-link {
-    @apply block text-base hover:text-secondary-dark;
+    @apply block text-sm hover:text-secondary-dark;
   }
   .footer-title {
     @apply text-sm font-semibold tracking-wider uppercase;
@@ -203,7 +203,7 @@
   /* button related styles */
 
   .btn-shadow-light-defaut-dark-primary {
-    @apply relative px-8 text-lg font-normal rounded shadow-light-elevated_dark-elevated-dark text-primary;
+    @apply relative px-8 text-sm font-normal rounded md:text-base shadow-light-elevated_dark-elevated-dark text-primary;
   }
 
   /* hover animation */
@@ -217,11 +217,11 @@
 
   /* Order process container */
   .order-process-tab {
-    @apply w-full gap-1 py-2 text-sm text-center capitalize transition-all duration-500 border-b-8 outline-none max-w-32 flex-center md:text-base hover:text-primary-light hover:border-primary-light border-secondary-lightest;
+    @apply w-full gap-1 py-2 text-[11px] text-center capitalize transition-all duration-500 border-b-8 outline-none max-w-32 flex-center md:text-base hover:text-primary-light hover:border-primary-light border-secondary-lightest;
   }
 
   .order-process-active-tab {
-    @apply text-sm font-normal transition-all duration-500 border-b-8 md:text-base md:font-semibold border-primary-light text-primary-light;
+    @apply text-[11px] transition-all duration-500 border-b-8 md:text-base border-primary-light text-primary-light;
   }
 }
 
