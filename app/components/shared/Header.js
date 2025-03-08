@@ -6,6 +6,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { GrCart } from "react-icons/gr";
 import { RiAccountCircleLine } from "react-icons/ri";
 import GenerateImageByLetter from "../user/auth/GenrateImageByLetter";
+import Logo from "./Logo";
 import ModeButton from "./ModeButton";
 import { Search } from "./Search";
 export default async function Header() {
@@ -16,11 +17,7 @@ export default async function Header() {
   return (
     <header className="shadow-sm bg-background-light dark:bg-background-dark">
       <div className="container items-center gap-8 pt-5 pb-4 flex-between">
-        <Link href="/">
-          <h1 className="font-bold text-transparent h6-md-h5-lg-h4 bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
-            Sokher Corner
-          </h1>
-        </Link>
+        <Logo />
         <Search />
         <ul className="space-x-5 flex-end">
           <li title="Wishlist">
