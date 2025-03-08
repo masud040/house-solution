@@ -11,7 +11,7 @@ const DrawerComponent = ({ categories }) => {
       <div className="text-center md:hidden">
         <button
           onClick={() => setShowDrawer((s) => !s)}
-          className={`text-background-light bg-primary-light hover:bg-primary focus:ring-4 focus:ring-primary-lighter font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-dark dark:hover:bg-primary-darker focus:outline-none dark:focus:ring-primary-dark block`}
+          className={`text-background-light bg-primary-light hover:bg-primary focus:ring-4 focus:ring-primary-lighter font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-dark dark:hover:bg-primary-darker focus:outline-none dark:focus:ring-primary-dark block`}
           type="button"
         >
           <Image src={GridBtn} width={18} height={18} alt="grid-btn" />

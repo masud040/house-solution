@@ -43,7 +43,7 @@
   }
 
   .nav-link {
-    @apply text-[14px] md:text-base transition-colors ease-in-out duration-500;
+    @apply text-[12px] md:text-base transition-colors ease-in-out duration-500;
   }
 }
 @layer utilities {

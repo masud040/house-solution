@@ -11,14 +11,14 @@ export default function SignInSignUp({ email }) {
       {email ? (
         <button
           onClick={() => setIsOpenModal(true)}
-          className="px-4 md:px-8 py-1.5 nav-link btn-shadow-with-hover-effect bg-primary text-white"
+          className="px-4 md:px-8 py-1.5 nav-link bg-primary text-white font-medium transition-transform duration-500 ease-in-out rounded  shadow-light-elevated_dark-elevated-dark hover:-translate-y-1 text-[12px] md:text-[14px]"
         >
           Logout
         </button>
       ) : (
         <Link
           href="/login"
-          className="px-4 md:px-8 py-1.5 nav-link btn-shadow-with-hover-effect bg-primary text-white"
+          className="px-4 md:px-8 py-1.5 nav-link bg-primary text-white font-medium transition-transform duration-500 ease-in-out rounded shadow-light-elevated_dark-elevated-dark hover:-translate-y-1 md:text-[14px]"
         >
           Login
         </Link>

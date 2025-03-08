@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
   return (
-    <div className="gap-3 pb-8 flex-start">
+    <div className="gap-3 pb-5 flex-start">
       <Link href="/" className="text-base text-primary">
         <i className="fa-solid fa-house"></i>
       </Link>
@@ -15,7 +15,9 @@ const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
             href={nameWithPath?.path}
             className="transition-colors duration-500 ease-in-out hover:text-primary"
           >
-            <p className="font-medium">{nameWithPath?.name}</p>
+            <p className="font-medium paragraph-lg-base">
+              {nameWithPath?.name}
+            </p>
           </Link>
         </>
       )}
@@ -26,7 +28,7 @@ const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
           <span className="text-sm">
             <i className="fa-solid fa-chevron-right"></i>
           </span>
-          <p className="font-medium">{name1}</p>
+          <p className="font-medium paragraph-lg-base">{name1}</p>
         </>
       )}
       {name2 && (
@@ -35,7 +37,7 @@ const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
           <span className="text-sm">
             <i className="fa-solid fa-chevron-right"></i>
           </span>
-          <p className="font-medium">{name2}</p>
+          <p className="font-medium paragraph-lg-base">{name2}</p>
         </>
       )}
     </div>
