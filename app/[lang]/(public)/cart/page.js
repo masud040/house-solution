@@ -20,7 +20,7 @@ export default async function CartPage({ searchParams: { selected } }) {
 
   return (
     <CartProvider>
-      <section className="container pt-10 pb-16">
+      <section className="container pt-6 pb-16">
         <Breadcrumb name1="Cart" />
         <div className="grid items-start grid-cols-1 gap-4 md:grid-cols-5">
           <CartItems cartItems={cartItems} />

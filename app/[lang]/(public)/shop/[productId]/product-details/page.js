@@ -8,7 +8,7 @@ export default async function ProductDetailsPage({ params: { productId } }) {
   const product = await getProductById({ productId });
 
   return (
-    <section className="container pt-10 pb-16">
+    <section className="container pt-6 pb-16">
       <Breadcrumb name1="Product Details" />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <ProductImages

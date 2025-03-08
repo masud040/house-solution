@@ -2,7 +2,7 @@ import OrderSuccessConfirmation from "@/app/components/user/paymentrelated/Order
 
 export default function Success({ searchParams }) {
   return (
-    <section className="container pt-10 pb-16">
+    <section className="container pt-6 pb-16">
       <div className="flex-center">
         <OrderSuccessConfirmation searchParams={searchParams} />
       </div>

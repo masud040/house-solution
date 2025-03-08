@@ -33,7 +33,7 @@ export default async function Checkout({ searchParams }) {
   const shippingCost = await getDeleveryCost(selectedProducts);
 
   return (
-    <section className="container pt-10 pb-16">
+    <section className="container pt-6 pb-16">
       <Breadcrumb name1="Shipping & Billing" />
       <div className="grid items-start grid-cols-1 gap-4 md:grid-cols-5">
         {/* shipping address */}

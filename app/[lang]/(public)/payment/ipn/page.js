@@ -1,5 +1,5 @@
 export default function IpnPage() {
   return (
-    <section className="container pt-10 pb-16">Hello I am ipn page</section>
+    <section className="container pt-6 pb-16">Hello I am ipn page</section>
   );
 }

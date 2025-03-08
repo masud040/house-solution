@@ -30,7 +30,7 @@ export default async function RootLayout({ children }) {
             <Header />
             <Navbar />
           </div>
-          <div className="pt-[135px] md:pt-[146px] min-h-screen">
+          <div className="pt-[142px] md:pt-[152px] min-h-screen">
             {children}
           </div>
           <ToastContainer />

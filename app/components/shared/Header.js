@@ -16,10 +16,10 @@ export default async function Header() {
 
   return (
     <header className="shadow-sm bg-background-light dark:bg-background-dark">
-      <div className="container items-center gap-8 pt-5 pb-4 flex-between">
+      <div className="container items-center gap-8 py-4 flex-between">
         <Logo />
         <Search />
-        <ul className="space-x-5 flex-end">
+        <ul className="space-x-5 h-[48px] flex-end">
           <li title="Wishlist">
             <Link href="/wishlist" className="header-link">
               <div>

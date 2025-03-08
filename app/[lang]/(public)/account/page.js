@@ -15,9 +15,9 @@ export default async function AccountPage({ searchParams }) {
   const shippingAddress = await getShippingAddressByUserId(user?.id);
 
   return (
-    <section className="container pt-10 pb-16">
+    <section className="container pt-6 pb-16">
       <Breadcrumb name1="Account" />
-      <div className="grid w-full grid-cols-3 gap-6 mx-auto">
+      <div className="grid w-full grid-cols-1 gap-6 mx-auto md:grid-cols-3">
         <PersonalProfile user={user} />
         <BillingAddress userId={user.id} />
         <ShippingAddress
