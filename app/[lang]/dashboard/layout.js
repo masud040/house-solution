@@ -3,8 +3,8 @@ import { Inter } from "next/font/google";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import Greetings from "@/app/components/shared/dashboard/Greetings";
-import AdminSidebar from "@/app/components/shared/dashboard/sidebar/AdminSidebar";
+import Greetings from "@/app/components/dashboard/Greetings";
+import AdminSidebar from "@/app/components/shared/sidebar/AdminSidebar";
 import connectMongo from "@/db/connectMongo";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
