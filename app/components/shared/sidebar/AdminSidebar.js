@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function AdminSidebar() {
   const [isShow, setIsShow] = useState(true);
@@ -19,7 +19,9 @@ export default function AdminSidebar() {
           } flex-column fixed h-full overflow-hidden border-r bg-background-light dark:bg-background-dark transition-all duration-500 dark:border-tertiary/20 ease-in-out`}
         >
           <div className="flex items-center justify-between p-5 border-b-light-default_dark-tertiary">
-            Sokher Corner
+            <h1 className="font-bold text-transparent h5-md-h4-medium bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
+              Sokher Corner
+            </h1>
           </div>
 
           {isShow && (
@@ -88,7 +90,7 @@ export default function AdminSidebar() {
           )}
         </div>
         <button
-          className={`fixed top-7 ${
+          className={`fixed top-5 ${
             isShow ? "left-[240px]" : "left-2"
           } rounded-full p-1.5 text-2xl text-primary-light shadow-custom-inset transition-all duration-500 ease-in-out hover:scale-105 dark:shadow-custom-inset-dark`}
           onClick={() => setIsShow(!isShow)}
