@@ -1,3 +1,3 @@
-export default function RatingAndReview({ description }) {
-  return <div>{description}</div>;
+export default function RatingAndReview() {
+  return <div>There are no rating and review in this product.</div>;
 }

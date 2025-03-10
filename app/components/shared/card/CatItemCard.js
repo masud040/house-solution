@@ -110,7 +110,7 @@ export default function CatItemCard({
         </div>
         <div className="flex-col flex-1 gap-2 flex-between md:gap-4 md:flex-row">
           <div className="w-full">
-            <h2 className="paragraph-lg-base text-secondary-darker dark:text-background-light">
+            <h2 className="mb-2 paragraph-lg-base text-secondary-darker dark:text-background-light">
               {name}
             </h2>
             <p className="text-xs font-medium">
@@ -125,10 +125,10 @@ export default function CatItemCard({
 
           <div className="flex-row w-full gap-2 md:gap-4 flex-end">
             <div className="flex flex-row items-start justify-start w-full gap-2 md:flex-col ">
-              <p className="text-sm text-primary">{discountedPrice}</p>
+              <p className="text-base text-primary">${discountedPrice}</p>
 
               <p className="text-sm line-through text-secondary-darker dark:text-background-light">
-                {Math.floor(price)}
+                ${Math.floor(price)}
               </p>
               <p className="hidden text-sm text-secondary-darker md:block dark:text-background-light">
                 {discount}%
@@ -157,7 +157,7 @@ export default function CatItemCard({
             <div
               onClick={() => setIsOpen(true)}
               title="Remove from cart"
-              className="transition-all duration-300 cursor-pointer hover:text-primary"
+              className="transition-all duration-300 cursor-pointer text-primary-light hover:text-primary-dark"
             >
               <i className="fa-solid fa-trash"></i>
             </div>

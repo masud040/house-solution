@@ -237,6 +237,10 @@
   @apply object-cover h-[200px] md:h-[400px] w-full rounded !important;
 }
 
+.product-details-tab {
+  @apply font-medium capitalize transition-colors duration-500 outline-none;
+}
+
 .active-tab {
-  @apply transition-all duration-300 text-primary-dark;
+  @apply transition-colors duration-500 text-primary-dark;
 }

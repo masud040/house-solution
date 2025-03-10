@@ -115,7 +115,7 @@ export default function CartItems({ cartItems }) {
               <div
                 onClick={() => setIsOpen(true)}
                 title="Remove all products"
-                className="gap-2 cursor-pointer flex-start hover:text-primary"
+                className="gap-2 transition-colors duration-300 cursor-pointer flex-start text-primary-light hover:text-primary"
               >
                 <i className="fa-solid fa-trash"></i>
                 <span className="">Delete</span>

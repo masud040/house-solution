@@ -15,7 +15,7 @@ export default async function Header() {
   const count = await getWishlistCount(session?.user?.email);
 
   return (
-    <header className="shadow-sm bg-background-light dark:bg-background-dark">
+    <header className="shadow-sm">
       <div className="container items-center gap-8 py-4 flex-between">
         <Logo />
         <Search />
@@ -23,10 +23,10 @@ export default async function Header() {
           <li title="Wishlist">
             <Link href="/wishlist" className="header-link">
               <div>
-                <FaRegHeart className="size-7" />
+                <FaRegHeart className="size-7 text-primary-light" />
               </div>
               {count > 0 && (
-                <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-secondary dark:bg-background-light/80 text-background-light dark:text-secondary-dark">
+                <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-primary-light text-background-light ">
                   {count}
                 </div>
               )}
@@ -35,10 +35,10 @@ export default async function Header() {
           <li title="Cart">
             <Link href="/cart" className="header-link">
               <div>
-                <GrCart className="size-7" />
+                <GrCart className="size-7 text-primary-light" />
               </div>
               {cartItems?.length > 0 && (
-                <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-secondary dark:bg-background-light/80 text-background-light dark:text-secondary-dark">
+                <div className="absolute font-semibold rounded-full paragraph-under-small size-4 -right-2 flex-center -top-1 bg-primary-light text-background-light">
                   {cartItems?.length}
                 </div>
               )}
@@ -60,7 +60,7 @@ export default async function Header() {
                       height={28}
                       width={28}
                       alt="profile"
-                      className="border border-indigo-600 rounded-full size-8 p-[1px]"
+                      className="border border-primary-light rounded-full size-8 p-[1px]"
                     />
                   ) : (
                     <GenerateImageByLetter name={session?.user?.name} />

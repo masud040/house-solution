@@ -9,18 +9,18 @@ export const ProdcutDescription = ({ description }) => {
     <div className="pb-16 mt-10">
       <Tabs selectedTabClassName="active-tab">
         <TabList className="flex items-center gap-3 md:gap-12 lg:gap-[72px] mb-10">
-          <Tab>Details</Tab>
-          <Tab>Review & Rating</Tab>
-          <Tab>Discussion</Tab>
+          <Tab className="product-details-tab">Details</Tab>
+          <Tab className="product-details-tab">Review & Rating</Tab>
+          <Tab className="product-details-tab">Discussion</Tab>
         </TabList>
         <TabPanel>
           <Details description={description} />
         </TabPanel>
         <TabPanel>
-          <RatingAndReview description={description} />
+          <RatingAndReview />
         </TabPanel>
         <TabPanel>
-          <Discussion description={description} />
+          <Discussion />
         </TabPanel>
       </Tabs>
     </div>

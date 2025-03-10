@@ -41,7 +41,7 @@ const WishlistActionBtn = ({ productId }) => {
         <div
           onClick={() => setIsOpen(true)}
           title="Remove from cart"
-          className="cursor-pointer text-secondary-dark hover:text-primary"
+          className="cursor-pointer text-primary-light hover:text-primary-dark"
         >
           <i className="ext-xl fa-solid fa-trash"></i>
         </div>

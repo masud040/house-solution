@@ -26,7 +26,7 @@ export const ProductImages = ({ name, thumbnail, gallery }) => {
                 alt={name}
                 fill
                 className={`object-cover cursor-pointer rounded ${
-                  selectedImage === image && "border border-primary"
+                  selectedImage === image && "border border-primary-light"
                 }`}
               />
             </div>
