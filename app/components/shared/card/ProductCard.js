@@ -22,7 +22,7 @@ export default async function ProductCard({ product, userId }) {
           <Link href={`shop/${id}/product-details`}>
             <h4 className="mb-2 product-title">{name}</h4>
           </Link>
-          <div className="mb-1 space-x-2 flex-baseline">
+          <div className="gap-2 mb-1 space-x-2 flex-start">
             <p className="paragraph-md-h5-semibold text-primary">
               ${discountPrice}
             </p>
@@ -31,7 +31,7 @@ export default async function ProductCard({ product, userId }) {
             </p>
           </div>
           <div className="flex-start">
-            <div className="gap-1 text-sm flex-start text-primary-light">
+            <div className="gap-2 text-sm flex-start text-primary-light">
               <span>
                 <i className="text-sm fa-solid fa-star"></i>
               </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import useMode from "@/app/hooks/useMode";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -7,8 +8,8 @@ export const FilterByCategory = ({ categories }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
   const [query, setQuery] = useState([]);
+  const { theme } = useMode();
 
   useEffect(() => {
     let category = decodeURI(searchParams?.get("category")?.toLowerCase());
@@ -62,7 +63,7 @@ export const FilterByCategory = ({ categories }) => {
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-4 h-4 text-white peer-checked:block"
                   viewBox="0 0 20 20"
-                  fill="currentColor"
+                  fill={theme === "dark" ? "#212428" : "currentColor"}
                 >
                   <path
                     fillRule="evenodd"

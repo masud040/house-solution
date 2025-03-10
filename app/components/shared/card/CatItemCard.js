@@ -1,5 +1,6 @@
 "use client";
 import { performDelete, updateProductQuantity } from "@/actions";
+import useMode from "@/app/hooks/useMode";
 import useCartData from "@/hooks/useCartData";
 import Image from "next/image";
 import { useState } from "react";
@@ -26,6 +27,7 @@ export default function CatItemCard({
   const [quantity, setQuantity] = useState(productQuantity);
   const { loading, setLoading } = useCartData();
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useMode();
 
   async function increaseDecreaseQuantity(type) {
     try {
@@ -87,7 +89,7 @@ export default function CatItemCard({
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4 text-white peer-checked:block"
               viewBox="0 0 20 20"
-              fill="currentColor"
+              fill={theme === "dark" ? "#212428" : "currentColor"}
             >
               <path
                 fillRule="evenodd"

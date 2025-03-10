@@ -5,7 +5,7 @@ export default function Footer() {
       <div className="container grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="col-span-1 mr-2 space-y-8">
           <Link href="/">
-            <h1 className="inline-block text-transparent h6-md-h5-lg-h3-bold bg-gradient-to-r from-indigo-600 via-purple-500 to-indigo-400 bg-clip-text">
+            <h1 className="font-bold text-transparent h6-md-h5-lg-h4 bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
               Sokher Corner
             </h1>
           </Link>

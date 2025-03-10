@@ -2,6 +2,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { performDelete } from "@/actions";
+import useMode from "@/app/hooks/useMode";
 import useCartData from "@/hooks/useCartData";
 import LoadingImage from "@/public/svg/loading.svg";
 import Image from "next/image";
@@ -20,6 +21,7 @@ export default function CartItems({ cartItems }) {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const { loading } = useCartData();
+  const { theme } = useMode();
   function handleChange(e) {
     const name = e.target.name;
     const checked = e.target.checked;
@@ -98,7 +100,7 @@ export default function CartItems({ cartItems }) {
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-4 h-4 text-white peer-checked:block"
                     viewBox="0 0 20 20"
-                    fill="currentColor"
+                    fill={theme === "dark" ? "#212428" : "currentColor"}
                   >
                     <path
                       fillRule="evenodd"

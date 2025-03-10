@@ -49,7 +49,7 @@ export const ProdcutAction = ({ product: { _id, wishlist }, userId }) => {
   return (
     <>
       <div>
-        <h3 className="mb-2 text-sm font-medium uppercase ">Quantity</h3>
+        <h3 className="mb-2 text-base font-medium uppercase ">Quantity</h3>
         <div className="flex border divide-x divide-x-light-default-dark-tertiary rounded-3xl w-max border-light-default_dark-tertiary">
           <button
             onClick={decreseQuantity}

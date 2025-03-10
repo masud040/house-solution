@@ -107,11 +107,11 @@
     @apply text-xl lg:text-3xl;
   }
   .paragraph-md-h6-medium {
-    @apply text-base font-medium;
+    @apply text-lg font-medium md:text-xl;
   }
 
   .paragraph-md-h5-semibold {
-    @apply text-sm font-medium md:text-base;
+    @apply text-base font-medium md:text-lg;
   }
   /* paragraph related styles */
 
@@ -120,7 +120,7 @@
   }
 
   .extra-small-md-paragraph {
-    @apply text-xs md:text-sm;
+    @apply text-sm md:text-base;
   }
 
   .paragraph-under-small {
@@ -181,7 +181,7 @@
 
   /* card related*/
   .features-card {
-    @apply gap-5 p-5 border rounded flex-center border-primary;
+    @apply gap-5 p-5 border rounded flex-center border-primary-light;
   }
 
   /* border related styles */
