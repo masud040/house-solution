@@ -34,14 +34,14 @@ const WishlistActionBtn = ({ productId }) => {
         <div
           onClick={handleMove}
           title="Move on cart"
-          className="cursor-pointer text-secondary-dark"
+          className="cursor-pointer text-background-light"
         >
           <i className="text-xl fa fa-cart-plus"></i>
         </div>
         <div
           onClick={() => setIsOpen(true)}
           title="Remove from cart"
-          className="cursor-pointer text-primary-light hover:text-primary-dark"
+          className="transition-colors duration-300 cursor-pointer text-primary-light hover:text-primary-dark"
         >
           <i className="ext-xl fa-solid fa-trash"></i>
         </div>

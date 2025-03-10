@@ -15,7 +15,7 @@ export default async function Header() {
   const count = await getWishlistCount(session?.user?.email);
 
   return (
-    <header className="shadow-sm">
+    <header className="shadow-sm bg-background-light dark:bg-background-dark">
       <div className="container items-center gap-8 py-4 flex-between">
         <Logo />
         <Search />

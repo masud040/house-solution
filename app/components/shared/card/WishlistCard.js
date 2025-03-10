@@ -17,8 +17,10 @@ export const WishlistCard = ({ product }) => {
           />
         </div>
         <div className="w-full">
-          <h2 className="paragraph-lg-base text-secondary-darker">{name}</h2>
-          <p className="text-xs font-medium">
+          <h2 className="mb-2 text-base text-secondary-darker dark:text-background-light">
+            {name}
+          </h2>
+          <p className="text-sm font-medium">
             Availability:{" "}
             {stock > 0 ? (
               <span className="text-green-600">In Stock</span>
@@ -29,12 +31,16 @@ export const WishlistCard = ({ product }) => {
         </div>
       </div>
       <div className="flex flex-col items-end justify-center flex-1 w-full gap-2 md:gap-4">
-        <div className="space-x-2 text-primary">
-          <span className="text-sm">{discountedPrice?.toFixed(2)}</span>
-          <span className="text-sm line-through text-secondary-darker">
-            {price}
+        <div className="space-x-2">
+          <span className="text-base text-primary">
+            ${discountedPrice?.toFixed(2)}
           </span>
-          <span className="text-sm text-secondary-darker">{discount}%</span>
+          <span className="text-sm line-through text-secondary-darker dark:text-background-light">
+            ${price}
+          </span>
+          <span className="text-sm text-secondary-darker dark:text-background-light">
+            {discount}%
+          </span>
         </div>
         <WishlistActionBtn productId={id} />
       </div>

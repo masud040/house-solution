@@ -23,64 +23,64 @@ export default async function Navbar() {
 
           <span className="hidden ml-2 capitalize">All Categories</span>
 
-          <div className="absolute left-0 invisible w-32 py-3 transition duration-300 divide-y divide-gray-300 shadow-md opacity-0 bg-background-light top-full divide-dashed group-hover:opacity-100 group-hover:visible">
+          <div className="absolute left-0 invisible w-32 py-3 transition duration-300 divide-y shadow-lg opacity-0 bg-background-light dark:bg-background-dark top-full divide-dashed divide-secondary group-hover:opacity-100 group-hover:visible">
             <Link
               href="/shop/category=sofa"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition-colors duration-300 flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image src={Sofa} alt="sofa" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary-dark ">Sofa</span>
+              <span className="ml-6 text-sm">Sofa</span>
             </Link>
             <Link
               href="/shop?category=terrace"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition-colors duration-300 flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image
                 src={Terrage}
                 alt="terrace"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-dark">Terarce</span>
+              <span className="ml-6 text-sm">Terarce</span>
             </Link>
             <Link
               href="/shop?category=bed"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image src={Bed} alt="bed" className="object-contain size-5" />
-              <span className="ml-6 text-sm text-secondary-dark">Bed</span>
+              <span className="ml-6 text-sm">Bed</span>
             </Link>
             <Link
               href="/shop?category=office"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition-colors duration-300 flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image
                 src={Office}
                 alt="office"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-dark">office</span>
+              <span className="ml-6 text-sm">office</span>
             </Link>
             <Link
               href="/shop?category=outdoor"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition-colors duration-300 flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image
                 src={Outdoor}
                 alt="outdoor"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-dark">Outdoor</span>
+              <span className="ml-6 text-sm">Outdoor</span>
             </Link>
             <Link
               href="/shop?category=mattress"
-              className="px-4 py-3 transition flex-start hover:bg-secondary-lighter"
+              className="px-4 py-3 transition-colors duration-300 flex-start hover:bg-secondary-lighter dark:hover:bg-secondary-dark"
             >
               <Image
                 src={Mattress}
                 alt="Mattress"
                 className="object-contain size-5"
               />
-              <span className="ml-6 text-sm text-secondary-dark">Mattress</span>
+              <span className="ml-6 text-sm">Mattress</span>
             </Link>
           </div>
         </div>
