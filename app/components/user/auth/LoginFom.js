@@ -50,7 +50,7 @@ export default function LoginForm() {
     }
   }
   return (
-    <form autoComplete="off" onSubmit={handleSubmit(handleOnSubmit)}>
+    <form onSubmit={handleSubmit(handleOnSubmit)}>
       <Field label="Email Address" htmlFor="email" error={errors?.email}>
         <input
           type="email"

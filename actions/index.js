@@ -24,6 +24,7 @@ export async function loginWithCredentials(data) {
       password: data?.password,
       redirect: false,
     });
+
     revalidatePath("/");
     return response;
   } catch (err) {

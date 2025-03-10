@@ -66,7 +66,7 @@ export default async function Header() {
                     <GenerateImageByLetter name={session?.user?.name} />
                   )
                 ) : (
-                  <RiAccountCircleLine className="size-8" />
+                  <RiAccountCircleLine className="size-8 text-primary-light" />
                 )}
               </div>
             </Link>
