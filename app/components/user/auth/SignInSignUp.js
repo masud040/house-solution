@@ -30,9 +30,7 @@ export default function SignInSignUp({ email }) {
           actionBtnLabel={"Confirm"}
           actionFuction={() => signOut()}
           confirmationLabel={"Are you sure want to log out?"}
-        >
-          <div>Hello I am from Modal</div>
-        </ConfirmationModal>
+        />
       )}
     </>
   );

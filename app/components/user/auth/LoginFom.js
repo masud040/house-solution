@@ -27,7 +27,6 @@ export default function LoginForm() {
         toastId: "login",
       });
       const response = await loginWithCredentials(data);
-
       if (!response.error) {
         toast.update("login", {
           render: "Successfully Logged in",

@@ -1,10 +1,13 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ConfirmationModal } from "../modal/ConfirmationModal";
 
 export default function AdminSidebar() {
   const [isShow, setIsShow] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <>
@@ -81,8 +84,8 @@ export default function AdminSidebar() {
           {isShow && (
             <div className="px-5 pb-10 mt-0 md:mt-auto">
               <button
-                // onClick={() => setShowLogoutModal(true)}
-                className="w-full px-8 py-3 border action-btn-hover-effect border-primary-lightest/30"
+                onClick={() => setIsOpenModal(true)}
+                className="w-full px-8 py-3 border rounded-md border-primary-lighter btn-shadow-with-hover-effect"
               >
                 Logout
               </button>
@@ -98,9 +101,15 @@ export default function AdminSidebar() {
           {isShow ? <FaChevronLeft /> : <FaChevronRight />}
         </button>
       </div>
-      {/* {showLogoutModal && (
-      <LogoutModal isOpen={showLogoutModal} closeModal={closeModal} />
-    )} */}
+      {isOpenModal && (
+        <ConfirmationModal
+          isOpen={isOpenModal}
+          closeModal={setIsOpenModal}
+          actionBtnLabel={"Confirm"}
+          actionFuction={() => signOut()}
+          confirmationLabel={"Are you sure want to log out?"}
+        />
+      )}
     </>
   );
 }
