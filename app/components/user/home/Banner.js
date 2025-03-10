@@ -1,10 +1,16 @@
+"use client";
 import BannerImage from "@/public/assets/images/banner-bg.jpg";
 import Link from "next/link";
+import { Parallax } from "react-parallax";
 export default function Banner() {
   return (
-    <div
-      className="bg-center bg-no-repeat bg-cover py-9"
-      style={{ backgroundImage: `url(${BannerImage.src})` }}
+    <Parallax
+      bgImage={BannerImage.src}
+      bgImageAlt="banner"
+      strength={200}
+      blur={10}
+      className="py-9"
+      // style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
       <div className="container space-y-8 text-secondary-dark">
         <h1 className="capitalize h3-semibold-lg-h2-semibold">
@@ -24,6 +30,6 @@ export default function Banner() {
           </Link>
         </div>
       </div>
-    </div>
+    </Parallax>
   );
 }

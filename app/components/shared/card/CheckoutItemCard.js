@@ -57,7 +57,7 @@ export default async function CheckoutItemCard({ product }) {
               </div>
             </div>
             <div className="gap-1 px-4 py-2 text-sm bg-green-600/40 rounded-2xl flex-start">
-              <p>Oty:</p>
+              <p>QTY:</p>
               <p className="font-bold">{product.quantity}</p>
             </div>
           </div>
