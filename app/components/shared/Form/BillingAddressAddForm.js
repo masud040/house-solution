@@ -1,6 +1,7 @@
 "use client";
 
 import { addAndUpdateBillingData, addAndUpdateShippingData } from "@/actions";
+import useMode from "@/app/hooks/useMode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -36,6 +37,7 @@ export const BillingAddressAddForm = ({
   });
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState("");
+  const { theme } = useMode();
 
   const router = useRouter();
 
@@ -297,7 +299,7 @@ export const BillingAddressAddForm = ({
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4 text-white peer-checked:block"
               viewBox="0 0 20 20"
-              fill="currentColor"
+              fill={theme === "dark" ? "#212428" : "currentColor"}
             >
               <path
                 fillRule="evenodd"
@@ -308,7 +310,7 @@ export const BillingAddressAddForm = ({
           </label>
 
           {/* Label Text */}
-          <span className="text-gray-700">Use shipping address</span>
+          <span>Use shipping address</span>
         </div>
       )}
       {!globalError && (
