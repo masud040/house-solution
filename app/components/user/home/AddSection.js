@@ -1,17 +1,14 @@
+"use client";
 import AddImage from "@/public/assets/images/offer.jpg";
-import Image from "next/image";
+import { Parallax } from "react-parallax";
 export default function AddSection() {
   return (
-    <div className="mb-14">
-      <a href="#">
-        <Image
-          src={AddImage}
-          width={500}
-          height={500}
-          alt="ads"
-          className="w-full"
-        />
-      </a>
-    </div>
+    <Parallax
+      bgImage={AddImage.src}
+      bgImageAlt="banner"
+      strength={200}
+      blur={{ min: -15, max: 15 }}
+      className="py-9 h-[200px] mb-14"
+    ></Parallax>
   );
 }

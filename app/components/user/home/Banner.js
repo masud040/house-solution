@@ -8,9 +8,8 @@ export default function Banner() {
       bgImage={BannerImage.src}
       bgImageAlt="banner"
       strength={200}
-      blur={10}
+      blur={{ min: -15, max: 15 }}
       className="py-9"
-      // style={{ backgroundImage: `url(${BannerImage.src})` }}
     >
       <div className="container space-y-8 text-secondary-dark">
         <h1 className="capitalize h3-semibold-lg-h2-semibold">
