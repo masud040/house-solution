@@ -1,5 +1,6 @@
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 let defaultLocale = "en";
 let locales = ["en", "bn"];
@@ -19,11 +20,15 @@ function getLocale(request) {
   return match(languages, locales, defaultLocale);
 }
 
-export function middleware(request) {
+export async function middleware(request) {
   const pathname = request.nextUrl.pathname;
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
+  const session = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+  });
 
   if (isPreflight) {
     const preflightHeaders = {

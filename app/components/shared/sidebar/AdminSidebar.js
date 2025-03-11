@@ -2,9 +2,11 @@
 
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { AiFillProduct } from "react-icons/ai";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 import { ConfirmationModal } from "../modal/ConfirmationModal";
-
+import CustomLink from "./CustomLink";
 export default function AdminSidebar() {
   const [isShow, setIsShow] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -29,55 +31,28 @@ export default function AdminSidebar() {
 
           {isShow && (
             <ul className="flex flex-col gap-2 p-5 md:gap-3">
-              {/* <CustomLink
-              Icon={MdDashboard}
-              title="Dashboard"
-              target="/dashboard"
-            />
-            <CustomLink
+              <CustomLink
+                Icon={MdDashboard}
+                title="Dashboard"
+                target="dashboard"
+              />
+              <CustomLink
+                Icon={AiFillProduct}
+                title="All Products"
+                target="all_product"
+              />
+              <CustomLink
               Icon={IoIosCreate}
               title="Add Blog"
               target="/add-blog"
             />
-            <CustomLink
-              Icon={GrProjects}
-              title="Add Project"
-              target="/add-project"
-            />
-            <CustomLink
-              Icon={SiHyperskill}
-              title="Add Skill"
-              target="/my-skills"
-            />
-            <CustomLink
-              Icon={FaServicestack}
-              title="Add Service"
-              target="/my-services"
-            />
-            <CustomLink
-              Icon={MdRateReview}
-              title="Add Testimonial"
-              target="/add-testimonial"
-            />
-            <CustomLink
-              Icon={SiBiome}
-              title="Change Bio"
-              target="/change-bio"
-            />
-            <CustomLink
-              Icon={FaLink}
-              title="Change Resume URL"
-              target="/change-resume-url"
-            />
+           {/* 
             <CustomLink
               Icon={FaCloudUploadAlt}
               title="Generate Image Link"
               target="/upload-image"
               newTab={true}
             /> */}
-              <li>Masud Rana</li>
-              <li>Masud Rana</li>
-              <li>Masud Rana</li>
             </ul>
           )}
 
@@ -85,7 +60,7 @@ export default function AdminSidebar() {
             <div className="px-5 pb-10 mt-0 md:mt-auto">
               <button
                 onClick={() => setIsOpenModal(true)}
-                className="w-full px-8 py-3 border rounded-md border-primary-lighter btn-shadow-with-hover-effect"
+                className="w-full px-8 py-3 bg-indigo-400 rounded-md btn-shadow-with-hover-effect text-background-light"
               >
                 Logout
               </button>
