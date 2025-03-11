@@ -1,13 +1,14 @@
+"use client";
 import LoginForm from "@/app/components/user/auth/LoginFom";
 import SocialLogin from "@/app/components/user/auth/SocialLogin";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-export default async function LoginPage() {
-  const session = await auth();
-  if (session?.user?.email) {
-    return redirect("/");
-  }
+export default function LoginPage() {
+  console.log("LoginPage component loaded");
+  const searchParams = useSearchParams();
+  console.log("searchParams:", searchParams);
+  const callbackUrl = searchParams.get("callbackUrl");
+  console.log("callbackUrl:", callbackUrl);
   return (
     <section className="container pt-6 pb-16">
       <div className="max-w-lg p-8 mx-auto overflow-hidden rounded-md shadow-light-elevated_dark-elevated-dark">

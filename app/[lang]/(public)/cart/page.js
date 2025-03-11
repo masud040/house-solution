@@ -5,13 +5,9 @@ import { getDeleveryCost } from "@/app/utils";
 import { auth } from "@/auth";
 import { getAllCartItemsById } from "@/db/queries";
 import CartProvider from "@/provider/cart_provider";
-import { redirect } from "next/navigation";
 
 export default async function CartPage({ searchParams: { selected } }) {
   const session = await auth();
-  if (!session?.user) {
-    return redirect("/login");
-  }
 
   const cartItems = await getAllCartItemsById(session?.user?.email, selected);
   const shippingCost = await getDeleveryCost(

@@ -2,13 +2,10 @@ import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { BillingAddressAddForm } from "@/app/components/shared/Form/BillingAddressAddForm";
 import { auth } from "@/auth";
 import { getBillingAddressByUserId, getUserByEmail } from "@/db/queries";
-import { redirect } from "next/navigation";
 
 export default async function EditBillingAddress() {
   const session = await auth();
-  if (!session) {
-    return redirect("/login");
-  }
+
   const user = await getUserByEmail(session?.user?.email);
   const billingAddress = await getBillingAddressByUserId(user.id);
   return (

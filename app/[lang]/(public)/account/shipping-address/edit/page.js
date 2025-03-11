@@ -5,9 +5,6 @@ import { getShippingAddressByUserId, getUserByEmail } from "@/db/queries";
 
 export default async function EditShippingAddress({ searchParams }) {
   const session = await auth();
-  if (!session) {
-    return redirect("/login");
-  }
   const user = await getUserByEmail(session?.user?.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
   return (

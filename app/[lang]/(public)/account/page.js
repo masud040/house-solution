@@ -4,13 +4,10 @@ import { PersonalProfile } from "@/app/components/user/account/PersonalProfile";
 import { ShippingAddress } from "@/app/components/user/account/ShippingAddress";
 import { auth } from "@/auth";
 import { getShippingAddressByUserId, getUserByEmail } from "@/db/queries";
-import { redirect } from "next/navigation";
 
 export default async function AccountPage({ searchParams }) {
   const session = await auth();
-  if (!session) {
-    return redirect("/login");
-  }
+
   const user = await getUserByEmail(session?.user?.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
 

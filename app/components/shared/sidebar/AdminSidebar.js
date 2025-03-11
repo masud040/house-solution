@@ -41,12 +41,12 @@ export default function AdminSidebar() {
                 title="All Products"
                 target="all_product"
               />
-              <CustomLink
+              {/* <CustomLink
               Icon={IoIosCreate}
               title="Add Blog"
               target="/add-blog"
-            />
-           {/* 
+            /> */}
+              {/* 
             <CustomLink
               Icon={FaCloudUploadAlt}
               title="Generate Image Link"

@@ -16,9 +16,11 @@ export default function LoginForm() {
   } = useForm();
   const [show, setShow] = useState(false);
   const router = useRouter();
+
   const [globalError, setGlobalError] = useState("");
   const [loading, setLoading] = useState(false);
   const { theme } = useMode();
+
   async function handleOnSubmit(data) {
     try {
       setLoading(true);

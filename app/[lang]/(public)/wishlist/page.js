@@ -3,13 +3,9 @@ import { WishlistCard } from "@/app/components/shared/card/WishlistCard";
 import { NoDataFound } from "@/app/components/shared/NoDataFound";
 import { auth } from "@/auth";
 import { getAllWishlistByEmail } from "@/db/queries";
-import { redirect } from "next/navigation";
 
 export default async function WishlistPage() {
   const session = await auth();
-  if (!session?.user) {
-    return redirect("/login");
-  }
 
   const allCartItems = await getAllWishlistByEmail(session?.user?.email);
   return (

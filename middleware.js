@@ -2,8 +2,26 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
+
 let defaultLocale = "en";
 let locales = ["en", "bn"];
+const protectedRoutes = [
+  "/wishlist",
+  "/cart",
+  "/account",
+  "/add",
+  "/edit",
+  "/checkout",
+  "/dashboard",
+];
+const publicRoutes = [
+  "/login",
+  "/signup",
+  "/en",
+  "/shop",
+  "/about-us",
+  "/contact-us",
+];
 const allowedOrigins = [
   "https://sokher-corner.vercel.app",
   "http://localhost:3000",
@@ -21,10 +39,14 @@ function getLocale(request) {
 }
 
 export async function middleware(request) {
-  const pathname = request.nextUrl.pathname;
+  let redirectUrl = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
+  const exactRoute = `/${pathname.split("/")[pathname.split("/").length - 1]}`;
+  const isProtectedRoute = protectedRoutes.includes(exactRoute);
+  const isPublicRoute = publicRoutes.includes(exactRoute);
   const session = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
@@ -52,13 +74,33 @@ export async function middleware(request) {
     (locale) =>
       !pathname.startsWith(`/${locale}`) && !pathname.startsWith(`/${locale}/`)
   );
-
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-    return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url)
-    );
+
+    redirectUrl = new URL(`/${locale}${pathname}`, request.url);
+    redirectUrl.search = searchParams.toString();
   }
+  // redirect login when not authenticated user trying to access protected routes
+  if (isProtectedRoute && !session?.email) {
+    const callbackUrl = encodeURIComponent(redirectUrl.pathname);
+    redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.nextUrl);
+  } else if (
+    session?.email &&
+    (exactRoute === "/login" || exactRoute === "/register")
+  ) {
+    redirectUrl = new URL("/", request.nextUrl);
+  } else if (
+    isPublicRoute &&
+    session?.email === "masud@gmail.com" &&
+    !pathname.startsWith("/dashboard")
+  ) {
+    redirectUrl = new URL("/dashboard", request.nextUrl);
+  }
+
+  if (redirectUrl !== request.nextUrl) {
+    return NextResponse.redirect(redirectUrl);
+  }
+
   return response;
 }
 
