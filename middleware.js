@@ -12,8 +12,8 @@ const protectedRoutes = [
   "/add",
   "/edit",
   "/checkout",
-  "/dashboard",
 ];
+const adminRoutes = ["/dashboard"];
 const publicRoutes = [
   "/login",
   "/signup",
@@ -47,6 +47,8 @@ export async function middleware(request) {
   const exactRoute = `/${pathname.split("/")[pathname.split("/").length - 1]}`;
   const isProtectedRoute = protectedRoutes.includes(exactRoute);
   const isPublicRoute = publicRoutes.includes(exactRoute);
+  const isAdminRoute = adminRoutes.includes(exactRoute);
+
   const session = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
@@ -80,6 +82,7 @@ export async function middleware(request) {
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
   }
+
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session?.email) {
     const callbackUrl = encodeURIComponent(redirectUrl.pathname);
@@ -90,11 +93,12 @@ export async function middleware(request) {
   ) {
     redirectUrl = new URL("/", request.nextUrl);
   } else if (
-    isPublicRoute &&
     session?.email === "masud@gmail.com" &&
-    !pathname.startsWith("/dashboard")
+    (isPublicRoute || isProtectedRoute)
   ) {
     redirectUrl = new URL("/dashboard", request.nextUrl);
+  } else if (isAdminRoute && session?.email !== "masud@gmail.com") {
+    redirectUrl = new URL("/", request.nextUrl);
   }
 
   if (redirectUrl !== request.nextUrl) {
