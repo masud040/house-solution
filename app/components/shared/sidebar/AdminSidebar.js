@@ -41,6 +41,11 @@ export default function AdminSidebar() {
                 title="Manage Products"
                 target="dashboard/manage_products"
               />
+              <CustomLink
+                Icon={AiFillProduct}
+                title="Manage Products"
+                target="dashboard/manage_products"
+              />
               {/* <CustomLink
               Icon={IoIosCreate}
               title="Add Blog"
