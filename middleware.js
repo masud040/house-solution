@@ -1,6 +1,7 @@
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { getToken } from "next-auth/jwt";
+
 import { NextResponse } from "next/server";
 
 let defaultLocale = "en";
@@ -39,9 +40,10 @@ function getLocale(request) {
 }
 
 export async function middleware(request) {
+  console.log("Secret", process.env.AUTH_SECRET);
   let redirectUrl = request.nextUrl;
   const { pathname, searchParams } = request.nextUrl;
-  console.log("PathName is", pathname);
+
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
@@ -78,22 +80,11 @@ export async function middleware(request) {
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
   }
-  const sessionToken = request.cookies.get("authjs.session-token");
-  let session = null;
-  if (sessionToken) {
-    try {
-      session = await getToken({
-        req: request,
-        secret: process.env.AUTH_SECRET,
-        token: sessionToken,
-      });
-    } catch (error) {
-      console.error("Error decoding session token:", error);
-    }
-  }
 
-  console.log("Session Token:", sessionToken);
-  console.log("Session Data:", session);
+  let session = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+  });
 
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session) {
