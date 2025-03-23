@@ -49,11 +49,6 @@ export async function middleware(request) {
   const isPublicRoute = publicRoutes.includes(exactRoute);
   const isAdminRoute = adminRoutes.includes(exactRoute);
 
-  const session = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  });
-
   if (isPreflight) {
     const preflightHeaders = {
       ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
@@ -82,7 +77,13 @@ export async function middleware(request) {
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
   }
-
+  const session = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+  });
+  console.log("Auth Secret", process.env.AUTH_SECRET);
+  console.log("Session is", session?.jti);
+  console.log("Procted Route", isProtectedRoute);
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session?.email) {
     const callbackUrl = encodeURIComponent(redirectUrl.pathname);
