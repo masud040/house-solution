@@ -41,6 +41,7 @@ function getLocale(request) {
 export async function middleware(request) {
   let redirectUrl = request.nextUrl;
   const { pathname, searchParams } = request.nextUrl;
+  console.log("PathName is", pathname);
   const origin = request.headers.get("origin") ?? "";
   const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
@@ -81,11 +82,11 @@ export async function middleware(request) {
     req: request,
     secret: process.env.AUTH_SECRET,
   });
-  console.log("Auth Secret", process.env.AUTH_SECRET);
-  console.log("Session is", session?.jti);
-  console.log("Procted Route", isProtectedRoute);
+
+  console.log("Session is", session);
+
   // redirect login when not authenticated user trying to access protected routes
-  if (isProtectedRoute && !session?.email) {
+  if (isProtectedRoute && !session) {
     const callbackUrl = encodeURIComponent(redirectUrl.pathname);
     redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.nextUrl);
   } else if (
