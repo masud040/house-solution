@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { revalidatePath } from "next/cache";
 import connectMongo from "./db/connectMongo";
 import clientPromise from "./db/mongoClientPromise";
 import { UserModel } from "./models/users-model";
@@ -22,7 +21,21 @@ export const {
       secret: process.env.AUTH_SECRET,
     },
   },
-
+  cookies: {
+    sessionToken: {
+      name: "authjs.session-token",
+      options: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? "https://sokher-corner.vercel.app"
+            : undefined,
+      },
+    },
+  },
   providers: [
     CredentialsProvider({
       credentials: {
@@ -44,7 +57,6 @@ export const {
               user.password
             );
             if (isMatch) {
-              revalidatePath("/");
               return user;
             } else {
               message = "Password is not valid";
