@@ -17,22 +17,16 @@ export const {
   }),
   session: {
     strategy: "jwt",
-    jwt: {
-      secret: process.env.AUTH_SECRET,
-    },
   },
   cookies: {
     sessionToken: {
       name: "authjs.session-token",
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true, // Ensure secure cookies in production
         sameSite: "lax",
         path: "/",
-        domain:
-          process.env.NODE_ENV === "production"
-            ? "https://sokher-corner.vercel.app"
-            : undefined,
+        domain: "sokher-corner.vercel.app", // Set to your production domain
       },
     },
   },
