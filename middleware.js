@@ -40,7 +40,6 @@ function getLocale(request) {
 }
 
 export async function middleware(request) {
-  console.log("Secret", process.env.AUTH_SECRET);
   let redirectUrl = request.nextUrl;
   const { pathname, searchParams } = request.nextUrl;
 
@@ -85,6 +84,8 @@ export async function middleware(request) {
     req: request,
     secret: process.env.AUTH_SECRET,
   });
+  console.log("request", request);
+  console.log("Session", session);
 
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session) {
