@@ -22,9 +22,7 @@ export const {
       secret: process.env.AUTH_SECRET,
     },
   },
-  cookies: {
-    secure: true,
-  },
+
   providers: [
     CredentialsProvider({
       credentials: {

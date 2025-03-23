@@ -78,10 +78,19 @@ export async function middleware(request) {
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
   }
-  const session = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  });
+  const sessionToken = request.cookies.get("authjs.session-token");
+  let session = null;
+  if (sessionToken) {
+    try {
+      session = await getToken({
+        req: request,
+        secret: process.env.AUTH_SECRET,
+        token: sessionToken,
+      });
+    } catch (error) {
+      console.error("Error decoding session token:", error);
+    }
+  }
 
   console.log("Session is", session);
 
