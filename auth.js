@@ -18,6 +18,12 @@ export const {
   }),
   session: {
     strategy: "jwt",
+    jwt: {
+      secret: process.env.AUTH_SECRET,
+    },
+  },
+  cookies: {
+    secure: true,
   },
   providers: [
     CredentialsProvider({
