@@ -92,7 +92,8 @@ export async function middleware(request) {
     }
   }
 
-  console.log("Session is", session);
+  console.log("Session Token:", sessionToken);
+  console.log("Session Data:", session);
 
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session) {

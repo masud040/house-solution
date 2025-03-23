@@ -22,7 +22,15 @@ export const {
       secret: process.env.AUTH_SECRET,
     },
   },
-
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "None",
+    httpOnly: true,
+    domain:
+      process.env.NODE_ENV === "production"
+        ? "https://sokher-corner.vercel.app"
+        : undefined,
+  },
   providers: [
     CredentialsProvider({
       credentials: {
