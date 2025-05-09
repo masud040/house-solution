@@ -46,6 +46,7 @@ export const BillingAddressAddForm = ({
     async function getDivision() {
       const res = await fetch(`https://bdapis.com/api/v1.2/divisions`);
       const data = await res.json();
+      console.log(data);
       if (data?.status?.code === 200 && data?.status?.message === "ok") {
         setDivisions(data.data);
       }

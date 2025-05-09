@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Greetings from "@/app/components/dashboard/Greetings";
 import AdminSidebar from "@/app/components/shared/sidebar/AdminSidebar";
-import connectMongo from "@/db/connectMongo";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import "../../globals.css";
@@ -18,8 +17,7 @@ export const metadata = {
   favicon: "/public/favicon.ico",
 };
 
-export default async function RootLayout({ children }) {
-  await connectMongo();
+export default async function DashboardLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>

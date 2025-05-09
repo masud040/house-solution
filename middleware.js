@@ -79,25 +79,26 @@ export async function middleware(request) {
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
   }
-  console.log("Request", request);
-  console.log("Secret", process.env.AUTH_SECRET);
+  // get session
   let session = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
   });
 
-  console.log("Session", session);
-
   // redirect login when not authenticated user trying to access protected routes
   if (isProtectedRoute && !session) {
     const callbackUrl = encodeURIComponent(redirectUrl.pathname);
     redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.nextUrl);
-  } else if (
+  }
+  // registerd user doesn't access login or register routes
+  if (
     session?.email &&
     (exactRoute === "/login" || exactRoute === "/register")
   ) {
     redirectUrl = new URL("/", request.nextUrl);
-  } else if (
+  }
+  // check admin
+  if (
     session?.email === "masud@gmail.com" &&
     (isPublicRoute || isProtectedRoute)
   ) {

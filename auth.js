@@ -18,18 +18,18 @@ export const {
   session: {
     strategy: "jwt",
   },
-  cookies: {
-    sessionToken: {
-      name: "authjs.session-token",
-      options: {
-        httpOnly: true,
-        secure: true, // Ensure secure cookies in production
-        sameSite: "lax",
-        path: "/",
-        domain: "sokher-corner.vercel.app", // Set to your production domain
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: "authjs.session-token",
+  //     options: {
+  //       httpOnly: true,
+  //       secure: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       domain: "sokher-corner.vercel.app",
+  //     },
+  //   },
+  // },
   providers: [
     CredentialsProvider({
       credentials: {
