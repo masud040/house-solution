@@ -18,7 +18,7 @@ export default async function AddShippingAddress({ searchParams }) {
         name1="Shipping Address"
         name2="Edit"
       />
-      <div className="container pt-4">
+      <div className="pt-4">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="pb-4 text-xl text-center">Add Shipping Address</h2>
           <BillingAddressAddForm

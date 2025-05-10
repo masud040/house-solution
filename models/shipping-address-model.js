@@ -26,7 +26,7 @@ const shippingAddresSchema = new Schema({
     required: true,
   },
   landmark: {
-    type: Number,
+    type: String,
     required: true,
   },
 

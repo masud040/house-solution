@@ -3,7 +3,7 @@ import { ThemeContext } from "@/context";
 import { useEffect, useState } from "react";
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     setTheme(mediaQuery.matches ? "dark" : "light");

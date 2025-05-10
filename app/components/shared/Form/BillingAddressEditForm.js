@@ -1,17 +1,15 @@
 "use client";
 
-import { addAndUpdateBillingData, addAndUpdateShippingData } from "@/actions";
 import useGetAllDivisions from "@/app/hooks/useGetAllDivisions";
 import useMode from "@/app/hooks/useMode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import Field from "../Field";
 
-export const BillingAddressAddForm = ({
+export const BillingAddressEditForm = ({
   user,
-
+  address,
   useFor,
   searchParams,
 }) => {
@@ -35,10 +33,12 @@ export const BillingAddressAddForm = ({
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState("");
   const { theme } = useMode();
+  const [addressData, setAddressData] = useState({
+    area: address?.area ?? "default",
+    city: address?.city ?? "default",
+    province: address?.province ?? "default",
+  });
   const router = useRouter();
-  const division = watch("area");
-  const district = watch("city");
-  const province = watch("province");
 
   // run this effect for get all district based on area
   useEffect(() => {
@@ -72,27 +72,40 @@ export const BillingAddressAddForm = ({
     getUpazilla();
   }, [divisionId, districtId]);
 
+  // fill the form from existing data
+  useEffect(() => {
+    setDivisionId(
+      allDivision?.find(
+        (divisionData) => divisionData.name === addressData?.area
+      )?.id
+    );
+
+    setDistrictId(
+      districts?.find((district) => district.name === addressData?.city)?.id
+    );
+  }, [districts, allDivision]);
+
   // submit handeler
   async function onSubmit(data) {
     // set manual error
-    if (division === "default") {
-      setError("area", {
-        type: "manual",
-        message: "Area is required!",
-      });
-    }
-    if (district === "default") {
-      setError("city", {
-        type: "manual",
-        message: "District is required!",
-      });
-    }
-    if (province === "default") {
-      setError("province", {
-        type: "manual",
-        message: "Province is required!",
-      });
-    }
+    // if (division === "default") {
+    //   setError("area", {
+    //     type: "manual",
+    //     message: "Area is required!",
+    //   });
+    // }
+    // if (district === "default") {
+    //   setError("city", {
+    //     type: "manual",
+    //     message: "District is required!",
+    //   });
+    // }
+    // if (province === "default") {
+    //   setError("province", {
+    //     type: "manual",
+    //     message: "Province is required!",
+    //   });
+    // }
 
     try {
       setLoading(true); // Start loading
@@ -103,29 +116,29 @@ export const BillingAddressAddForm = ({
 
       const { isUseShipping, ...rest } = newData;
 
-      if (useFor === "billing") {
-        const res = await addAndUpdateBillingData(newData, user.id);
-        if (res.success) {
-          toast.success(res.message, {
-            autoClose: 1500,
-          });
-          router.push("/account");
-          reset();
-        }
-      } else {
-        const res = await addAndUpdateShippingData(rest, user.id);
-        if (res.success) {
-          toast.success(res.message, {
-            autoClose: 1500,
-          });
-          if (searchParams?.selected && searchParams?.isCheckout) {
-            router.push(`/en/checkout?selected=${searchParams?.selected}`);
-          } else {
-            router.push("/en/account");
-          }
-          reset();
-        }
-      }
+      // if (useFor === "billing") {
+      //   const res = await addAndUpdateBillingData(newData, user.id);
+      //   if (res.success) {
+      //     toast.success(res.message, {
+      //       autoClose: 1500,
+      //     });
+      //     router.push("/account");
+      //     reset();
+      //   }
+      // } else {
+      //   const res = await addAndUpdateShippingData(rest, user.id);
+      //   if (res.success) {
+      //     toast.success(res.message, {
+      //       autoClose: 1500,
+      //     });
+      //     if (searchParams?.selected && searchParams?.isCheckout) {
+      //       router.push(`/en/checkout?selected=${searchParams?.selected}`);
+      //     } else {
+      //       router.push("/en/account");
+      //     }
+      //     reset();
+      //   }
+      // }
     } catch (error) {
       console.log(error);
       setGlobalError(error.message);
@@ -137,36 +150,38 @@ export const BillingAddressAddForm = ({
   function handleChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
-
-    setValue(name, value);
-    // clear the error
-    clearErrors(name);
+    setAddressData({
+      ...addressData,
+      [name]: value.trim(),
+    });
   }
 
   function handleAddDivision(e) {
     if (e.target.value) {
-      const divId = allDivision?.find(
-        (division) => division.name === e.target.value
-      )?.id;
-      setDivisionId(divId);
-      setValue("area", e.target.value);
-      setValue("city", "default");
-      setValue("province", "default");
-      clearErrors("area");
+      setDivisionId(
+        allDivision?.find((division) => division.name === e.target.value)?.id
+      );
+      setAddressData({
+        ...addressData,
+        area: e.target.value,
+        city: "default",
+        province: "default",
+      });
     }
   }
   function handleAddCity(e) {
     if (e.target.value) {
-      const disId = districts?.find(
-        (district) => district.name === e.target.value
-      )?.id;
-      setDistrictId(disId);
-      setValue("city", e.target.value);
-      setValue("province", "default");
-      clearErrors("city");
+      setDistrictId(
+        districts?.find((district) => district.name === e.target.value)?.id
+      );
+      setAddressData({
+        ...addressData,
+        city: e.target.value,
+        province: "default",
+      });
     }
   }
-
+  console.log(addressData);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">
@@ -214,7 +229,7 @@ export const BillingAddressAddForm = ({
           id="area"
           className="rounded-md input-field"
           {...register("area")}
-          defaultValue="default"
+          value={addressData?.area}
           onChange={handleAddDivision}
         >
           <option className="hidden" disabled value="default">
@@ -232,11 +247,11 @@ export const BillingAddressAddForm = ({
         <select
           name="city"
           id="city"
-          disabled={division === "default"}
-          title={division === "default" && "First select your area"}
+          disabled={addressData?.area === "default"}
+          title={addressData?.area === "default" && "First select your area"}
           className="rounded-md input-field disabled:cursor-not-allowed"
           {...register("city")}
-          value={district ?? "default"}
+          value={addressData?.city}
           onChange={handleAddCity}
         >
           <option className="hidden" disabled value="default">
@@ -256,10 +271,10 @@ export const BillingAddressAddForm = ({
           name="province"
           id="province"
           className="rounded-md input-field disabled:cursor-not-allowed"
-          disabled={district === "default"}
-          title={district === "default" && "First select your city"}
+          disabled={addressData?.city === "default"}
+          title={addressData?.city === "default" && "First select your city"}
           {...register("province")}
-          value={province ?? "default"}
+          value={addressData?.province}
           onChange={handleChange}
         >
           <option disabled className="hidden" value="default">

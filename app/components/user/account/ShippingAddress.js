@@ -11,7 +11,11 @@ export const ShippingAddress = ({ shippingAddress, searchParams }) => {
           href={`/en/account/shipping-address/${
             shippingAddress?.userId
               ? "edit"
-              : `add?selected=${searchParams?.selected}&isCheckout=${searchParams?.isCheckout}`
+              : `${
+                  searchParams?.selected
+                    ? `add?selected=${searchParams?.selected}&isCheckout=${searchParams?.isCheckout}`
+                    : "add"
+                }`
           }`}
           className="text-primary"
         >
