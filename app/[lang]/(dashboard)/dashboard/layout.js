@@ -7,7 +7,7 @@ import Greetings from "@/app/components/dashboard/Greetings";
 import AdminSidebar from "@/app/components/shared/sidebar/AdminSidebar";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
-import "../../globals.css";
+import "../../../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

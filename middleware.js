@@ -97,13 +97,14 @@ export async function middleware(request) {
   ) {
     redirectUrl = new URL("/", request.nextUrl);
   }
+
   // check admin
   if (
     session?.email === "masud@gmail.com" &&
     (isPublicRoute || isProtectedRoute)
   ) {
     redirectUrl = new URL("/dashboard", request.nextUrl);
-  } else if (isAdminRoute && session?.email !== "masud@gmail.com") {
+  } else if (isAdminRoute && !session?.email) {
     redirectUrl = new URL("/", request.nextUrl);
   }
 
