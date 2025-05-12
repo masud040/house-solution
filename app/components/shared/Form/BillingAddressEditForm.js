@@ -181,7 +181,7 @@ export const BillingAddressEditForm = ({
       });
     }
   }
-  console.log(addressData);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="my-4">
       <Field label="Full Name" error={errors?.fullName} htmlFor="fullName">

@@ -177,6 +177,7 @@ export async function generateRequest({
     const user = await getUserByEmail(session?.user?.email);
 
     const billingAddress = await getBillingAddressByUserId(user.id);
+
     const data = dataConfig({
       totalPrice: totalPrice,
       name: user.name,

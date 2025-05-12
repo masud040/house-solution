@@ -90,9 +90,9 @@ export const pdfGenerator = async ({
         (order.product_price -
           order.product_price * (order.product_discount / 100)) *
         order.quantity;
-      console.log("total", totalPrice);
+
       const base64Image = await fetchImageAsBase64(order.product_thumbnail);
-      console.log("64", base64Image);
+
       return (
         <View style={styles.productContainer} key={order.id}>
           <Image
@@ -113,7 +113,6 @@ export const pdfGenerator = async ({
       );
     })
   );
-  console.log("product Items", productItems);
 
   const doc = (
     <Document>
