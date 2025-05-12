@@ -1,4 +1,4 @@
-# 🏠 Sokher Corner – E-Commerce Website
+# Sokher Corner – E-Commerce Website
 
 
 🔗 **Live Site**: [Visit Sokher Corner](https://sokher-corner.vercel.app)
