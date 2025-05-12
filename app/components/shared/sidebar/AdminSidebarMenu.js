@@ -1,6 +1,7 @@
 "use client";
 import { AiFillProduct } from "react-icons/ai";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdReviews, MdViewQuilt } from "react-icons/md";
+import { RiCoupon2Fill } from "react-icons/ri";
 import CustomLink from "./CustomLink";
 export default function AdminSideMenu() {
   return (
@@ -13,21 +14,27 @@ export default function AdminSideMenu() {
       />
       <CustomLink
         Icon={AiFillProduct}
-        title="Manage Products"
-        target="dashboard/manage_products"
+        title="Manage Orders"
+        target="dashboard/manage_orders"
       />
-      {/* <CustomLink
-                      Icon={IoIosCreate}
-                      title="Add Blog"
-                      target="/add-blog"
-                    /> */}
-      {/* 
-                    <CustomLink
-                      Icon={FaCloudUploadAlt}
-                      title="Generate Image Link"
-                      target="/upload-image"
-                      newTab={true}
-                    /> */}
+      <CustomLink
+        Icon={MdViewQuilt}
+        title="Analytics and Reports"
+        target="dashboard/analytics_reports"
+      />
+
+      <CustomLink
+        Icon={RiCoupon2Fill}
+        title="Manage Coupons"
+        target="dashboard/manage_coupons"
+        newTab={true}
+      />
+      <CustomLink
+        Icon={MdReviews}
+        title="Ratings @ Reviews"
+        target="dashboard/ratings_reviews"
+        newTab={true}
+      />
     </ul>
   );
 }
