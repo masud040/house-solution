@@ -32,6 +32,8 @@ Unlike regular e-commerce platforms, Sokher Corner includes additional features 
 
 ![Home Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067303/homepage_evmqsu.png) 
 
+![Shop Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067771/screencapture-localhost-3000-en-shop-2025-05-12-22_35_43_qe6amo.png) 
+
 ![Prodcut Details](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067302/detailspage_bftol3.png) 
 
 ![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067301/checkout_u26ier.png) 
