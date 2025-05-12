@@ -1,4 +1,7 @@
-#🏠 Sokher Corner – E-Commerce Website
+# 🏠 Sokher Corner – E-Commerce Website
+
+
+🔗 **Live Site**: [Visit Sokher Corner](https://sokher-corner.vercel.app)
 
 Sokher Corner is a modern e-commerce platform specializing in home decoration and furniture. It features a clean, user-friendly interface for customers to seamlessly browse, filter, and securely purchase products. Sellers can manage inventory and monitor sales through a dedicated dashboard.
 
