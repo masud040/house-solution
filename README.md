@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#🏠 Sokher Corner – E-Commerce Website
 
-## Getting Started
+Sokher Corner is a modern e-commerce platform specializing in home decoration and furniture. It features a clean, user-friendly interface for customers to seamlessly browse, filter, and securely purchase products. Sellers can manage inventory and monitor sales through a dedicated dashboard.
 
-First, run the development server:
+Unlike regular e-commerce platforms, Sokher Corner includes additional features such as automatic emails with order summaries and zoomable product images for an enhanced user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### For Customers:
+- 🛍 Browse products by category (e.g., Mattress, Sofa, Bedroom)
+- 🔍 Filter by price and category
+- 🔎 Zoom in on product images with **React Magnifier**
+- 💳 Secure checkout via **SSLCommerz**
+- 📧 Receive automated emails with attached PDF order summaries
+- 🚚 Track order status
+- 🆕 Explore new arrivals and trending products
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### For Sellers:
+- 📦 Manage products and orders
+- 📊 View sales analytics and reports
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## ⚙️ Tech Stack
+- **Framework**: Next.js – Full-stack React framework
+- **Styling**: Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose
+- **Authentication**: NextAuth
+- **Payment Gateway**: SSLCommerz
+- **Email & PDF Generation**: Nodemailer + Puppeteer (using @sparticuz/chromium for serverless compatibility)
 
-## Learn More
+## 🖼 Preview
 
-To learn more about Next.js, take a look at the following resources:
+![Home Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067303/homepage_evmqsu.png) 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Prodcut Details](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067302/detailspage_bftol3.png) 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067301/checkout_u26ier.png) 
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067304/screencapture-localhost-3000-en-track-orders-681ed70d501398a9a389324b-2025-05-12-22_27_22_lifmup.png) 
