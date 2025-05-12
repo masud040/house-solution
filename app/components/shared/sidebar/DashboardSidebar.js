@@ -1,13 +1,11 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
-import { AiFillProduct } from "react-icons/ai";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { MdDashboard } from "react-icons/md";
 import { ConfirmationModal } from "../modal/ConfirmationModal";
-import CustomLink from "./CustomLink";
-export default function AdminSidebar() {
+export default function DashboardSidebar({ children }) {
   const [isShow, setIsShow] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -24,42 +22,15 @@ export default function AdminSidebar() {
           } flex-column fixed h-full overflow-hidden border-r bg-background-light dark:bg-background-dark transition-all duration-500 dark:border-tertiary/20 ease-in-out`}
         >
           <div className="flex items-center justify-between p-5 border-b-light-default_dark-tertiary">
-            <h1 className="font-bold text-transparent h5-md-h4-medium bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text">
+            <Link
+              href={"/"}
+              className="font-bold text-transparent h5-md-h4-medium bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text"
+            >
               Sokher Corner
-            </h1>
+            </Link>
           </div>
 
-          {isShow && (
-            <ul className="flex flex-col gap-2 p-5 md:gap-3">
-              <CustomLink
-                Icon={MdDashboard}
-                title="Dashboard"
-                target="dashboard"
-              />
-              <CustomLink
-                Icon={AiFillProduct}
-                title="Manage Products"
-                target="dashboard/manage_products"
-              />
-              <CustomLink
-                Icon={AiFillProduct}
-                title="Manage Products"
-                target="dashboard/manage_products"
-              />
-              {/* <CustomLink
-              Icon={IoIosCreate}
-              title="Add Blog"
-              target="/add-blog"
-            /> */}
-              {/* 
-            <CustomLink
-              Icon={FaCloudUploadAlt}
-              title="Generate Image Link"
-              target="/upload-image"
-              newTab={true}
-            /> */}
-            </ul>
-          )}
+          {isShow && children}
 
           {isShow && (
             <div className="px-5 pb-10 mt-0 md:mt-auto">

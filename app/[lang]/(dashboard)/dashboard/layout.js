@@ -4,7 +4,11 @@ import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 
 import Greetings from "@/app/components/dashboard/Greetings";
-import AdminSidebar from "@/app/components/shared/sidebar/AdminSidebar";
+import AdminSideMenu from "@/app/components/shared/sidebar/AdminSidebarMenu";
+import DashboardSidebar from "@/app/components/shared/sidebar/DashboardSidebar";
+import UserSideMenu from "@/app/components/shared/sidebar/UserSidebarMenu";
+import { auth } from "@/auth";
+import { getUserByEmail } from "@/db/queries";
 import ThemeProvider from "@/provider/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import "../../../globals.css";
@@ -18,15 +22,23 @@ export const metadata = {
 };
 
 export default async function DashboardLayout({ children }) {
+  const session = await auth();
+  const user = await getUserByEmail(session?.user?.email);
   return (
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider>
-          <div className="min-h-screen">
+          <div className="min-h-screen mx-auto">
             <div className="flex">
-              <AdminSidebar />
+              <DashboardSidebar>
+                {user?.email !== "masud@gmail.com" ? (
+                  <UserSideMenu />
+                ) : (
+                  <AdminSideMenu />
+                )}
+              </DashboardSidebar>
               <div className="flex-1 w-full mx-6 mt-4 mb-10 lg:mx-10">
-                <Greetings />
+                <Greetings name={user?.name} />
                 {children}
               </div>
             </div>
