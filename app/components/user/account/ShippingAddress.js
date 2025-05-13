@@ -8,7 +8,7 @@ export const ShippingAddress = ({ shippingAddress, searchParams }) => {
           Shipping address
         </h3>
         <Link
-          href={`/en/account/shipping-address/${
+          href={`/en/user-profile/shipping-address/${
             shippingAddress?.userId
               ? "edit"
               : `${

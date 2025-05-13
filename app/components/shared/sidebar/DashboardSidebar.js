@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { ConfirmationModal } from "../modal/ConfirmationModal";
-export default function DashboardSidebar({ children }) {
+export default function DashboardSidebar({ children, admin }) {
   const [isShow, setIsShow] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -13,21 +13,29 @@ export default function DashboardSidebar({ children }) {
     <>
       <div
         className={`${
-          isShow ? "w-72" : "w-0"
+          isShow ? `${admin ? "w-72" : "w-56"}` : "w-0"
         } relative z-50 transition-all duration-500 ease-in-out`}
       >
         <div
           className={`${
-            isShow ? "w-72" : "w-0"
-          } flex-column fixed h-full overflow-hidden border-r bg-background-light dark:bg-background-dark transition-all duration-500 dark:border-tertiary/20 ease-in-out`}
+            isShow ? `${admin ? "w-72" : "w-56"}` : "w-0"
+          } flex-column fixed h-full ${
+            admin
+              ? "border-r dark:border-tertiary/20"
+              : "top-[142px] md:top-[152px]"
+          } overflow-hidden bg-background-light dark:bg-background-dark transition-all duration-500 border ease-in-out`}
         >
           <div className="flex items-center justify-between p-5 border-b-light-default_dark-tertiary">
-            <Link
-              href={"/"}
-              className="font-bold text-transparent h5-md-h4-medium bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text"
-            >
-              Sokher Corner
-            </Link>
+            {admin ? (
+              <Link
+                href={"/"}
+                className="font-bold text-transparent h5-md-h4-medium bg-gradient-to-r from-primary-dark to-purple-800 bg-clip-text"
+              >
+                Sokher Corner
+              </Link>
+            ) : (
+              <div className="py-2.5" />
+            )}
           </div>
 
           {isShow && children}
@@ -44,8 +52,8 @@ export default function DashboardSidebar({ children }) {
           )}
         </div>
         <button
-          className={`fixed top-5 ${
-            isShow ? "left-[240px]" : "left-2"
+          className={`fixed ${admin ? "top-5" : "top-[157px] md:top-[167px]"} ${
+            isShow ? `${admin ? "left-[240px]" : "left-[170px]"}` : "left-2"
           } rounded-full p-1.5 text-2xl text-primary-light shadow-custom-inset transition-all duration-500 ease-in-out hover:scale-105 dark:shadow-custom-inset-dark`}
           onClick={() => setIsShow(!isShow)}
         >

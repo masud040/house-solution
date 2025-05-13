@@ -9,7 +9,7 @@ let locales = ["en", "bn"];
 const protectedRoutes = [
   "/wishlist",
   "/cart",
-  "/account",
+  "/user-profile",
   "/add",
   "/edit",
   "/checkout",
