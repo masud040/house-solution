@@ -87,6 +87,7 @@ export async function middleware(request) {
   if (isProtectedRoute && !session) {
     const callbackUrl = encodeURIComponent(pathname);
     redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.url);
+    return NextResponse.redirect(redirectUrl);
   }
 
   // Prevent logged in user from seeing login/register
@@ -96,18 +97,9 @@ export async function middleware(request) {
       pathnameWithoutLocale === "/register")
   ) {
     redirectUrl = new URL("/", request.nextUrl);
-  }
-
-  // Admin redirect logic
-  if (
-    session?.email === "masud@gmail.com" &&
-    (isProtectedRoute || isPublicRoute)
-  ) {
-    redirectUrl = new URL("/profile", request.url);
-  }
-  if (redirectUrl !== request.nextUrl) {
     return NextResponse.redirect(redirectUrl);
   }
+
   return response;
 }
 
