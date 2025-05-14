@@ -13,7 +13,7 @@ import { ActiveLink } from "./ActiveLink";
 
 export default async function Navbar({ from }) {
   const session = await auth();
-  console.log(from);
+
   return (
     <nav className="w-full shadow-xl bg-background-light dark:bg-background-dark">
       <div

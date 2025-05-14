@@ -33,77 +33,80 @@ function getLocale(request) {
 }
 
 export async function middleware(request) {
-  let redirectUrl = request.nextUrl;
   const { pathname, searchParams } = request.nextUrl;
-
   const origin = request.headers.get("origin") ?? "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
+
+  // Strip locale
+  const pathnameWithoutLocale = pathname.replace(/^\/(en|bn)/, "") || "/";
+  const isProtectedRoute = protectedRoutes.includes(pathnameWithoutLocale);
+  const isPublicRoute = publicRoutes.includes(pathnameWithoutLocale);
+  const isAdminRoute = adminRoutes.includes(pathnameWithoutLocale);
   const isPreflight = request.method === "OPTIONS";
-  const exactRoute = `/${pathname.split("/")[pathname.split("/").length - 1]}`;
+  const isAllowedOrigin = allowedOrigins.includes(origin);
 
-  const isProtectedRoute = protectedRoutes.includes(exactRoute);
-  const isPublicRoute = publicRoutes.includes(exactRoute);
-  const isAdminRoute = adminRoutes.includes(exactRoute);
-
+  // CORS Preflight
   if (isPreflight) {
-    const preflightHeaders = {
-      ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
-      ...corsOptions,
-    };
-    return NextResponse.json({}, { headers: preflightHeaders });
+    return NextResponse.json(
+      {},
+      {
+        headers: {
+          ...(isAllowedOrigin && { "Access-Control-Allow-Origin": origin }),
+          ...corsOptions,
+        },
+      }
+    );
   }
-  const response = NextResponse.next();
 
-  // Set CORS Headers for Allowed Origins
-  if (allowedOrigins.includes(origin)) {
+  const response = NextResponse.next();
+  if (isAllowedOrigin) {
     response.headers.set("Access-Control-Allow-Origin", origin);
   }
   Object.entries(corsOptions).forEach(([key, value]) => {
     response.headers.set(key, value);
   });
 
-  // Locale Handling
-  const pathnameIsMissingLocale = locales.every(
+  // Locale redirect
+  const localeMissing = locales.every(
     (locale) =>
       !pathname.startsWith(`/${locale}`) && !pathname.startsWith(`/${locale}/`)
   );
-  if (pathnameIsMissingLocale) {
+  if (localeMissing) {
     const locale = getLocale(request);
-
-    redirectUrl = new URL(`/${locale}${pathname}`, request.url);
+    const redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
+    return NextResponse.redirect(redirectUrl);
   }
-  // get session
-  let session = await getToken({
+
+  // Auth check
+  const session = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
   });
 
-  // redirect login when not authenticated user trying to access protected routes
+  // Redirect unauthenticated user from protected route
   if (isProtectedRoute && !session) {
-    const callbackUrl = encodeURIComponent(redirectUrl.pathname);
-    redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.nextUrl);
+    const callbackUrl = encodeURIComponent(pathname);
+    const loginUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.url);
+    return NextResponse.redirect(loginUrl);
   }
-  // registerd user doesn't access login or register routes
+
+  // Prevent logged in user from seeing login/register
   if (
     session?.email &&
-    (exactRoute === "/login" || exactRoute === "/register")
+    (pathnameWithoutLocale === "/login" ||
+      pathnameWithoutLocale === "/register")
   ) {
-    redirectUrl = new URL("/", request.nextUrl);
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // check admin
+  // Admin redirect logic
   if (
     session?.email === "masud@gmail.com" &&
-    (isPublicRoute || isProtectedRoute)
+    (isProtectedRoute || isPublicRoute)
   ) {
-    redirectUrl = new URL("/profile", request.nextUrl);
+    return NextResponse.redirect(new URL("/profile", request.url));
   } else if (isAdminRoute && !session?.email) {
-    redirectUrl = new URL("/", request.nextUrl);
-  }
-
-  if (redirectUrl !== request.nextUrl) {
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;
