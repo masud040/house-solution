@@ -1,33 +1,30 @@
 "use client";
-import { AiFillProduct } from "react-icons/ai";
-import { MdDashboard } from "react-icons/md";
-import CustomLink from "./CustomLink";
+import { ActiveLink } from "../ActiveLink";
 export default function UserSideMenu() {
   return (
-    <ul className="flex flex-col gap-2 p-5 md:gap-3">
-      <CustomLink Icon={MdDashboard} title="Dashboard" target="dashboard" />
-      <CustomLink
-        Icon={AiFillProduct}
-        title="Manage Products"
-        target="dashboard/manage_products"
+    <ul className="gap-2 p-5 flex-column">
+      <ActiveLink name="Manage My Account" path="/profile" profile={true} />
+      <ul className="gap-1 pb-3 ps-3 flex-column">
+        <ActiveLink name="Address Book" path="/profile/address" small={true} />
+      </ul>
+      <ActiveLink name="My Orders" path="/profile/orders" profile={true} />
+      <ul className="gap-1 pb-3 ps-3 flex-column">
+        <ActiveLink
+          name="My Returns"
+          path="/profile/order-returns"
+          small={true}
+        />
+        <ActiveLink
+          name="My Cancellations"
+          path="/profile/order-cancellations"
+          small={true}
+        />
+      </ul>
+      <ActiveLink
+        name="My Reviews"
+        path="/profile/order-reviews"
+        profile={true}
       />
-      <CustomLink
-        Icon={AiFillProduct}
-        title="Manage Products"
-        target="dashboard/manage_products"
-      />
-      {/* <CustomLink
-                      Icon={IoIosCreate}
-                      title="Add Blog"
-                      target="/add-blog"
-                    /> */}
-      {/* 
-                    <CustomLink
-                      Icon={FaCloudUploadAlt}
-                      title="Generate Image Link"
-                      target="/upload-image"
-                      newTab={true}
-                    /> */}
     </ul>
   );
 }

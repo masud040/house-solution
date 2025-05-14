@@ -9,12 +9,12 @@ let locales = ["en", "bn"];
 const protectedRoutes = [
   "/wishlist",
   "/cart",
-  "/user-profile",
   "/add",
   "/edit",
   "/checkout",
+  "/orders",
 ];
-const adminRoutes = ["/dashboard"];
+const adminRoutes = ["/profile"];
 const publicRoutes = [
   "/login",
   "/signup",
@@ -47,6 +47,7 @@ export async function middleware(request) {
   const isAllowedOrigin = allowedOrigins.includes(origin);
   const isPreflight = request.method === "OPTIONS";
   const exactRoute = `/${pathname.split("/")[pathname.split("/").length - 1]}`;
+
   const isProtectedRoute = protectedRoutes.includes(exactRoute);
   const isPublicRoute = publicRoutes.includes(exactRoute);
   const isAdminRoute = adminRoutes.includes(exactRoute);
@@ -103,7 +104,7 @@ export async function middleware(request) {
     session?.email === "masud@gmail.com" &&
     (isPublicRoute || isProtectedRoute)
   ) {
-    redirectUrl = new URL("/dashboard", request.nextUrl);
+    redirectUrl = new URL("/profile", request.nextUrl);
   } else if (isAdminRoute && !session?.email) {
     redirectUrl = new URL("/", request.nextUrl);
   }

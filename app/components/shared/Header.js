@@ -45,7 +45,7 @@ export default async function Header() {
             </Link>
           </li>
           <li title="Account">
-            <Link href="/dashboard" className="header-link">
+            <Link href="/profile" className="header-link">
               <div
                 className={`${
                   session?.user?.image || session?.user?.name

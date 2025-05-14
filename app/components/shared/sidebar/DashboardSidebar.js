@@ -14,16 +14,14 @@ export default function DashboardSidebar({ children, admin }) {
       <div
         className={`${
           isShow ? `${admin ? "w-72" : "w-56"}` : "w-0"
-        } relative z-50 transition-all duration-500 ease-in-out`}
+        } relative transition-all duration-500 ease-in-out`}
       >
         <div
           className={`${
-            isShow ? `${admin ? "w-72" : "w-56"}` : "w-0"
-          } flex-column fixed h-full ${
-            admin
-              ? "border-r dark:border-tertiary/20"
-              : "top-[142px] md:top-[152px]"
-          } overflow-hidden bg-background-light dark:bg-background-dark transition-all duration-500 border ease-in-out`}
+            isShow
+              ? `${admin ? "w-72 " : "w-56 top-[142px] md:top-[152px]"}`
+              : "w-0"
+          } flex-column fixed h-full overflow-hidden bg-background-light dark:bg-background-dark transition-all duration-500 border-r dark:border-tertiary/20 ease-in-out`}
         >
           <div className="flex items-center justify-between p-5 border-b-light-default_dark-tertiary">
             {admin ? (
@@ -52,7 +50,9 @@ export default function DashboardSidebar({ children, admin }) {
           )}
         </div>
         <button
-          className={`fixed ${admin ? "top-5" : "top-[157px] md:top-[167px]"} ${
+          className={`fixed z-50 ${
+            admin ? "top-5" : "top-[157px] md:top-[167px]"
+          } ${
             isShow ? `${admin ? "left-[240px]" : "left-[170px]"}` : "left-2"
           } rounded-full p-1.5 text-2xl text-primary-light shadow-custom-inset transition-all duration-500 ease-in-out hover:scale-105 dark:shadow-custom-inset-dark`}
           onClick={() => setIsShow(!isShow)}

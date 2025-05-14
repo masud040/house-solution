@@ -35,21 +35,28 @@ export default async function DashboardLayout({ children }) {
         <ThemeProvider>
           <div className="min-h-screen mx-auto">
             {!isAdmin && (
-              <>
-                <Header />
-                <Navbar />
-              </>
+              <div className="h-[142px] md:h-[152px]">
+                <div className="fixed w-full">
+                  <Header />
+                  <Navbar />
+                </div>
+              </div>
             )}
             <div className="flex">
               <DashboardSidebar admin={isAdmin}>
                 {!isAdmin ? <UserSideMenu /> : <AdminSideMenu />}
               </DashboardSidebar>
-              <div className="flex-1 w-full mx-6 mt-4 mb-10 lg:mx-10">
-                {isAdmin && <Greetings name={user?.name} />}
-                {children}
+              <div className="flex-1 w-full">
+                {isAdmin && (
+                  <div className="h-[72px] sticky top-0 w-full">
+                    <Greetings name={user?.name} />
+                  </div>
+                )}
+                <div className="py-6">{children}</div>
               </div>
             </div>
           </div>
+
           <ToastContainer />
         </ThemeProvider>
       </body>
