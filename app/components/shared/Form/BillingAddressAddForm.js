@@ -121,7 +121,7 @@ export const BillingAddressAddForm = ({
           if (searchParams?.selected && searchParams?.isCheckout) {
             router.push(`/en/checkout?selected=${searchParams?.selected}`);
           } else {
-            router.push("/en/account");
+            router.push("/en/profile");
           }
           reset();
         }

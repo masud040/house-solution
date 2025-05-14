@@ -27,6 +27,7 @@ export const metadata = {
 export default async function DashboardLayout({ children }) {
   const session = await auth();
   const user = await getUserByEmail(session?.user?.email);
+
   const isAdmin = checkIsAdmin(user?.email);
 
   return (
@@ -42,7 +43,11 @@ export default async function DashboardLayout({ children }) {
             )}
             <div className="flex">
               <DashboardSidebar admin={isAdmin}>
-                {!isAdmin ? <UserSideMenu /> : <AdminSideMenu />}
+                {!isAdmin ? (
+                  <UserSideMenu userId={user?.id} />
+                ) : (
+                  <AdminSideMenu />
+                )}
               </DashboardSidebar>
               <div className="flex-1 w-full">
                 {isAdmin && (

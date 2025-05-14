@@ -77,7 +77,7 @@ export async function middleware(request) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  console.log("Session", session);
+
   if (isProtectedRoute && !session) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("callbackUrl", pathname);
