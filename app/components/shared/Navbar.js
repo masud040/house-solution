@@ -11,11 +11,16 @@ import Link from "next/link";
 import SignInSignUp from "../user/auth/SignInSignUp";
 import { ActiveLink } from "./ActiveLink";
 
-export default async function Navbar() {
+export default async function Navbar({ from }) {
   const session = await auth();
+  console.log(from);
   return (
     <nav className="w-full shadow-xl bg-background-light dark:bg-background-dark">
-      <div className="container py-4 flex-center">
+      <div
+        className={`${
+          from === "dashboard" ? "px-6" : "px-4 md:px-10"
+        }  py-4 flex-center`}
+      >
         <div className="relative hidden px-4 py-2 cursor-pointer h-fit bg-primary md:flex-center group">
           <span className="text-background-light">
             <i className="fa-solid fa-bars"></i>

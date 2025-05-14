@@ -1,5 +1,7 @@
-export default async function Greetings() {
+export default function Greetings({ name, isSidebarOpen }) {
   return (
-    <div className="text-indigo-500 flex-end h5-medium">Welcome Back |</div>
+    <div className="w-full px-6 py-[22px] text-indigo-500 bg-white drop-shadow-sm flex-end h5-medium">
+      Welcome Back | {name}
+    </div>
   );
 }

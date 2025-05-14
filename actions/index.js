@@ -177,6 +177,7 @@ export async function generateRequest({
     const user = await getUserByEmail(session?.user?.email);
 
     const billingAddress = await getBillingAddressByUserId(user.id);
+
     const data = dataConfig({
       totalPrice: totalPrice,
       name: user.name,
@@ -194,7 +195,7 @@ export async function generateRequest({
 }
 
 export async function generateOrderIds(order_items_id) {
-  const orderIds = order_items_id.map((id) => {
+  const orderIds = order_items_id.map(() => {
     return new ObjectId().toString();
   });
   return orderIds;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function ActiveLink({ name, path }) {
+export function ActiveLink({ name, path, profile, small }) {
   const pathname = usePathname();
   const slicePath = pathname.slice(3);
 
@@ -14,7 +14,7 @@ export function ActiveLink({ name, path }) {
         slicePath === path || pathname === path
           ? "text-primary-light  hover:text-primary"
           : "text-secondary dark:text-tertiary"
-      } nav-link`}
+      } nav-link ${profile && "font-bold text-lg"} ${small && "text-sm"}`}
     >
       {name}
     </Link>

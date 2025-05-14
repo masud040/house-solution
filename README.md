@@ -1,6 +1,5 @@
 # Sokher Corner – E-Commerce Website
 
-
 🔗 **Live Site**: [Visit Sokher Corner](https://sokher-corner.vercel.app)
 
 Sokher Corner is a modern e-commerce platform specializing in home decoration and furniture. It features a clean, user-friendly interface for customers to seamlessly browse, filter, and securely purchase products. Sellers can manage inventory and monitor sales through a dedicated dashboard.
@@ -10,6 +9,7 @@ Unlike regular e-commerce platforms, Sokher Corner includes additional features 
 ## ✨ Features
 
 ### For Customers:
+
 - 🛍 Browse products by category (e.g., Mattress, Sofa, Bedroom)
 - 🔍 Filter by price and category
 - 🔎 Zoom in on product images with **React Magnifier**
@@ -19,10 +19,12 @@ Unlike regular e-commerce platforms, Sokher Corner includes additional features 
 - 🆕 Explore new arrivals and trending products
 
 ### For Sellers:
+
 - 📦 Manage products and orders
 - 📊 View sales analytics and reports
 
 ## ⚙️ Tech Stack
+
 - **Framework**: Next.js – Full-stack React framework
 - **Styling**: Tailwind CSS
 - **Backend**: Node.js, Express.js
@@ -33,12 +35,12 @@ Unlike regular e-commerce platforms, Sokher Corner includes additional features 
 
 ## 🖼 Preview
 
-![Home Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067303/homepage_evmqsu.png) 
+![Home Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067303/homepage_evmqsu.png)
 
-![Shop Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067771/screencapture-localhost-3000-en-shop-2025-05-12-22_35_43_qe6amo.png) 
+![Shop Page](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067771/screencapture-localhost-3000-en-shop-2025-05-12-22_35_43_qe6amo.png)
 
-![Prodcut Details](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067302/detailspage_bftol3.png) 
+![Prodcut Details](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067302/detailspage_bftol3.png)
 
-![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067301/checkout_u26ier.png) 
+![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067301/checkout_u26ier.png)
 
-![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067304/screencapture-localhost-3000-en-track-orders-681ed70d501398a9a389324b-2025-05-12-22_27_22_lifmup.png) 
+![Checkout](https://res.cloudinary.com/dtoojmthf/image/upload/v1747067304/screencapture-localhost-3000-en-track-orders-681ed70d501398a9a389324b-2025-05-12-22_27_22_lifmup.png)

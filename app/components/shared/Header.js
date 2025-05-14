@@ -9,14 +9,18 @@ import GenerateImageByLetter from "../user/auth/GenrateImageByLetter";
 import Logo from "./Logo";
 import ModeButton from "./ModeButton";
 import { Search } from "./Search";
-export default async function Header() {
+export default async function Header({ from }) {
   const session = await auth();
   const cartItems = await getCartData(session?.user?.email);
   const count = await getWishlistCount(session?.user?.email);
 
   return (
     <header className="shadow-sm bg-background-light dark:bg-background-dark">
-      <div className="container items-center gap-8 py-4 flex-between">
+      <div
+        className={`${
+          from === "dashboard" ? "px-6" : "px-4 md:px-10"
+        } items-center gap-8 pt-4 pb-0 md:pb-4 flex-between`}
+      >
         <Logo />
         <Search />
         <ul className="space-x-5 h-[48px] flex-end">
@@ -45,7 +49,7 @@ export default async function Header() {
             </Link>
           </li>
           <li title="Account">
-            <Link href="/account" className="header-link">
+            <Link href="/profile" className="header-link">
               <div
                 className={`${
                   session?.user?.image || session?.user?.name

@@ -9,8 +9,15 @@ export default async function AddBillingAddress() {
   const user = await getUserByEmail(session?.user?.email);
 
   return (
-    <section className="container pt-10 pb-16">
-      <Breadcrumb name1="Account" name2="Profile" />
+    <section>
+      <Breadcrumb
+        nameWithPath={{
+          name: "Account",
+          path: "/profile",
+        }}
+        name1="Billing Address"
+        name2="Add"
+      />
       <div className="pt-4">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="pb-4 text-xl text-center">Add Billing Address</h2>

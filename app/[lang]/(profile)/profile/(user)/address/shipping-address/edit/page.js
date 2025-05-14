@@ -8,11 +8,11 @@ export default async function EditShippingAddress({ searchParams }) {
   const user = await getUserByEmail(session?.user?.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
   return (
-    <section className="container pt-10 pb-16">
+    <section>
       <Breadcrumb
         nameWithPath={{
           name: "Account",
-          path: "/account",
+          path: "/profile",
         }}
         name1="Shipping Address"
         name2="Edit"

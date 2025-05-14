@@ -1,14 +1,18 @@
 import Link from "next/link";
 
-export const ShippingAddress = ({ shippingAddress, searchParams }) => {
+export const ShippingAddress = ({
+  addressTitle,
+  shippingAddress,
+  searchParams,
+}) => {
   return (
     <div className="px-4 py-6 rounded shadow-light-elevated_dark-elevated-dark">
       <div className="mb-4 flex-between">
         <h3 className="h6-medium text-secondary-darkist dark:text-background-light">
-          Shipping address
+          {addressTitle ?? "Shipping address"}
         </h3>
         <Link
-          href={`/en/account/shipping-address/${
+          href={`/en/profile/address/shipping-address/${
             shippingAddress?.userId
               ? "edit"
               : `${

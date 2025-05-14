@@ -11,7 +11,7 @@ export default async function EditPersonalProfile() {
       <Breadcrumb
         nameWithPath={{
           name: "Account",
-          path: "/en/account",
+          path: "/en/profile",
         }}
         name1="Profile"
       />

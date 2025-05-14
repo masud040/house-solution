@@ -19,6 +19,7 @@ export async function getDeleveryCost(cartItems) {
   return totalshippingCost;
 }
 
+// approximate date generate for show on product order card
 export function getApproximateDeliveryDate() {
   const today = new Date();
   const start = new Date(today);
@@ -33,4 +34,13 @@ export function getApproximateDeliveryDate() {
 
   // Combine into the desired format
   return `Guaranteed by ${startDay}-${endDay} ${month}`;
+}
+
+// check admin
+export function checkIsAdmin(email) {
+  if (email === process.env.ADMIN_EMAIL) {
+    return true;
+  } else {
+    return false;
+  }
 }

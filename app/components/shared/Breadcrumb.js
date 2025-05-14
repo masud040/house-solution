@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Breadcrumb = ({ nameWithPath, name1, name2 }) => {
   return (
-    <div className="gap-3 pb-5 flex-start">
+    <div className="gap-3 pb-5 ps-6 md:ps-0 flex-start">
       <Link href="/" className="text-base text-primary">
         <i className="fa-solid fa-house"></i>
       </Link>

@@ -24,13 +24,13 @@ export default async function RootLayout({ children }) {
   await connectMongo();
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
         <ThemeProvider>
-          <div className="fixed z-30 w-full">
+          <div className="sticky top-0 z-30 w-full">
             <Header />
             <Navbar />
           </div>
-          <div className="pt-[142px] md:pt-[152px] min-h-screen">
+          <div className="pt-[126px] md:pt-[152px] min-h-screen">
             {children}
           </div>
           <ToastContainer />

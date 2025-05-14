@@ -8,7 +8,7 @@ export const PersonalProfile = async ({ user }) => {
         <h3 className="h6-medium text-secondary-darkist dark:text-background-light">
           Personal Profile
         </h3>
-        <Link href="/account/profile/edit" className="text-primary">
+        <Link href="/en/profile/user-profile/edit" className="text-primary">
           Edit
         </Link>
       </div>
