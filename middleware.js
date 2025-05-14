@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 
 let defaultLocale = "en";
 let locales = ["en", "bn"];
+
 const protectedRoutes = [
   "/wishlist",
   "/cart",
@@ -16,7 +17,6 @@ const protectedRoutes = [
   "/profile",
 ];
 
-const publicRoutes = ["/login", "/signup", "/shop", "/about-us", "/contact-us"];
 const allowedOrigins = [
   "https://sokher-corner.vercel.app",
   "http://localhost:3000",
@@ -34,17 +34,13 @@ function getLocale(request) {
 }
 
 export async function middleware(request) {
-  const { pathname, searchParams } = request.nextUrl;
   const origin = request.headers.get("origin") ?? "";
 
   // Strip locale
-  const pathnameWithoutLocale = pathname.replace(/^\/(en|bn)/, "") || "/";
-  const isProtectedRoute = protectedRoutes.includes(pathnameWithoutLocale);
-  const isPublicRoute = publicRoutes.includes(pathnameWithoutLocale);
 
   const isPreflight = request.method === "OPTIONS";
   const isAllowedOrigin = allowedOrigins.includes(origin);
-  let redirectUrl = request.nextUrl;
+
   // CORS Preflight
   if (isPreflight) {
     return NextResponse.json(
@@ -57,14 +53,11 @@ export async function middleware(request) {
       }
     );
   }
-
-  const response = NextResponse.next();
-  if (isAllowedOrigin) {
-    response.headers.set("Access-Control-Allow-Origin", origin);
-  }
-  Object.entries(corsOptions).forEach(([key, value]) => {
-    response.headers.set(key, value);
-  });
+  // Locale redirect
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+  // Strip locale from pathname
+  const pathnameWithoutLocale = pathname.replace(/^\/(en|bn)/, "") || "/";
 
   // Locale redirect
   const localeMissing = locales.every(
@@ -73,33 +66,30 @@ export async function middleware(request) {
   );
   if (localeMissing) {
     const locale = getLocale(request);
-    redirectUrl = new URL(`/${locale}${pathname}`, request.url);
-    redirectUrl.search = searchParams.toString();
+    const redirectUrl = new URL(`/${locale}${pathname}`, request.url);
+    redirectUrl.search = url?.searchParams.toString();
     return NextResponse.redirect(redirectUrl);
   }
-
+  // Auth check for protected routes
+  const isProtectedRoute = protectedRoutes.includes(pathnameWithoutLocale);
   // Auth check
   const session = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-
-  // Redirect unauthenticated user from protected route
   if (isProtectedRoute && !session) {
-    const callbackUrl = encodeURIComponent(pathname);
-    redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.url);
+    const redirectUrl = new URL("/login", request.url);
+    redirectUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(redirectUrl);
   }
-
-  // Prevent logged in user from seeing login/register
-  if (
-    session?.email &&
-    (pathnameWithoutLocale === "/login" ||
-      pathnameWithoutLocale === "/register")
-  ) {
-    redirectUrl = new URL("/", request.nextUrl);
-    return NextResponse.redirect(redirectUrl);
+  // Add CORS headers to every response
+  const response = NextResponse.next();
+  if (isAllowedOrigin) {
+    response.headers.set("Access-Control-Allow-Origin", origin);
   }
+  Object.entries(corsOptions).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
 
   return response;
 }
