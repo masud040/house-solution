@@ -18,7 +18,7 @@ export default async function Checkout({ searchParams }) {
 
   if (!shippingAddress) {
     redirect(
-      `/en/account?selected=${searchParams.selected}&isCheckout=${true}`
+      `/en/profile?selected=${searchParams.selected}&isCheckout=${true}`
     );
   }
   const productIds = searchParams?.selected?.split(",");

@@ -35,11 +35,9 @@ export default async function DashboardLayout({ children }) {
         <ThemeProvider>
           <div className="min-h-screen mx-auto">
             {!isAdmin && (
-              <div className="h-[142px] md:h-[152px]">
-                <div className="fixed w-full">
-                  <Header />
-                  <Navbar />
-                </div>
+              <div className="h-[142px] sticky top-0 w-full md:h-[152px]">
+                <Header from="dashboard" />
+                <Navbar from="dashboard" />
               </div>
             )}
             <div className="flex">
@@ -52,7 +50,7 @@ export default async function DashboardLayout({ children }) {
                     <Greetings name={user?.name} />
                   </div>
                 )}
-                <div className="py-6">{children}</div>
+                <div className="container py-10">{children}</div>
               </div>
             </div>
           </div>

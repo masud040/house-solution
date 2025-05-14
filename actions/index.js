@@ -195,7 +195,7 @@ export async function generateRequest({
 }
 
 export async function generateOrderIds(order_items_id) {
-  const orderIds = order_items_id.map((id) => {
+  const orderIds = order_items_id.map(() => {
     return new ObjectId().toString();
   });
   return orderIds;

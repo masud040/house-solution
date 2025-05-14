@@ -7,24 +7,20 @@ export default function UserSideMenu() {
       <ul className="gap-1 pb-3 ps-3 flex-column">
         <ActiveLink name="Address Book" path="/profile/address" small={true} />
       </ul>
-      <ActiveLink name="My Orders" path="/profile/orders" profile={true} />
+      <ActiveLink name="My Orders" path="/profile/order" profile={true} />
       <ul className="gap-1 pb-3 ps-3 flex-column">
         <ActiveLink
           name="My Returns"
-          path="/profile/order-returns"
+          path="/profile/order/returns"
           small={true}
         />
         <ActiveLink
           name="My Cancellations"
-          path="/profile/order-cancellations"
+          path="/profile/order/cancellations"
           small={true}
         />
       </ul>
-      <ActiveLink
-        name="My Reviews"
-        path="/profile/order-reviews"
-        profile={true}
-      />
+      <ActiveLink name="My Reviews" path="/profile/reviews" profile={true} />
     </ul>
   );
 }

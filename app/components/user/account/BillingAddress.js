@@ -11,7 +11,7 @@ export const BillingAddress = async ({ userId }) => {
           Billing address
         </h3>
         <Link
-          href={`/en/user-profile/billing-address/${
+          href={`/en/profile/address/billing-address/${
             billingAddress?.userId ? "edit" : "add"
           }`}
           className="text-primary"
