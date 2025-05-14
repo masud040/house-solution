@@ -109,7 +109,7 @@ export const BillingAddressAddForm = ({
           toast.success(res.message, {
             autoClose: 1500,
           });
-          router.push("/account");
+          router.push("/en/profile");
           reset();
         }
       } else {

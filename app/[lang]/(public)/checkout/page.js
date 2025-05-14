@@ -4,6 +4,7 @@ import { OrderSummary } from "@/app/components/user/cart/OrderSummary";
 import { getDeleveryCost } from "@/app/utils";
 import { auth } from "@/auth";
 import {
+  getBillingAddressByUserId,
   getSelectedCartProductByProductIds,
   getShippingAddressByUserId,
   getUserByEmail,
@@ -15,8 +16,9 @@ export default async function Checkout({ searchParams }) {
   const session = await auth();
   const user = await getUserByEmail(session.user.email);
   const shippingAddress = await getShippingAddressByUserId(user?.id);
+  const billingAddress = await getBillingAddressByUserId(user?.id);
 
-  if (!shippingAddress) {
+  if (!shippingAddress || !billingAddress) {
     redirect(
       `/en/profile?selected=${searchParams.selected}&isCheckout=${true}`
     );
@@ -49,7 +51,7 @@ export default async function Checkout({ searchParams }) {
               </div>
             </div>
             <Link
-              href={`/en/account/shipping-address/edit?selected=${
+              href={`/en/profile/address/shipping-address/edit?selected=${
                 searchParams.selected
               }&isCheckout=${true}`}
               className="transition-colors duration-300 text-primary-light hover:text-primary"

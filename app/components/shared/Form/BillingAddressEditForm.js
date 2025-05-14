@@ -17,12 +17,9 @@ export const BillingAddressEditForm = ({
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+
     setError,
     setValue,
-
-    clearErrors,
-    watch,
   } = useForm();
 
   const allDivision = useGetAllDivisions();
@@ -37,6 +34,8 @@ export const BillingAddressEditForm = ({
     area: address?.area ?? "default",
     city: address?.city ?? "default",
     province: address?.province ?? "default",
+    landmark: address?.landmark ?? "",
+    address: address?.address,
   });
   const router = useRouter();
 
@@ -134,7 +133,7 @@ export const BillingAddressEditForm = ({
       //     if (searchParams?.selected && searchParams?.isCheckout) {
       //       router.push(`/en/checkout?selected=${searchParams?.selected}`);
       //     } else {
-      //       router.push("/en/account");
+      //       router.push("/en/profile");
       //     }
       //     reset();
       //   }
@@ -298,6 +297,7 @@ export const BillingAddressEditForm = ({
           placeholder="Enter landmark eg:(123, XYZ)"
           className="py-3 rounded-md input-field"
           {...register("landmark")}
+          value={addressData?.landmark}
         />
       </Field>
       <Field label="Address" error={errors?.address} htmlFor="address">
@@ -309,6 +309,7 @@ export const BillingAddressEditForm = ({
           {...register("address", {
             required: "Address is required!",
           })}
+          value={addressData?.address}
         />
       </Field>
 

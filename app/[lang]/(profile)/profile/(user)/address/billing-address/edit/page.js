@@ -1,5 +1,5 @@
 import Breadcrumb from "@/app/components/shared/Breadcrumb";
-import { BillingAddressAddForm } from "@/app/components/shared/Form/BillingAddressAddForm";
+import { BillingAddressEditForm } from "@/app/components/shared/Form/BillingAddressEditForm";
 import { auth } from "@/auth";
 import { getBillingAddressByUserId, getUserByEmail } from "@/db/queries";
 
@@ -21,7 +21,7 @@ export default async function EditBillingAddress() {
       <div className="container pt-4">
         <div className="max-w-xl p-8 mx-auto rounded-md shadow-light-elevated_dark-elevated-dark">
           <h2 className="pb-4 text-xl text-center">Edit Billing Address</h2>
-          <BillingAddressAddForm
+          <BillingAddressEditForm
             user={user}
             address={billingAddress}
             useFor="billing"

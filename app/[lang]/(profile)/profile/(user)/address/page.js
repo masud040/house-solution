@@ -12,7 +12,7 @@ export default async function Address({ searchParams }) {
   return (
     <section className="container h-screen">
       <div className="grid w-full grid-cols-1 gap-6 mx-auto md:grid-cols-2 ">
-        <BillingAddress userId={user.id} />
+        <BillingAddress userId={user?.id} />
         <ShippingAddress
           shippingAddress={shippingAddress}
           searchParams={searchParams}
