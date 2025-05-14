@@ -1,5 +1,5 @@
 import { getSuccessOrderedProducts } from "@/db/queries";
-import chromium from "@sparticuz/chromium";
+import * as chromium from "@sparticuz/chromium";
 
 export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
   const order_products = await getSuccessOrderedProducts({
@@ -103,7 +103,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
         Your order is now being processed and will be shipped shortly. You can track your order's progress using the button below:
       </p>
 
-<a href="https://sokher-corner.vercel.app/profile/order/${user_id}" class="button">Track Your Order</a>
+<a href="https://sokher-corner.vercel.app/track-orders/${user_id}" class="button">Track Your Order</a>
       <div  style="  margin: 10px 0;">
         ${productHTML}
         </div>
@@ -116,15 +116,13 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
 `;
 
   try {
-    const browser = await puppeteer.launch({
+    const browser = await chromium.puppeteer.launch({
+      executablePath: await chromium.executablePath(), // Use optimized Chromium
       args: chromium.args,
-      executablePath: await chromium.executablePath(),
       headless: chromium.headless,
     });
-
     const page = await browser.newPage();
     await page.setContent(htmlContent, { waitUntil: "load" });
-
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
@@ -135,11 +133,10 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
         right: "20px",
       },
     });
-
     await browser.close();
     return pdfBuffer;
   } catch (error) {
     console.error("Error generating PDF:", error);
-    throw new Error("PDF generation failed");
+    throw error;
   }
 }
