@@ -17,7 +17,7 @@ export default function SignInSignUp({ email }) {
         </button>
       ) : (
         <Link
-          href="/login"
+          href="/en/login"
           className="px-4 md:px-8 py-1.5 nav-link bg-primary text-white font-medium transition-transform duration-500 ease-in-out rounded shadow-light-elevated_dark-elevated-dark hover:-translate-y-1 md:text-[14px]"
         >
           Login

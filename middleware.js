@@ -15,14 +15,7 @@ const protectedRoutes = [
   "/orders",
 ];
 const adminRoutes = ["/profile"];
-const publicRoutes = [
-  "/login",
-  "/signup",
-  "/en",
-  "/shop",
-  "/about-us",
-  "/contact-us",
-];
+const publicRoutes = ["/login", "/signup", "/shop", "/about-us", "/contact-us"];
 const allowedOrigins = [
   "https://sokher-corner.vercel.app",
   "http://localhost:3000",
