@@ -80,7 +80,7 @@ export async function middleware(request) {
   // Auth check
   const session = await getToken({
     req: request,
-    secret: process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
   // Redirect unauthenticated user from protected route
@@ -113,5 +113,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!api/auth|api/webhooks|_next|favicon.ico|assets|.*\\..*).*)"],
+  matcher: ["/((?!api|assets|.*\\..*|_next).*)"],
 };
