@@ -13,8 +13,9 @@ const protectedRoutes = [
   "/edit",
   "/checkout",
   "/orders",
+  "/profile",
 ];
-const adminRoutes = ["/profile"];
+
 const publicRoutes = ["/login", "/signup", "/shop", "/about-us", "/contact-us"];
 const allowedOrigins = [
   "https://sokher-corner.vercel.app",
@@ -40,10 +41,10 @@ export async function middleware(request) {
   const pathnameWithoutLocale = pathname.replace(/^\/(en|bn)/, "") || "/";
   const isProtectedRoute = protectedRoutes.includes(pathnameWithoutLocale);
   const isPublicRoute = publicRoutes.includes(pathnameWithoutLocale);
-  const isAdminRoute = adminRoutes.includes(pathnameWithoutLocale);
+
   const isPreflight = request.method === "OPTIONS";
   const isAllowedOrigin = allowedOrigins.includes(origin);
-
+  let redirectUrl = request.nextUrl;
   // CORS Preflight
   if (isPreflight) {
     return NextResponse.json(
@@ -72,9 +73,8 @@ export async function middleware(request) {
   );
   if (localeMissing) {
     const locale = getLocale(request);
-    const redirectUrl = new URL(`/${locale}${pathname}`, request.url);
+    redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
-    return NextResponse.redirect(redirectUrl);
   }
 
   // Auth check
@@ -86,8 +86,7 @@ export async function middleware(request) {
   // Redirect unauthenticated user from protected route
   if (isProtectedRoute && !session) {
     const callbackUrl = encodeURIComponent(pathname);
-    const loginUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.url);
-    return NextResponse.redirect(loginUrl);
+    redirectUrl = new URL(`/login?callbackUrl=${callbackUrl}`, request.url);
   }
 
   // Prevent logged in user from seeing login/register
@@ -96,7 +95,7 @@ export async function middleware(request) {
     (pathnameWithoutLocale === "/login" ||
       pathnameWithoutLocale === "/register")
   ) {
-    return NextResponse.redirect(new URL("/", request.url));
+    redirectUrl = new URL("/", request.nextUrl);
   }
 
   // Admin redirect logic
@@ -104,11 +103,11 @@ export async function middleware(request) {
     session?.email === "masud@gmail.com" &&
     (isProtectedRoute || isPublicRoute)
   ) {
-    return NextResponse.redirect(new URL("/profile", request.url));
-  } else if (isAdminRoute && !session?.email) {
-    return NextResponse.redirect(new URL("/", request.url));
+    redirectUrl = new URL("/profile", request.url);
   }
-
+  if (redirectUrl !== request.nextUrl) {
+    return NextResponse.redirect(redirectUrl);
+  }
   return response;
 }
 
