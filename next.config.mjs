@@ -16,6 +16,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@sparticuz/chromium", "puppeteer"],
+  },
 };
 
 export default nextConfig;
