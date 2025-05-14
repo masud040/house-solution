@@ -6,7 +6,6 @@ import { getAllWishlistByEmail } from "@/db/queries";
 
 export default async function WishlistPage() {
   const session = await auth();
-
   const allCartItems = await getAllWishlistByEmail(session?.user?.email);
   return (
     <section className="container pt-6 pb-16">

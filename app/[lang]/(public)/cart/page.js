@@ -8,7 +8,6 @@ import CartProvider from "@/provider/cart_provider";
 
 export default async function CartPage({ searchParams: { selected } }) {
   const session = await auth();
-
   const cartItems = await getAllCartItemsById(session?.user?.email, selected);
   const shippingCost = await getDeleveryCost(
     cartItems?.filter((item) => item?.selected)
