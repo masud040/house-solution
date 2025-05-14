@@ -41,6 +41,7 @@ export async function POST(req) {
         }, // Update fields
         { new: true }
       );
+      console.log("Resoponse", res);
 
       if (res.modifiedCount > 0) {
         const user = await getUserByUserId(customer_id);

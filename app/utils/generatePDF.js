@@ -6,6 +6,7 @@ export async function generatePDF({ trans_id, order_ids, user_name, user_id }) {
     userId: user_id,
     order_ids: order_ids.split(","),
   });
+  console.log("Product", order_products);
   const productHTML = order_products
     .map((order) => {
       const totalPrice =
