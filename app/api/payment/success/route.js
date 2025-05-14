@@ -44,6 +44,7 @@ export async function POST(req) {
 
       if (res.modifiedCount > 0) {
         const user = await getUserByUserId(customer_id);
+        console.log("user", user);
 
         // Generate PDF
         const pdfBuffer = await generatePDF({
@@ -52,6 +53,7 @@ export async function POST(req) {
           user_name,
           user_id: customer_id,
         });
+        console.log("Pdf Buffer", pdfBuffer);
 
         await sendConfirmationMail({
           pdfBuffer,
