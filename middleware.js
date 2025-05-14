@@ -113,5 +113,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!api|assets|.*\\..*|_next).*)"],
+  matcher: ["/((?!api/auth|api/webhooks|_next|favicon.ico|assets|.*\\..*).*)"],
 };
