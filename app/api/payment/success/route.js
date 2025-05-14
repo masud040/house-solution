@@ -1,4 +1,4 @@
-import { generatePDF } from "@/app/utils/generatePDF";
+import { pdfGenerator } from "@/app/utils/pdfGenerator";
 import { sendConfirmationMail } from "@/app/utils/sendConfirmationMail";
 import connectMongo from "@/db/connectMongo";
 import { getUserByUserId } from "@/db/queries";
@@ -48,7 +48,7 @@ export async function POST(req) {
         console.log("user", user);
 
         // Generate PDF
-        const pdfBuffer = await generatePDF({
+        const pdfBuffer = await pdfGenerator({
           trans_id,
           order_ids,
           user_name,
