@@ -75,6 +75,7 @@ export async function middleware(request) {
     const locale = getLocale(request);
     redirectUrl = new URL(`/${locale}${pathname}`, request.url);
     redirectUrl.search = searchParams.toString();
+    return NextResponse.redirect(redirectUrl);
   }
 
   // Auth check
